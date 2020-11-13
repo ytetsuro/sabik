@@ -1,0 +1,20 @@
+@import 'bulma/css/bulma.css';
+@import 'codemirror/lib/codemirror.css';
+.CodeMirror {
+  font-size: 14px;
+  height: auto;
+}
+.CodeMirror .sabikSelectedLine {
+    background-color: #ffdd57;
+}
+.sabikMetricsMenu {
+    position: sticky;
+    top: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow-y: scroll;
+    max-height: 80vh;
+}
+.sabikSelectedMetrics {
+    background-color: #eeeeee;
+}
