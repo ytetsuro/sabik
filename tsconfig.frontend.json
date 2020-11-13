@@ -5,6 +5,6 @@
     "module": "es6",
     "strict": true,
     "target": "ES2019",
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }
