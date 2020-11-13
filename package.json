@@ -52,7 +52,7 @@
   },
   "files": [
     "/bin",
-    "/src"
+    "/lib"
   ],
   "homepage": "https://github.com/ytetsuro/sabik",
   "keywords": [

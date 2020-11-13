@@ -3,6 +3,7 @@
 /.nyc_output
 /dist
 /tmp
+/lib
 /.vscode
 node_modules
 /sabik_report
