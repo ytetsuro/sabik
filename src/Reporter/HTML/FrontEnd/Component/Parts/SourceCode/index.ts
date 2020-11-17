@@ -14,7 +14,6 @@ type Param = {
 
 export class SourceCode implements m.Component<Param, {}> {
     private editor?: CodeMirror.EditorFromTextArea;
-    private selectedLines?: {start: number, end: number};
 
     oninit() {
         EventStore.get(SelectMetrics).listener((metrics) => {
@@ -22,33 +21,24 @@ export class SourceCode implements m.Component<Param, {}> {
                 return;
             }
 
-            this.getLineNumbers().forEach((removeLineNumber) => {
-                this.editor!.removeLineClass(removeLineNumber, 'background');
-            });
-            
-            this.selectedLines = metrics ? {
-                start: metrics.getStartLineNumber(),
-                end: metrics.getEndLineNumber() + 1,
-            } : undefined;
+            const element = document.getElementById('codemirrorStyle');
 
-            this.getLineNumbers().forEach((addLineNumber) => {
-                this.editor!.addLineClass(addLineNumber, 'background', 'sabikSelectedLine');
-            });
+            element.innerText = '';
 
             if (!metrics) {
                 return;
             }
+
+            // @fixme: dirty hack. I was using the addLineClass method of CodeMirror. However, since it is very slow, I decided to edit the style directly.
+            element.textContent = `.CodeMirror-code
+div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${metrics.getEndLineNumber() + 1})
+.CodeMirror-line {background-color: #ffdd57;}`;
 
             this.editor.scrollIntoView({
                 line: metrics.getStartLineNumber(),
                 ch: 0,
             });
         });
-    }
-
-    private getLineNumbers() {
-        return [...(new Array(this.selectedLines?.end ?? 0)).keys()]
-            .slice(this.selectedLines?.start ?? 0);
     }
 
     oncreate(vnode: m.VnodeDOM<Param, {}>) {
@@ -64,6 +54,9 @@ export class SourceCode implements m.Component<Param, {}> {
     }
 
     view(vnode: m.Vnode<Param, {}>) {
-        return m(SourceCodePresenter, vnode.attrs);
+        return [
+          m(SourceCodePresenter, vnode.attrs),
+          m('style', {id: 'codemirrorStyle'})
+        ];
     }
 }
