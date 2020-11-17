@@ -42,7 +42,7 @@ export class MetricsCalculator {
     private findAllByType(findType: MetricsType) {
         return this.metrics
             .map((row) => row.getByType(findType)!)
-            .filter((row) => row)
+            .filter((row) => row && !row.isEmpty())
             .map(row => Number(row));
     }
 }

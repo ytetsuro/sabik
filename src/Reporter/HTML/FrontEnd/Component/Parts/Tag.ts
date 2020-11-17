@@ -15,7 +15,7 @@ export class Tag implements m.Component<Param, {}> {
             m('span.tag', String(vnode.attrs.type)),
             m('span.tag', {
                 className: levelClassNames[vnode.attrs.getLevel()],
-            }, Number(vnode.attrs)),
+            }, String(vnode.attrs)),
         ]));
     }
 }

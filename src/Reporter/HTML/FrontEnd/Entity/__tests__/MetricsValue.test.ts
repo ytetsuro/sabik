@@ -8,6 +8,12 @@ describe('MetricsValue', () => {
 
             expect(Number(actual)).toBe(23.21);
         });
+
+        it('should return 0 when value is null.', () => {
+            const actual = new MetricsValue(MetricsType.BugsDelivered, null);
+
+            expect(Number(actual)).toBe(0);
+        });
     });
 
     describe('.toString()', () => {
@@ -16,6 +22,12 @@ describe('MetricsValue', () => {
 
             expect(String(actual)).toBe('10,223.21');
         });
+
+        it('should return a `−` when value is null.', () => {
+            const actual = new MetricsValue(MetricsType.BugsDelivered, null);
+
+            expect(String(actual)).toBe('−');
+        });
     });
 
     describe('.getLevel()', () => {
@@ -23,6 +35,12 @@ describe('MetricsValue', () => {
             const actual = new MetricsValue(MetricsType.BugsDelivered, 10223.212);
 
             expect(actual.getLevel()).toBe(2);
+        });
+
+        it('should return 0 when value is null.', () => {
+            const actual = new MetricsValue(MetricsType.Maintainability, null);
+
+            expect(actual.getLevel()).toBe(0);
         });
     });
 });
