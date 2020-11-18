@@ -14,19 +14,23 @@ It's not a tool for keeping clean code like Linter.
 
 # Basic Using
 
-<!-- usage -->
 ```sh-session
-$ npm install -g sabik
-$ sabik COMMAND
-running command...
-$ sabik (-v|--version|version)
-sabik/0.0.0 darwin-x64 node-v12.6.0
-$ sabik --help [COMMAND]
-USAGE
-  $ sabik COMMAND
-...
+$ npx sabik /target/path
 ```
-<!-- usagestop -->
+
+## Help
+
+```sh-session
+USAGE
+  $ sabik [TARGET]
+
+OPTIONS
+  -h, --help                             show CLI help
+  -o, --outputReportDir=outputReportDir  output report directory path. default: ./sabik_report
+  -v, --version                          show CLI version
+  --excludes=excludes                    exclude patterns is separated by a comma. example: *.test.ts,*.spec.ts
+  --matches=matches                      match patterns. example: .ts$
+```
 
 # Support Programming Language
 
