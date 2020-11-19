@@ -1,0 +1,7 @@
+src/**
+*.ts
+LICENSE
+*.md
+*.js
+*.json
+.*
