@@ -1,38 +1,41 @@
-import {CodeStructure} from './CodeStructure'
-import {CodeStructureType} from './CodeStructureType'
+import { CodeStructure } from './CodeStructure';
+import { CodeStructureType } from './CodeStructureType';
 
 export class CodeMetrics<T> {
-    readonly hasClass: boolean;
+  readonly hasClass: boolean;
 
-    constructor(
-        readonly codeStructures: CodeStructure[],
-        readonly metrics: T
+  constructor(readonly codeStructures: CodeStructure[], readonly metrics: T) {
+    const classCount = codeStructures.filter((row) => row.type.isClass())
+      .length;
+
+    if (
+      codeStructures.filter((row) => row.type === CodeStructureType.METHOD)
+        .length !== 1
     ) {
-      const classCount = codeStructures.filter(row => row.type.isClass()).length
-
-      if (codeStructures.filter(row => row.type === CodeStructureType.METHOD).length !== 1) {
-        throw new Error('Not Found Function.')
-      }
-
-      this.hasClass = classCount > 0
+      throw new Error('Not Found Function.');
     }
 
-    getClassCodeStructure() {
-      return this.codeStructures.find(row => row.type.isClass())
-    }
+    this.hasClass = classCount > 0;
+  }
 
-    getMethodCodeStructure() {
-      return this.codeStructures.find(row => row.type === CodeStructureType.METHOD)
-    }
+  getClassCodeStructure() {
+    return this.codeStructures.find((row) => row.type.isClass());
+  }
 
-    toJSON() {
-      return {
-        defineName: this.codeStructures.map(({name}) => name).join('.'),
-        position: {
-            start: this.getMethodCodeStructure()?.startLineNumber,
-            end: this.getMethodCodeStructure()?.endLineNumber,
-        },
-        ...this.metrics,
-      };
-    }
+  getMethodCodeStructure() {
+    return this.codeStructures.find(
+      (row) => row.type === CodeStructureType.METHOD
+    );
+  }
+
+  toJSON() {
+    return {
+      defineName: this.codeStructures.map(({ name }) => name).join('.'),
+      position: {
+        start: this.getMethodCodeStructure()?.startLineNumber,
+        end: this.getMethodCodeStructure()?.endLineNumber,
+      },
+      ...this.metrics,
+    };
+  }
 }

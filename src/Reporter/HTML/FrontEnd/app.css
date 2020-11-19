@@ -5,18 +5,18 @@
   height: auto;
 }
 .CodeMirror .sabikSelectedLine {
-    background-color: #ffdd57;
+  background-color: #ffdd57;
 }
 .sabikMetricsMenu {
-    position: sticky;
-    top: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    overflow-y: scroll;
-    max-height: 80vh;
+  position: sticky;
+  top: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 .sabikSelectedMetrics {
-    background-color: #eeeeee;
+  background-color: #eeeeee;
 }
 
 table td.sabikMetricsFilePath {

@@ -2,13 +2,13 @@ import { AnalyzerMap } from '../AnalyzerMap';
 import { TypeScript } from './TypeScript';
 
 export class AnalyzerMapCollectingParamter {
-    static build(map: AnalyzerMap) {
-       const languages = [new TypeScript()];
+  static build(map: AnalyzerMap) {
+    const languages = [new TypeScript()];
 
-       languages.forEach(language => {
-         map.register(language.extensions, language);
-       });
+    languages.forEach((language) => {
+      map.register(language.extensions, language);
+    });
 
-       return map;
-    }
+    return map;
+  }
 }

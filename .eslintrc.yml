@@ -20,4 +20,3 @@ rules:
     - error
     -
       argsIgnorePattern: "^_"
-

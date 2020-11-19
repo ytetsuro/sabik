@@ -1,4 +1,3 @@
-export interface Calculator<T, K>
-{
-    calculate(node: T): K;
+export interface Calculator<T, K> {
+  calculate(node: T): K;
 }

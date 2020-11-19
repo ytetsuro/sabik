@@ -1,13 +1,13 @@
-import { ASTGenerator } from "../ASTGenerator";
+import { ASTGenerator } from '../ASTGenerator';
 import { ASTNode } from '../ASTNode';
 
 describe('ASTGenerator', () => {
-    describe('.generate()', () => {
-        it('should filePath to ASTNode.', () => {
-            const astGenerator = new ASTGenerator();
-            const actual = astGenerator.generate(`${__dirname}/fixtures/example.ts`);
+  describe('.generate()', () => {
+    it('should filePath to ASTNode.', () => {
+      const astGenerator = new ASTGenerator();
+      const actual = astGenerator.generate(`${__dirname}/fixtures/example.ts`);
 
-            expect(actual).toBeInstanceOf(ASTNode);
-        });
+      expect(actual).toBeInstanceOf(ASTNode);
     });
+  });
 });

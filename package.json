@@ -67,6 +67,7 @@
   "repository": "ytetsuro/sabik",
   "scripts": {
     "lint": "eslint . --ext .ts --config .eslintrc.yml",
+    "lint:fix": "prettier --write ./src",
     "prepack": "make && oclif-dev readme",
     "test": "jest",
     "version": "oclif-dev readme && git add README.md"

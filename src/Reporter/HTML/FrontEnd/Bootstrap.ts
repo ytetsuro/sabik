@@ -12,12 +12,8 @@ const analyzed = new Analyzed(resourceLoader, new FileMetrics(new Metrics()));
 const sourceCode = new SourceCode(resourceLoader);
 
 document.addEventListener('DOMContentLoaded', async () => {
-    m.route(
-        document.body,
-        '/',
-        {
-            '/': new Dashboard(analyzed),
-            '/detail': new Detail(analyzed, sourceCode)
-        }
-    );
+  m.route(document.body, '/', {
+    '/': new Dashboard(analyzed),
+    '/detail': new Detail(analyzed, sourceCode),
+  });
 });
