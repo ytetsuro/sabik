@@ -4,12 +4,16 @@ import { Writer } from '../Writer';
 
 @injectable()
 export class EntryPoint {
-    constructor(@inject(Writer) private writer: Writer, @inject(ScriptBuilder) private scriptBuilder: ScriptBuilder) {
-    }
+  constructor(
+    @inject(Writer) private writer: Writer,
+    @inject(ScriptBuilder) private scriptBuilder: ScriptBuilder
+  ) {}
 
-    async build() {
-        const script = await this.scriptBuilder.build(`${__dirname}/../FrontEnd/Bootstrap.ts`);
+  async build() {
+    const script = await this.scriptBuilder.build(
+      `${__dirname}/../FrontEnd/Bootstrap.ts`
+    );
 
-        return this.writer.write('index.js', script);
-    }
+    return this.writer.write('index.js', script);
+  }
 }

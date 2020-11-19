@@ -2,77 +2,77 @@ import { getDouble } from '../../../../../../TestHelpers/getDouble';
 import { FileMetrics } from '../../Converter/FileMetrics';
 import { Metrics } from '../../Converter/Metrics';
 import { ResourceLoader } from '../../ResourceLoader';
-import { Analyzed } from "../Analyzed";
+import { Analyzed } from '../Analyzed';
 import { fixture } from './fixtures/analyzed';
 
 describe('Analyzed', () => {
-    let repository: Analyzed;
-    beforeAll(() => {
-        repository = new Analyzed(
-            getDouble(ResourceLoader, {
-                load: () => Promise.resolve(JSON.stringify(fixture)),
-            }),
-            new FileMetrics(new Metrics())
-        );
+  let repository: Analyzed;
+  beforeAll(() => {
+    repository = new Analyzed(
+      getDouble(ResourceLoader, {
+        load: () => Promise.resolve(JSON.stringify(fixture)),
+      }),
+      new FileMetrics(new Metrics())
+    );
+  });
+
+  describe('.getByFileName()', () => {
+    it('should get metrics match filename.', async () => {
+      const metrics = await repository.getByFileName('maxComplexity.ts');
+
+      expect(metrics?.fileName).toBe('maxComplexity.ts');
     });
 
-    describe('.getByFileName()', () => {
-        it('should get metrics match filename.', async () => {
-            const metrics = await repository.getByFileName('maxComplexity.ts');
+    it('should get null when not match filename.', async () => {
+      const metrics = await repository.getByFileName('dummy.ts');
 
-            expect(metrics?.fileName).toBe('maxComplexity.ts');
-        });
+      expect(metrics).toBe(null);
+    });
+  });
 
-        it('should get null when not match filename.', async () => {
-            const metrics = await repository.getByFileName('dummy.ts');
+  describe('.hasFileName()', () => {
+    it('should returns true when match filename.', async () => {
+      const isExists = await repository.hasFileName('maxComplexity.ts');
 
-            expect(metrics).toBe(null);
-        });
+      expect(isExists).toBe(true);
     });
 
-    describe('.hasFileName()', () => {
-        it('should returns true when match filename.', async () => {
-            const isExists = await repository.hasFileName('maxComplexity.ts');
+    it('should return false when not match filename.', async () => {
+      const isExists = await repository.hasFileName('dummy.ts');
 
-            expect(isExists).toBe(true);
-        });
+      expect(isExists).toBe(false);
+    });
+  });
 
-        it('should return false when not match filename.', async () => {
-            const isExists = await repository.hasFileName('dummy.ts');
+  describe('.getSortedList()', () => {
+    it('should get complexity sorted list.', async () => {
+      const list = await repository.getSortedList('Complexity');
 
-            expect(isExists).toBe(false);
-        })
+      expect(list.map((row) => row.fileName)).toStrictEqual([
+        'maxComplexity.ts',
+        'maxBugsDelivered.ts',
+        'minMaintainability.ts',
+      ]);
     });
 
-    describe('.getSortedList()', () => {
-        it('should get complexity sorted list.', async () => {
-           const list = await repository.getSortedList('Complexity'); 
-           
-           expect(list.map(row => row.fileName)).toStrictEqual([
-               'maxComplexity.ts',
-               'maxBugsDelivered.ts',
-               'minMaintainability.ts',
-           ]);
-        });
+    it('should get bugsDelivered sorted list.', async () => {
+      const list = await repository.getSortedList('BugsDelivered');
 
-        it('should get bugsDelivered sorted list.', async () => {
-           const list = await repository.getSortedList('BugsDelivered'); 
-           
-           expect(list.map(row => row.fileName)).toStrictEqual([
-               'maxBugsDelivered.ts',
-               'minMaintainability.ts',
-               'maxComplexity.ts',
-           ]);
-        });
-
-        it('should get maintainability sorted list.', async () => {
-           const list = await repository.getSortedList('Maintainability'); 
-           
-           expect(list.map(row => row.fileName)).toStrictEqual([
-               'minMaintainability.ts',
-               'maxComplexity.ts',
-               'maxBugsDelivered.ts',
-           ]);
-        });
+      expect(list.map((row) => row.fileName)).toStrictEqual([
+        'maxBugsDelivered.ts',
+        'minMaintainability.ts',
+        'maxComplexity.ts',
+      ]);
     });
+
+    it('should get maintainability sorted list.', async () => {
+      const list = await repository.getSortedList('Maintainability');
+
+      expect(list.map((row) => row.fileName)).toStrictEqual([
+        'minMaintainability.ts',
+        'maxComplexity.ts',
+        'maxBugsDelivered.ts',
+      ]);
+    });
+  });
 });

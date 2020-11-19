@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import {FileFinder} from './FileFinder/FileFinder'
-import { Reporter as HTMLReporter } from '../Reporter/HTML/Reporter'
+import { FileFinder } from './FileFinder/FileFinder';
+import { Reporter as HTMLReporter } from '../Reporter/HTML/Reporter';
 import { AnalyzerMap } from './AnalyzerMap';
 import { Types } from '../types/Types';
 import { ScriptBuilder } from '../Reporter/HTML/ScriptBuilder';
@@ -11,8 +11,8 @@ import { HTML } from '../Reporter/HTML/FileBuilder/HTML';
 import { Event } from '../Reporter/HTML/FileBuilder/Event';
 import { EntryPoint } from '../Reporter/HTML/FileBuilder/EntryPoint';
 import { Writer } from '../Reporter/HTML/Writer';
-import {Sabik} from './Sabik';
-import {Reporter} from './Reporter';
+import { Sabik } from './Sabik';
+import { Reporter } from './Reporter';
 
 const container = new Container();
 
@@ -27,4 +27,4 @@ container.bind<FileBuilder>(Types.outputFileBuilder).to(EntryPoint);
 container.bind<Reporter>(Types.reporter).to(HTMLReporter);
 container.bind<Sabik>(Sabik).toSelf();
 
-export {container};
+export { container };

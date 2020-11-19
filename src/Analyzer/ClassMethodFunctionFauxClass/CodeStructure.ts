@@ -1,8 +1,8 @@
-import {CodeStructureType} from './CodeStructureType'
+import { CodeStructureType } from './CodeStructureType';
 
 export interface CodeStructure {
-    readonly type: CodeStructureType;
-    readonly name: string;
-    readonly startLineNumber: number;
-    readonly endLineNumber: number;
+  readonly type: CodeStructureType;
+  readonly name: string;
+  readonly startLineNumber: number;
+  readonly endLineNumber: number;
 }

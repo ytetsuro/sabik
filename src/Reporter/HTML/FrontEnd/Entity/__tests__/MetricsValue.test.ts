@@ -2,45 +2,45 @@ import { MetricsType } from '../MetricsType';
 import { MetricsValue } from '../MetricsValue';
 
 describe('MetricsValue', () => {
-    describe('.valueOf()', () => {
-        it('should be rounded if there are two or more decimal places.', () => {
-            const actual = new MetricsValue(MetricsType.Maintainability, 23.212);
+  describe('.valueOf()', () => {
+    it('should be rounded if there are two or more decimal places.', () => {
+      const actual = new MetricsValue(MetricsType.Maintainability, 23.212);
 
-            expect(Number(actual)).toBe(23.21);
-        });
-
-        it('should return 0 when value is null.', () => {
-            const actual = new MetricsValue(MetricsType.BugsDelivered, null);
-
-            expect(Number(actual)).toBe(0);
-        });
+      expect(Number(actual)).toBe(23.21);
     });
 
-    describe('.toString()', () => {
-        it('should return a readable number.', () => {
-            const actual = new MetricsValue(MetricsType.BugsDelivered, 10223.212);
+    it('should return 0 when value is null.', () => {
+      const actual = new MetricsValue(MetricsType.BugsDelivered, null);
 
-            expect(String(actual)).toBe('10,223.21');
-        });
+      expect(Number(actual)).toBe(0);
+    });
+  });
 
-        it('should return a `−` when value is null.', () => {
-            const actual = new MetricsValue(MetricsType.BugsDelivered, null);
+  describe('.toString()', () => {
+    it('should return a readable number.', () => {
+      const actual = new MetricsValue(MetricsType.BugsDelivered, 10223.212);
 
-            expect(String(actual)).toBe('−');
-        });
+      expect(String(actual)).toBe('10,223.21');
     });
 
-    describe('.getLevel()', () => {
-        it('should return level.', () => {
-            const actual = new MetricsValue(MetricsType.BugsDelivered, 10223.212);
+    it('should return a `−` when value is null.', () => {
+      const actual = new MetricsValue(MetricsType.BugsDelivered, null);
 
-            expect(actual.getLevel()).toBe(2);
-        });
-
-        it('should return 0 when value is null.', () => {
-            const actual = new MetricsValue(MetricsType.Maintainability, null);
-
-            expect(actual.getLevel()).toBe(0);
-        });
+      expect(String(actual)).toBe('−');
     });
+  });
+
+  describe('.getLevel()', () => {
+    it('should return level.', () => {
+      const actual = new MetricsValue(MetricsType.BugsDelivered, 10223.212);
+
+      expect(actual.getLevel()).toBe(2);
+    });
+
+    it('should return 0 when value is null.', () => {
+      const actual = new MetricsValue(MetricsType.Maintainability, null);
+
+      expect(actual.getLevel()).toBe(0);
+    });
+  });
 });

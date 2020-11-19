@@ -1,27 +1,26 @@
+export abstract class Event<T, Y> {
+  private listeners: ((args: Y) => void)[] = [];
 
-export abstract class Event<T, Y = any> {
-    private listeners: ((args: Y) => void)[] = [];
+  listener(callback: (result: Y) => void) {
+    this.listeners.push(callback);
+  }
 
-    listener(callback: (result: Y) => void, node?: Node) {
-        this.listeners.push(callback);
-    } 
+  dispatch(args: T) {
+    const result = this.hook(args);
 
-    dispatch(args: T) {
-        const result = this.hook(args);
-
-        if (result instanceof Promise) {
-            result.then((promiseResult) => this.fire(promiseResult));
-            return;
-        }
-
-        this.fire(result);
+    if (result instanceof Promise) {
+      result.then((promiseResult) => this.fire(promiseResult));
+      return;
     }
 
-    private fire(args: Y) {
-        this.listeners.forEach((callback) => {
-            callback(args);
-        });
-    }
+    this.fire(result);
+  }
 
-    protected abstract hook(args: T): Promise<Y>|Y;
+  private fire(args: Y) {
+    this.listeners.forEach((callback) => {
+      callback(args);
+    });
+  }
+
+  protected abstract hook(args: T): Promise<Y> | Y;
 }

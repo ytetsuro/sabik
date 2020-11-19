@@ -1,12 +1,12 @@
-import {extname} from 'path';
+import { extname } from 'path';
 
 export class File {
-    constructor(
-        public readonly fullPath: string,
-        public readonly relativePath: string,
-    ) {}
+  constructor(
+    public readonly fullPath: string,
+    public readonly relativePath: string
+  ) {}
 
-    get extension() {
-        return extname(this.fullPath);
-    }
+  get extension() {
+    return extname(this.fullPath);
+  }
 }

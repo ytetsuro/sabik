@@ -1,4 +1,4 @@
 export interface LineOfCodeCountableNode {
-    getText(): string;
-    getRemovedCommentAndEmptyLineText(): string;
+  getText(): string;
+  getRemovedCommentAndEmptyLineText(): string;
 }

@@ -1,6 +1,5 @@
-import { LanguageConverter } from '../Analyzer/LanguageConverter'
+import { LanguageConverter } from '../Analyzer/LanguageConverter';
 
-export interface LanguageConfig extends LanguageConverter
-{
-    readonly extensions: string[];
+export interface LanguageConfig extends LanguageConverter {
+  readonly extensions: string[];
 }

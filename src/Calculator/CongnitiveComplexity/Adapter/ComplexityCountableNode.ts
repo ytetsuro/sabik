@@ -1,7 +1,6 @@
-export interface ComplexityCountableNode
-{
-    isIncrement(): boolean;
-    isNestLevelUp(): boolean;
-    isNestingIncrement(): boolean;
-    getChilds(): ComplexityCountableNode[];
+export interface ComplexityCountableNode {
+  isIncrement(): boolean;
+  isNestLevelUp(): boolean;
+  isNestingIncrement(): boolean;
+  getChilds(): ComplexityCountableNode[];
 }

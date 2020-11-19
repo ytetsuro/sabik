@@ -1,24 +1,27 @@
-import {Complexity} from './Complexity'
+import { Complexity } from './Complexity';
 
 export class ComplexityStore {
-    private readonly complexities: Complexity[];
+  private readonly complexities: Complexity[];
 
-    constructor(complexities: Complexity[]) {
-      this.complexities = complexities
-    }
+  constructor(complexities: Complexity[]) {
+    this.complexities = complexities;
+  }
 
-    getAll(): Complexity[] {
-      return this.complexities.slice()
-    }
+  getAll(): Complexity[] {
+    return this.complexities.slice();
+  }
 
-    valueOf(): number {
-      return this.complexities.reduce((prev, next) => Number(prev) + Number(next), 0)
-    }
+  valueOf(): number {
+    return this.complexities.reduce(
+      (prev, next) => Number(prev) + Number(next),
+      0
+    );
+  }
 
-    toJSON() {
-      return {
-        complexity: this.valueOf(),
-        items: this.getAll().map(row => ({...row}))
-      };
-    }
+  toJSON() {
+    return {
+      complexity: this.valueOf(),
+      items: this.getAll().map((row) => ({ ...row })),
+    };
+  }
 }

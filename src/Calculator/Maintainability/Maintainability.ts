@@ -1,15 +1,15 @@
 export class Maintainability {
-    public readonly maintainability: number;
+  public readonly maintainability: number;
 
-    constructor(maintainability: number) {
-      this.maintainability = maintainability
-    }
+  constructor(maintainability: number) {
+    this.maintainability = maintainability;
+  }
 
-    valueOf() {
-      return this.maintainability
-    }
+  valueOf() {
+    return this.maintainability;
+  }
 
-    toJSON() {
-      return {...this};
-    }
+  toJSON() {
+    return { ...this };
+  }
 }

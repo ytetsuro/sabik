@@ -1,5 +1,5 @@
-import {ASTNode} from './ASTNode'
+import { ASTNode } from './ASTNode';
 
 export interface Analyzer<T> {
-    analyze(astNode: ASTNode): T;
+  analyze(astNode: ASTNode): T;
 }

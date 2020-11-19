@@ -1,5 +1,5 @@
-import {LineOfCodeCountableNode} from './Adapter/LineOfCodeCountableNode'
-import {LineOfCode} from './LineOfCode'
+import { LineOfCodeCountableNode } from './Adapter/LineOfCodeCountableNode';
+import { LineOfCode } from './LineOfCode';
 
 export class Calculator {
   public calculate(node: LineOfCodeCountableNode) {
@@ -13,6 +13,6 @@ export class Calculator {
   }
 
   private getAllLine(text: string) {
-    return text.replace(/\r\n?$/g, '\n').split('\n').length
+    return text.replace(/\r\n?$/g, '\n').split('\n').length;
   }
 }
