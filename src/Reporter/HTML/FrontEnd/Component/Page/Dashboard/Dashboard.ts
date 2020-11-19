@@ -6,8 +6,8 @@ import { FileMetricsTable } from '../../Parts/FileMetricsTable';
 
 type Param = { list: FileMetrics[]; summary: SummaryEntity };
 
-export class Dashboard implements m.Component<Param, {}> {
-  view(vnode: m.Vnode<Param, {}>) {
+export class Dashboard implements m.Component<Param> {
+  view(vnode: m.Vnode<Param>) {
     return m('div', [
       m(
         'section.section',

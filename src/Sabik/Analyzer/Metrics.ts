@@ -64,18 +64,6 @@ export interface Maintainability {
   toJSON(): MaintainabilityJSON;
 }
 
-type MetricsJSON = {
-  defineName: string;
-  position: {
-    start: number | undefined;
-    end: number | undefined;
-  };
-  halstead: Halstead;
-  congnitiveComplexity: ComplexityStore;
-  lineOfCode: LineOfCode;
-  maintainability: Maintainability;
-};
-
 export interface Metrics {
   readonly congnitiveComplexity: ComplexityStore;
   readonly halstead: Halstead;

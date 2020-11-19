@@ -8,8 +8,8 @@ type Params = {
   onSelect: () => void;
 };
 
-export class MetricsRow implements m.Component<Params, {}> {
-  view(vnode: m.Vnode<Params, {}>) {
+export class MetricsRow implements m.Component<Params> {
+  view(vnode: m.Vnode<Params>) {
     return m(
       '.card',
       {

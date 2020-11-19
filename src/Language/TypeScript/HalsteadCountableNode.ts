@@ -50,10 +50,10 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
 
   getText(): string {
     if (this.isOperand()) {
-      return String((<any>this.pureNode).text || this.pureNode.kind);
+      return String((<ts.Identifier>this.pureNode).text || this.pureNode.kind);
     }
     if (this.isOperator()) {
-      return String((<any>this.pureNode).getText());
+      return String(this.pureNode.getText());
     }
 
     return '';

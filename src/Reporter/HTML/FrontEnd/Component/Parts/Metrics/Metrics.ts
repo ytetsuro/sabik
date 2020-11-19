@@ -8,8 +8,8 @@ type Param = {
   onSelect: (metrics: MetricsEntity) => void;
 };
 
-export class Metrics implements m.Component<Param, {}> {
-  view(vnode: m.Vnode<Param, {}>) {
+export class Metrics implements m.Component<Param> {
+  view(vnode: m.Vnode<Param>) {
     return m(
       '.sabikMetricsMenu',
       vnode.attrs.metrics.map((row) =>

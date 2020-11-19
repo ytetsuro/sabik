@@ -7,7 +7,8 @@ type SortKey = 'Complexity' | 'BugsDelivered' | 'Maintainability';
 
 export class Analyzed {
   private fileMetrics: Map<string, FileMetrics> = new Map();
-  private isLoaded: boolean = false;
+  private isLoaded?: boolean;
+
   private readonly sortLogics = new Map([
     ['BugsDelivered', this.getDiffBugDelivered],
     ['Complexity', this.getDiffMaximumComplexity],

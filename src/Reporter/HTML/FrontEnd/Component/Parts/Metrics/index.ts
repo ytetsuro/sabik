@@ -8,7 +8,7 @@ type Param = {
   metrics: MetricsEntity[];
 };
 
-export class Metrics implements m.Component<Param, {}> {
+export class Metrics implements m.Component<Param> {
   private selectedMetrics: MetricsEntity | null = null;
 
   constructor() {
@@ -18,7 +18,7 @@ export class Metrics implements m.Component<Param, {}> {
     });
   }
 
-  view(vnode: m.Vnode<Param, {}>) {
+  view(vnode: m.Vnode<Param>) {
     return m(Presentational, {
       metrics: vnode.attrs.metrics,
       selectedMetrics: this.selectedMetrics,

@@ -6,7 +6,7 @@ import { EventStore } from '../../../Infrastructure/Event/EventStore';
 import { Summary } from '../../../Entity/Summary';
 import { FileMetrics } from '../../../Entity/FileMetrics';
 
-export class Dashboard implements m.Component<{}, {}> {
+export class Dashboard implements m.Component {
   private summary?: Summary;
   private list: FileMetrics[] = [];
 

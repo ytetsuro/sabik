@@ -1,7 +1,5 @@
 import m from 'mithril';
 import { FileMetrics } from '../../../Entity/FileMetrics';
-import { Event as CustomEvent } from '../../../Infrastructure/Event/Event';
-import { EventStore } from '../../../Infrastructure/Event/EventStore';
 import { TableRow } from '../TableRow';
 
 type Param<T extends string> = {
@@ -12,8 +10,8 @@ type Param<T extends string> = {
 };
 
 export class FileMetricsTable<T extends string>
-  implements m.Component<Param<T>, {}> {
-  view(vnode: m.Vnode<Param<T>, {}>) {
+  implements m.Component<Param<T>> {
+  view(vnode: m.Vnode<Param<T>>) {
     return [
       m('.columns', [
         m(

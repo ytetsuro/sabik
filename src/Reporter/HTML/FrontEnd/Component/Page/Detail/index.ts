@@ -8,7 +8,7 @@ import { FileMetrics } from '../../../Entity/FileMetrics';
 import { SourceCode } from '../../../Entity/SourceCode';
 import { Summary } from '../../../Entity/Summary';
 
-export class Detail implements m.Component<{}, {}> {
+export class Detail implements m.Component {
   private sourceCode?: SourceCode;
   private metrics?: FileMetrics;
   private summary?: Summary;

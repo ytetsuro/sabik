@@ -7,7 +7,7 @@ import { FileMetricsTable as Presentational } from './FileMetricsTable';
 type Param = { list: FileMetrics[] };
 type SortableMetrics = 'Complexity' | 'BugsDelivered' | 'Maintainability';
 
-export class FileMetricsTable implements m.Component<Param, {}> {
+export class FileMetricsTable implements m.Component<Param> {
   private currentSelect: SortableMetrics = 'Complexity';
   private selectableMetrics: SortableMetrics[] = [
     'Complexity',
@@ -19,7 +19,7 @@ export class FileMetricsTable implements m.Component<Param, {}> {
     EventStore.get(GetDashboard).dispatch(this.currentSelect);
   }
 
-  view(vnode: m.Vnode<Param, {}>) {
+  view(vnode: m.Vnode<Param>) {
     return m(Presentational, {
       ...vnode.attrs,
       currentSelect: this.currentSelect,

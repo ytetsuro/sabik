@@ -1,6 +1,6 @@
 import { Event } from './Event';
 
-type EventConstructor<T extends Event<any, any>> = new (...args: any) => T;
+type EventConstructor<T extends Event<any, any>> = new (...args: any) => T; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export class EventStore {
   private static readonly store = new WeakMap();
@@ -12,7 +12,7 @@ export class EventStore {
     EventStore.store.set(eventConstructor, event);
   }
 
-  static get<T extends Event<any, any>>(
+  static get<T extends Event<any, any>>( // eslint-disable-line @typescript-eslint/no-explicit-any
     eventConstructor: EventConstructor<T>
   ): T {
     if (!EventStore.store.has(eventConstructor)) {

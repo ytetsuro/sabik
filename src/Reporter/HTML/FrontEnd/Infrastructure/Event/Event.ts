@@ -1,7 +1,7 @@
-export abstract class Event<T, Y = any> {
+export abstract class Event<T, Y> {
   private listeners: ((args: Y) => void)[] = [];
 
-  listener(callback: (result: Y) => void, node?: Node) {
+  listener(callback: (result: Y) => void) {
     this.listeners.push(callback);
   }
 

@@ -1,5 +1,4 @@
 import { FileMetrics } from '../Entity/FileMetrics';
-import { Metrics } from './Metrics';
 import { MetricsCalculator } from './MetricsCalculator';
 import { MetricsType } from './MetricsType';
 

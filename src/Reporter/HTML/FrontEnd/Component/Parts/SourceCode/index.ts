@@ -12,7 +12,7 @@ type Param = {
   sourceCode: SourceCodeEntity;
 };
 
-export class SourceCode implements m.Component<Param, {}> {
+export class SourceCode implements m.Component<Param> {
   private editor?: CodeMirror.EditorFromTextArea;
 
   oninit() {
@@ -43,7 +43,7 @@ div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${
     });
   }
 
-  oncreate(vnode: m.VnodeDOM<Param, {}>) {
+  oncreate(vnode: m.VnodeDOM<Param>) {
     const { mime } = CodeMirror.findModeByExtension(
       vnode.attrs.sourceCode.extension
     );
@@ -60,7 +60,7 @@ div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${
     );
   }
 
-  view(vnode: m.Vnode<Param, {}>) {
+  view(vnode: m.Vnode<Param>) {
     return [
       m(SourceCodePresenter, vnode.attrs),
       m('style', { id: 'codemirrorStyle' }),

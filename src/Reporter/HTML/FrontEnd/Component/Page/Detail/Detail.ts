@@ -12,8 +12,8 @@ type Param = {
   summary: SummaryEntity;
 };
 
-export class Detail implements m.Component<Param, {}> {
-  view(vnode: m.Vnode<Param, {}>) {
+export class Detail implements m.Component<Param> {
+  view(vnode: m.Vnode<Param>) {
     return m('div.container.is-fullhd', [
       m(
         'section.section',

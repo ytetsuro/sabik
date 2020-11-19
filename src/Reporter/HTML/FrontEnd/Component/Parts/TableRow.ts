@@ -3,8 +3,8 @@ import { FileMetrics } from '../../Entity/FileMetrics';
 
 type Param = FileMetrics;
 
-export class TableRow implements m.Component<Param, {}> {
-  view(vnode: m.Vnode<Param, {}>) {
+export class TableRow implements m.Component<Param> {
+  view(vnode: m.Vnode<Param>) {
     return m('tr', [
       m(
         'td.sabikMetricsFilePath',
