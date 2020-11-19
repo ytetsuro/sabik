@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "lib",
+    "rootDir": "src",
+    "strict": true,
+    "target": "ES2018",
+    "lib": [
+      "dom",
+      "es2019",
+      "es2019.array"
+    ],
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["node_modules/@types"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/__tests__",
+    "src/**/*.test.ts"
+  ]
+}
