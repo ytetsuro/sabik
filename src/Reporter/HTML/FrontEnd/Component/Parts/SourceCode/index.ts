@@ -21,7 +21,7 @@ export class SourceCode implements m.Component<Param, {}> {
                 return;
             }
 
-            const element = document.getElementById('codemirrorStyle');
+            const element = document.getElementById('codemirrorStyle')!;
 
             element.innerText = '';
 
