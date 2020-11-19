@@ -15,6 +15,7 @@
     "autoprefixer": "^9.8.6",
     "bulma": "^0.9.0",
     "codemirror": "^5.57.0",
+    "core-js": "^3.7.0",
     "esbuild": "^0.6.26",
     "immutable": "^4.0.0-rc.12",
     "inversify": "^5.0.1",
@@ -66,7 +67,7 @@
   "repository": "ytetsuro/sabik",
   "scripts": {
     "lint": "eslint . --ext .ts --config .eslintrc.yml",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "prepack": "make && oclif-dev readme",
     "test": "jest",
     "version": "oclif-dev readme && git add README.md"
   },
