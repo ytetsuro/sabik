@@ -30,7 +30,7 @@ export class FileMetricsTable<T extends string> implements m.Component<Param<T>,
                     )))
                 ])),
             ]),
-            m('.columns', m('table.table', [
+            m('.columns.table-container', m('table.table', [
                 m('thead', [
                     m('tr', [
                         m('th', 'FilePath'),

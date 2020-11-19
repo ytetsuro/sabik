@@ -18,3 +18,12 @@
 .sabikSelectedMetrics {
     background-color: #eeeeee;
 }
+
+table td.sabikMetricsFilePath {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 32em;
+  direction: rtl;
+  text-align: left;
+}

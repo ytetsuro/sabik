@@ -6,8 +6,9 @@ type Param = FileMetrics;
 export class TableRow implements m.Component<Param, {}> {
     view(vnode: m.Vnode<Param, {}>) {
         return m('tr', [
-            m('td', m(m.route.Link, {
+            m('td.sabikMetricsFilePath', m(m.route.Link, {
                 href: `detail?fileName=${encodeURIComponent(vnode.attrs.fileName)}`,
+                title: vnode.attrs.fileName,
             }, vnode.attrs.fileName)),
             m('td', `${vnode.attrs.getMaximumComplexity()}/${vnode.attrs.getAverageComplexity()}`),
             m('td', `${vnode.attrs.getSumBugsDelivered()}/${vnode.attrs.getMaximumBugsDelivered()}`),
