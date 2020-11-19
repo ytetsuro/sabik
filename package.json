@@ -59,7 +59,15 @@
   ],
   "homepage": "https://github.com/ytetsuro/sabik",
   "keywords": [
-    "oclif"
+    "metrics",
+    "analyze",
+    "analysis",
+    "report",
+    "congnative",
+    "complexity",
+    "halstead",
+    "maintainability",
+    "visualize"
   ],
   "license": "MIT",
   "main": "src/index.js",
