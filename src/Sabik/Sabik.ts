@@ -1,4 +1,3 @@
-import 'core-js/features/array';
 import { FileFinder } from './FileFinder/FileFinder';
 import { Reporter } from './Reporter';
 import { AnalyzerMap } from './AnalyzerMap';
