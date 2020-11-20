@@ -1,4 +1,4 @@
-name: build
+name: ci-build
 on: [push, pull_request]
 jobs:
   checks:
