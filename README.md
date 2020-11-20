@@ -1,6 +1,8 @@
 Sabik
 ===
 
+![ci-build](https://github.com/ytetsuro/sabik/workflows/ci-build/badge.svg)
+
 Sabik is a source code metrics tool.
 It's a compass tool for warriors fighting a project that smells bad.
 Find the refactoring target code of a project that has many bad smells.
