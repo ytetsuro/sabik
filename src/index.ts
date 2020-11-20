@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'core-js/features/array';
 import { dirname, resolve } from 'path';
 import * as fs from 'fs';
 import { Command, flags } from '@oclif/command';
