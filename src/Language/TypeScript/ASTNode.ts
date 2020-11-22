@@ -100,6 +100,7 @@ export class ASTNode implements ASTNodeInterface {
 
     switch (this.node.parent.kind) {
       case ts.SyntaxKind.VariableDeclaration:
+      case ts.SyntaxKind.PropertyDeclaration:
         return this.getVariableName(<ts.VariableDeclaration>this.node.parent);
       case ts.SyntaxKind.BinaryExpression:
         return this.getPropertyName(<ts.BinaryExpression>this.node.parent);
@@ -143,6 +144,7 @@ export class ASTNode implements ASTNodeInterface {
             .reverse()
         );
       case ts.SyntaxKind.VariableDeclaration:
+      case ts.SyntaxKind.PropertyDeclaration:
         return result.concat(
           this.getVariableName(<ts.VariableDeclaration>parentNode)
         );

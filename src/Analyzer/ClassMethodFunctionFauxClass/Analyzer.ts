@@ -14,7 +14,7 @@ export class Analyzer<T, K> {
   analyze(rootASTNode: ASTNode): K {
     const result: CodeMetrics<T>[] = [];
     const classesNodes = rootASTNode.getChilds().filter((row) => row.isClass());
-    const functionNodes = this.extractFunctionNode(rootASTNode);
+    const functionNodes = this.extractFunctionAndMethodNode(rootASTNode);
     const fauxNodes = functionNodes.filter((row) => row.isFauxClass());
     const pureFunctionNodes = functionNodes.filter((row) => !row.isFauxClass());
 
@@ -43,9 +43,8 @@ export class Analyzer<T, K> {
       },
     ];
 
-    return astNode
-      .getChilds()
-      .filter((row) => row.isFunction() || row.isMethod())
+    return [...astNode.getChilds()]
+      .flatMap(row => this.extractFunctionAndMethodNode(row))
       .map((row) => this.createMethod(row, codeStructures));
   }
 
@@ -65,10 +64,10 @@ export class Analyzer<T, K> {
     );
   }
 
-  private extractFunctionNode(astNode: ASTNode): ASTNode[] {
+  private extractFunctionAndMethodNode(astNode: ASTNode): ASTNode[] {
     const result: ASTNode[] = [];
 
-    if (astNode.isFunction()) {
+    if (astNode.isFunction()||astNode.isMethod()) {
       return [astNode];
     }
     if (astNode.isClass()) {
@@ -76,7 +75,7 @@ export class Analyzer<T, K> {
     }
 
     return result.concat(
-      ...astNode.getChilds().map((row) => this.extractFunctionNode(row))
+      ...astNode.getChilds().map((row) => this.extractFunctionAndMethodNode(row))
     );
   }
 }
