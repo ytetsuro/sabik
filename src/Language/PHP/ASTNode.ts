@@ -6,6 +6,8 @@ type Node = PHPParser.Program|PHPParser.Node|PHPParser.Block;
 enum Kind {
   CLASS = 'class',
   TRAIT = 'trait',
+  FUNCTION = 'function',
+  ALLOW_FUNCTION = 'arrowfunc',
 };
 
 export class ASTNode implements ASTNodeInterface {
@@ -28,7 +30,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isFunction() {
-    return false;
+    return [Kind.FUNCTION, Kind.ALLOW_FUNCTION].includes(<Kind>this.node.kind);
   }
 
   isFauxClass() {

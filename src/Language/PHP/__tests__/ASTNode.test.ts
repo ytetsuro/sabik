@@ -1,5 +1,8 @@
-import Engine from 'php-parser';
+import Engine, {Node} from 'php-parser';
 import { ASTNode } from '../ASTNode';
+
+type Assign = Node & {right: Node, left: Node};
+type ExpressionStatement = Node & {expression: Assign};
 
 describe('ASTNode', () => {
   const engine = new Engine({
@@ -36,30 +39,34 @@ describe('ASTNode', () => {
       expect(notFauxClassStructure.isFauxClass()).toBe(false);
     });
   });
-/*
+
   describe('.isFunction()', () => {
     it('should checkable function structure', () => {
-      const sourceFile = ts.createSourceFile(
-        'dummy.ts',
-        'function FauxClass() {return 1}; class A {}',
-        ts.ScriptTarget.ES2016,
-        true
-      );
+      const sourceFile = engine.parseEval('trait A {}; function a() {}');
 
       const functionStructure = new ASTNode(
-        sourceFile.statements[0],
-        sourceFile
+        sourceFile.children[1],
       );
       const notFunctionStructure = new ASTNode(
-        sourceFile.statements[1],
-        sourceFile
+        sourceFile.children[0],
       );
 
       expect(functionStructure.isFunction()).toBe(true);
       expect(notFunctionStructure.isFunction()).toBe(false);
     });
+
+    it('should returns true when arrow functions.', () => {
+      const sourceFile = engine.parseEval('$a = fn() => 1;');
+
+      const functionStructure = new ASTNode(
+        (<ExpressionStatement>sourceFile.children[0]).expression.right,
+      );
+
+      expect(functionStructure.isFunction()).toBe(true);
+    });
   });
 
+/*
   describe('.isMethod()', () => {
     it('should checkable function structure', () => {
       const sourceFile = ts.createSourceFile(
