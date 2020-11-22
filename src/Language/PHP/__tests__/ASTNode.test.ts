@@ -20,30 +20,23 @@ describe('ASTNode', () => {
       expect(notClassStructure.isClass()).toBe(false);
     });
   });
-/*
+
   describe('.isFauxFunction()', () => {
     it('should checkable FauxClass structure', () => {
-      const sourceFile = ts.createSourceFile(
-        'dummy.ts',
-        'function FauxClass() {return {hoge: () => {}}}; class A {}',
-        ts.ScriptTarget.ES2016,
-        true
-      );
+      const sourceFile = engine.parseEval('trait A {}; function a() {}');
 
       const fauxClassStructure = new ASTNode(
-        sourceFile.statements[0],
-        sourceFile
+        sourceFile.children[0],
       );
       const notFauxClassStructure = new ASTNode(
-        sourceFile.statements[1],
-        sourceFile
+        sourceFile.children[1],
       );
 
       expect(fauxClassStructure.isFauxClass()).toBe(true);
       expect(notFauxClassStructure.isFauxClass()).toBe(false);
     });
   });
-
+/*
   describe('.isFunction()', () => {
     it('should checkable function structure', () => {
       const sourceFile = ts.createSourceFile(

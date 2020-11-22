@@ -5,6 +5,7 @@ type Node = PHPParser.Program|PHPParser.Node|PHPParser.Block;
 
 enum Kind {
   CLASS = 'class',
+  TRAIT = 'trait',
 };
 
 export class ASTNode implements ASTNodeInterface {
@@ -31,7 +32,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isFauxClass() {
-    return false;
+    return this.node.kind === Kind.TRAIT;
   }
 
   getStartLineNumber() {
