@@ -6,6 +6,7 @@ type Node = PHPParser.Program|PHPParser.Node|PHPParser.Block;
 enum Kind {
   CLASS = 'class',
   TRAIT = 'trait',
+  METHOD = 'method',
   FUNCTION = 'function',
   ALLOW_FUNCTION = 'arrowfunc',
 };
@@ -22,7 +23,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isMethod() {
-    return false;
+    return this.node.kind === Kind.METHOD;
   }
 
   getName() {

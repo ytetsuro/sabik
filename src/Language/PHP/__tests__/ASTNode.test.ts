@@ -3,6 +3,7 @@ import { ASTNode } from '../ASTNode';
 
 type Assign = Node & {right: Node, left: Node};
 type ExpressionStatement = Node & {expression: Assign};
+type ClassStatement = Node & {body: Node[]};
 
 describe('ASTNode', () => {
   const engine = new Engine({
@@ -66,27 +67,22 @@ describe('ASTNode', () => {
     });
   });
 
-/*
   describe('.isMethod()', () => {
-    it('should checkable function structure', () => {
-      const sourceFile = ts.createSourceFile(
-        'dummy.ts',
-        'class A {constructor() {} methodA() {}}',
-        ts.ScriptTarget.ES2016,
-        true
-      );
+    it('should checkable method structure', () => {
+      const sourceFile = engine.parseEval(`
+      class A {
+        function __construct() {}
+        function methodA() {}
+      }`);
 
       const notMethodStructure = new ASTNode(
-        sourceFile.statements[0],
-        sourceFile
+        sourceFile.children[0]
       );
       const constructorStructure = new ASTNode(
-        (<ts.ClassDeclaration>sourceFile.statements[0]).members[0],
-        sourceFile
+        (<ClassStatement>sourceFile.children[0]).body[0]
       );
       const methodStructure = new ASTNode(
-        (<ts.ClassDeclaration>sourceFile.statements[0]).members[1],
-        sourceFile
+        (<ClassStatement>sourceFile.children[0]).body[1]
       );
 
       expect(notMethodStructure.isMethod()).toBe(false);
@@ -94,7 +90,7 @@ describe('ASTNode', () => {
       expect(methodStructure.isMethod()).toBe(true);
     });
   });
-
+/*
   describe('.getChilds()', () => {
     it('should get children ASTNode.', () => {
       const sourceFile = ts.createSourceFile(
