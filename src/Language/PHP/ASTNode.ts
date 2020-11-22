@@ -19,7 +19,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isClass() {
-    return this.node.kind === Kind.CLASS;
+    return [Kind.CLASS, Kind.TRAIT].includes(<Kind>this.node.kind);
   }
 
   isMethod() {
@@ -35,7 +35,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isFauxClass() {
-    return this.node.kind === Kind.TRAIT;
+    return false;
   }
 
   getStartLineNumber() {

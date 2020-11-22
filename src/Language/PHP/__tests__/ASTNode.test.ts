@@ -23,21 +23,35 @@ describe('ASTNode', () => {
       expect(classStructure.isClass()).toBe(true);
       expect(notClassStructure.isClass()).toBe(false);
     });
-  });
 
-  describe('.isFauxFunction()', () => {
-    it('should checkable FauxClass structure', () => {
-      const sourceFile = engine.parseEval('trait A {}; function a() {}');
+    it('should returns true when trait.', () => {
+      const sourceFile = engine.parseEval('trait A {}');
 
       const fauxClassStructure = new ASTNode(
         sourceFile.children[0],
       );
-      const notFauxClassStructure = new ASTNode(
+
+      expect(fauxClassStructure.isClass()).toBe(true);
+    })
+  });
+
+  describe('.isFauxClass()', () => {
+    it('should returns false.', () => {
+      const sourceFile = engine.parseEval('trait A {}; class B{}; function a() {}');
+
+      const traitStructure = new ASTNode(
+        sourceFile.children[0],
+      );
+      const classStructure = new ASTNode(
         sourceFile.children[1],
       );
+      const functionStructure = new ASTNode(
+        sourceFile.children[2],
+      );
 
-      expect(fauxClassStructure.isFauxClass()).toBe(true);
-      expect(notFauxClassStructure.isFauxClass()).toBe(false);
+      expect(traitStructure.isFauxClass()).toBe(false);
+      expect(classStructure.isFauxClass()).toBe(false);
+      expect(functionStructure.isFauxClass()).toBe(false);
     });
   });
 
