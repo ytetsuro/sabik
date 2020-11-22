@@ -7,5 +7,6 @@ clean:
 
 build:	./src
 	./node_modules/.bin/tsc -b \
-  && cp -rp src/$(ASSETS) lib/$(ASSETS)
+  && cp -rp src/$(ASSETS) lib/$(ASSETS) \
+  && find ./lib/ -name '*.ts' | grep /__tests__/ | xargs rm
 
