@@ -30,7 +30,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isFunction() {
-    return [Kind.FUNCTION, Kind.ALLOW_FUNCTION].includes(<Kind>this.node.kind);
+    return [Kind.FUNCTION, Kind.ALLOW_FUNCTION, Kind.CLOSURE].includes(<Kind>this.node.kind);
   }
 
   isFauxClass() {

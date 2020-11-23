@@ -9,7 +9,8 @@ export class ASTGenerator implements ASTGeneratorInterface {
       extractDoc: true,
     },
     ast: {
-      withPositions: true
+      withPositions: true,
+      withSource: true,
     }
   });
 
