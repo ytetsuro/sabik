@@ -51,6 +51,6 @@ export class ASTNode implements ASTNodeInterface {
       .flatMap(row => row)
       .filter(row => typeof row === 'object')
       .filter(row => typeof row.kind === 'string')
-      .map(row => new ASTNode(row, this.node));
+      .map(row => new ASTNode(row, this));
   }
 }
