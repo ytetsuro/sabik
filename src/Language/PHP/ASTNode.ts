@@ -12,11 +12,10 @@ enum Kind {
 };
 
 export class ASTNode implements ASTNodeInterface {
-  readonly node: Node;
-
-  constructor(node: Node) {
-    this.node = node;
-  }
+  constructor(
+    public readonly node: Node,
+    private readonly parentNode?: Node
+  ) {}
 
   isClass() {
     return [Kind.CLASS, Kind.TRAIT].includes(<Kind>this.node.kind);
@@ -47,6 +46,11 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   getChilds() {
-    return []
+    return [...Object.values(this.node)]
+      .filter(row => !!row)
+      .flatMap(row => row)
+      .filter(row => typeof row === 'object')
+      .filter(row => typeof row.kind === 'string')
+      .map(row => new ASTNode(row, this.node));
   }
 }

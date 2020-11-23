@@ -104,25 +104,23 @@ describe('ASTNode', () => {
       expect(methodStructure.isMethod()).toBe(true);
     });
   });
-/*
+
   describe('.getChilds()', () => {
     it('should get children ASTNode.', () => {
-      const sourceFile = ts.createSourceFile(
-        'dummy.ts',
-        'class A {constructor() {} methodA() {}}',
-        ts.ScriptTarget.ES2016,
-        true
-      );
+      const sourceFile = engine.parseEval(`
+      class A {
+        function __construct() {}
+        function methodA() {}
+      }`);
 
-      const classStructure = new ASTNode(sourceFile.statements[0], sourceFile);
+      const classStructure = new ASTNode(sourceFile.children[0]);
       const actual = classStructure.getChilds();
 
       expect(actual.length).toBe(3);
       expect(actual[1]).toBeInstanceOf(ASTNode);
-      expect(actual[1].getName()).toBe('constructor()');
     });
   });
-
+/*
   describe('.getName()', () => {
     it('should get class name.', () => {
       const sourceFile = ts.createSourceFile(
