@@ -24,16 +24,23 @@ enum Kind {
   ARRAY = 'array',
   PROPERTY_LOOKUP = 'propertylookup',
   STATIC_LOOKUP = 'staticlookup',
+  LABEL = 'label',
+  BIN = 'bin',
+  IF = 'if'
 };
 
 export class ASTNode implements ASTNodeInterface {
   constructor(
     public readonly node: Node,
-    private readonly parentNode?: ASTNode
+    public readonly parentNode?: ASTNode
   ) {}
 
+  get kind() {
+    return <Kind>this.node.kind;
+  }
+
   isClass() {
-    return [Kind.CLASS, Kind.TRAIT].includes(<Kind>this.node.kind);
+    return [Kind.CLASS, Kind.TRAIT].includes(this.kind);
   }
 
   isMethod() {
