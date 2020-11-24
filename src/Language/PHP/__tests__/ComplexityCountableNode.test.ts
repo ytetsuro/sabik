@@ -64,36 +64,25 @@ describe('ComplexityCountableNode', () => {
 
   describe('.isIncrement()', () => {
     it.each([
-      ['if', map.get('if')!.statements[0]],
-      ['switch', map.get('switch')!.statements[0]],
-      ['for', map.get('for')!.statements[0]],
-      ['forIn', map.get('forIn')!.statements[0]],
-      ['forOf', map.get('forOf')!.statements[0]],
-      ['while', map.get('while')!.statements[0]],
-      ['catch', (<ts.TryStatement>map.get('try')!.statements[0]).catchClause!],
-      [
-        'conditional',
-        (<ts.ReturnStatement>map.get('conditional')!.statements[0]).expression!,
-      ],
+      ['if', map.get('if')!.getChilds()[0]],
+      ['switch', map.get('switch')!.getChilds()[0]],
+      ['for', map.get('for')!.getChilds()[0]],
+      ['while', map.get('while')!.getChilds()[0]],
+      ['catch', map.get('try')!.getChilds()[0].getChilds().pop()],
+      ['conditional', map.get('conditional')!.getChilds()[0].getChilds()[0]],
       [
         'ampersand',
-        (<ts.BinaryExpression>(
-          (<ts.ReturnStatement>map.get('ampersand')!.statements[0]).expression!
-        )).operatorToken,
+        map.get('ampersand')!.getChilds()[0].getChilds()[0],
       ],
       [
         'barbar',
-        (<ts.BinaryExpression>(
-          (<ts.ReturnStatement>map.get('barbar')!.statements[0]).expression!
-        )).operatorToken,
+        map.get('barbar')!.getChilds()[0].getChilds()[0],
       ],
-      ['label', map.get('label')!.statements[0]],
-    ])('should %s is increment.', (_, statement) => {
-      const astNode = new ASTNode(statement, parent);
+      ['label', map.get('label')!.getChilds()[1]],
+    ])('should %s is increment.', (_, astNode) => {
       const actual = new ComplexityCountableNode(astNode);
 
       expect(actual.isIncrement()).toBe(true);
     });
   });
 });
-*/

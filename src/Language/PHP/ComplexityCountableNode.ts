@@ -58,7 +58,22 @@ export class ComplexityCountableNode
   }
 
   isNestingIncrement() {
-    return false;
+    if (this.isElse()) {
+      return false;
+    }
+
+    return ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(
+      this.node.kind
+    );
+  }
+
+  private isElse() {
+    const parent = this.node.parentNode;
+
+    return (
+      parent?.kind === 'if' &&
+      (<IfNode>parent.node).alternate === this.node.node
+    );
   }
 
   getChilds() {
