@@ -44,6 +44,16 @@ export class ComplexityCountableNode
   }
 
   isIncrement() {
+    if (this.isElse()) {
+      return true;
+    } else if (ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind)) {
+      return true;
+    } else if (this.node.kind === 'label') {
+      return true;
+    } else if (this.node.kind === 'bin' && ['and', 'or', '&&', '||', 'xor'].includes((<BinNode>this.node.node).type)) {
+      return true;
+    }
+
     return false;
   }
 

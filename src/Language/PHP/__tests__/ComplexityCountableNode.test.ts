@@ -49,19 +49,13 @@ describe('ComplexityCountableNode', () => {
 
   describe('.isNestingIncrement()', () => {
     it.each([
-      ['if', map.get('if')!.statements[0]],
-      ['switch', map.get('switch')!.statements[0]],
-      ['for', map.get('for')!.statements[0]],
-      ['forIn', map.get('forIn')!.statements[0]],
-      ['forOf', map.get('forOf')!.statements[0]],
-      ['while', map.get('while')!.statements[0]],
-      ['catch', (<ts.TryStatement>map.get('try')!.statements[0]).catchClause!],
-      [
-        'conditional',
-        (<ts.ReturnStatement>map.get('conditional')!.statements[0]).expression!,
-      ],
-    ])('should %s is nesting increment.', (_, statement) => {
-      const astNode = new ASTNode(statement, parent);
+      ['if', map.get('if')!.getChilds()[0]],
+      ['switch', map.get('switch')!.getChilds()[0]],
+      ['for', map.get('for')!.getChilds()[0]],
+      ['while', map.get('while')!.getChilds()[0]],
+      ['catch', map.get('try')!.getChilds()[0].getChilds().pop()],
+      ['conditional', map.get('conditional')!.getChilds()[0].getChilds()[0]],
+    ])('should %s is nesting increment.', (_, astNode) => {
       const actual = new ComplexityCountableNode(astNode);
 
       expect(actual.isNestingIncrement()).toBe(true);
