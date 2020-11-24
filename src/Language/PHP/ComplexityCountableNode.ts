@@ -37,7 +37,10 @@ export class ComplexityCountableNode
   }
 
   isNestLevelUp() {
-    return false;
+    return (
+      !this.isElse() &&
+      ComplexityCountableNode.nestLevelUpKinds.includes(this.node.kind)
+    );
   }
 
   isIncrement() {

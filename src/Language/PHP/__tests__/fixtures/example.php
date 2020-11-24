@@ -7,8 +7,8 @@ class MyClass {
     }
   }
 
-  function switch(int $number) {
-    switch ($number) {
+  function switch() {
+    switch (1) {
       case 3:
         return 1;
       case 5:

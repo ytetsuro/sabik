@@ -1,45 +1,46 @@
-/*
+import Engine from 'php-parser';
 import { readFileSync } from 'fs';
-import ts from 'typescript';
 import { ASTNode } from '../ASTNode';
 import { ComplexityCountableNode } from '../ComplexityCountableNode';
 
 describe('ComplexityCountableNode', () => {
-  const parent = ts.createSourceFile(
-    `${__dirname}/fixtures/example.ts`,
-    readFileSync(`${__dirname}/fixtures/example.ts`).toString(),
-    ts.ScriptTarget.ES2016,
-    true
-  );
-  const members = <ts.NodeArray<ts.MethodDeclaration>>(
-    (<ts.ClassDeclaration>parent.statements[0]).members
-  );
-  const map = [...members].reduce(
-    (map, node) => map.set(node.name.getText(), node.body!),
-    new Map<string, ts.Block>()
+  const engine = new Engine({
+    parser: {
+      extractDoc: true,
+    },
+    ast: {
+      withPositions: true,
+      withSource: true,
+    }
+  });
+  const node = engine.parseCode(
+    readFileSync(`${__dirname}/fixtures/example.php`).toString(),
+    `${__dirname}/fixtures/example.php`
   );
 
+  const [_, ...members] = (new ASTNode(node.children[0])).getChilds();
+
+  const map = [...members].reduce(
+    (map, node) => map.set((<any>node.node).name.name, node.getChilds()[1]),
+    new Map<string, any>()
+  );
   describe('.isNestLevelUp()', () => {
     it.each([
-      ['if', map.get('if')!.statements[0]],
-      ['switch', map.get('switch')!.statements[0]],
-      ['for', map.get('for')!.statements[0]],
-      ['forIn', map.get('forIn')!.statements[0]],
-      ['forOf', map.get('forOf')!.statements[0]],
-      ['while', map.get('while')!.statements[0]],
-      ['catch', (<ts.TryStatement>map.get('try')!.statements[0]).catchClause!],
-      ['do', map.get('do')!.statements[0]],
+      ['if', map.get('if')!.getChilds()[0]],
+      ['switch', map.get('switch')!.getChilds()[0]],
+      ['for', map.get('for')!.getChilds()[0]],
+      ['while', map.get('while')!.getChilds()[0]],
+      ['catch', map.get('try')!.getChilds()[0].getChilds().pop()],
+      ['do', map.get('do')!.getChilds()[0]],
       [
         'function',
-        (<ts.ReturnStatement>map.get('function')!.statements[0]).expression!,
+        map.get('function')!.getChilds()[0].getChilds()[0],
       ],
       [
         'arrowFunction',
-        (<ts.ReturnStatement>map.get('arrowFunction')!.statements[0])
-          .expression!,
+        map.get('arrowFunction')!.getChilds()[0].getChilds()[0],
       ],
-    ])('should %s is nest level up.', (_, statement) => {
-      const astNode = new ASTNode(statement, parent);
+    ])('should %s is nest level up.', (_, astNode) => {
       const actual = new ComplexityCountableNode(astNode);
 
       expect(actual.isNestLevelUp()).toBe(true);
