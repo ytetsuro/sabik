@@ -45,6 +45,14 @@ describe('ComplexityCountableNode', () => {
 
       expect(actual.isNestLevelUp()).toBe(true);
     });
+
+    it('should returns false when elseif or else statement.', () => {
+      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2]);
+      const elseActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2].getChilds()[2]);
+
+      expect(elseIfActual.isNestLevelUp()).toBe(false);
+      expect(elseActual.isNestLevelUp()).toBe(false);
+    });
   });
 
   describe('.isNestingIncrement()', () => {
@@ -59,6 +67,14 @@ describe('ComplexityCountableNode', () => {
       const actual = new ComplexityCountableNode(astNode);
 
       expect(actual.isNestingIncrement()).toBe(true);
+    });
+
+    it('should returns false when elseif or else statement.', () => {
+      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2]);
+      const elseActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2].getChilds()[2]);
+
+      expect(elseIfActual.isNestingIncrement()).toBe(false);
+      expect(elseActual.isNestingIncrement()).toBe(false);
     });
   });
 
@@ -83,6 +99,14 @@ describe('ComplexityCountableNode', () => {
       const actual = new ComplexityCountableNode(astNode);
 
       expect(actual.isIncrement()).toBe(true);
+    });
+
+    it('should returns true when elseif or else statement.', () => {
+      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2]);
+      const elseActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2].getChilds()[2]);
+
+      expect(elseIfActual.isIncrement()).toBe(true);
+      expect(elseActual.isIncrement()).toBe(true);
     });
   });
 });

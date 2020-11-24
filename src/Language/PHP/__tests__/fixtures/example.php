@@ -4,6 +4,10 @@ class MyClass {
   function if() {
     if (true) {
       return 1;
+    } elseif (true) {
+      return 2;
+    } else {
+      return 3;
     }
   }
 
