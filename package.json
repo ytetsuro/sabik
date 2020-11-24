@@ -24,7 +24,7 @@
     "postcss": "^7.0.32",
     "postcss-import": "^12.0.1",
     "reflect-metadata": "^0.1.13",
-    "tslib": "^1.11.1",
+    "tslib": "^1.14.1",
     "typescript": "^4.0.3"
   },
   "devDependencies": {
