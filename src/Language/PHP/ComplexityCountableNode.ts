@@ -1,17 +1,39 @@
-import * as ts from 'typescript';
+import * as PHPParser from 'php-parser';
 import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CongnitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
+
+type BinNode = PHPParser.Node & {type: string};
+type IfNode = PHPParser.Node & {alternate: PHPParser.Node};
 
 export class ComplexityCountableNode
   implements ComplexityCountableNodeInterface {
 
-  private readonly node: ASTNode;
+  private static readonly nestLevelUpKinds = [
+    'if',
+    'catch',
+    'switch',
+    'for',
+    'while',
+    'do',
+    'retif',
+    'function',
+    'closure',
+    'arrowfunc',
+  ];
 
-  private readonly pureNode: null;
+  private static readonly nestingIncrementSyntaxKinds = [
+    'if',
+    'catch',
+    'switch',
+    'for',
+    'while',
+    'retif',
+  ];
+
+  private readonly node: ASTNode;
 
   constructor(node: ASTNode) {
     this.node = node;
-    this.pureNode = null;
   }
 
   isNestLevelUp() {
