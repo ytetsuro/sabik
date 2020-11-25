@@ -46,7 +46,7 @@ describe('Metrics', () => {
         new Entity(
           'UnitTest',
           [
-            new MetricsValue(MetricsType.CongnativeComplexity, 80),
+            new MetricsValue(MetricsType.CognitiveComplexity, 80),
             new MetricsValue(MetricsType.HalsteadLength, 200),
             new MetricsValue(MetricsType.HalsteadDifficulty, 400),
             new MetricsValue(MetricsType.HalsteadEffort, 500),

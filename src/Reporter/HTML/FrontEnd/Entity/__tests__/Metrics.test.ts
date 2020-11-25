@@ -32,7 +32,7 @@ describe('Metrics', () => {
       const overviews = [
         new MetricsValue(MetricsType.Maintainability, 20),
         new MetricsValue(MetricsType.BugsDelivered, 20),
-        new MetricsValue(MetricsType.CongnativeComplexity, 20),
+        new MetricsValue(MetricsType.CognitiveComplexity, 20),
       ];
 
       const actual = new Metrics(
@@ -54,7 +54,7 @@ describe('Metrics', () => {
         [
           new MetricsValue(MetricsType.Maintainability, 20),
           new MetricsValue(MetricsType.BugsDelivered, 20),
-          new MetricsValue(MetricsType.CongnativeComplexity, 20),
+          new MetricsValue(MetricsType.CognitiveComplexity, 20),
           ...details,
         ],
         { start: 0, end: 2 }
@@ -71,7 +71,7 @@ describe('Metrics', () => {
         [
           new MetricsValue(MetricsType.Maintainability, 20),
           new MetricsValue(MetricsType.BugsDelivered, 20),
-          new MetricsValue(MetricsType.CongnativeComplexity, 20),
+          new MetricsValue(MetricsType.CognitiveComplexity, 20),
           new MetricsValue(MetricsType.HalsteadDifficulty, 20),
         ],
         { start: 0, end: 2 }

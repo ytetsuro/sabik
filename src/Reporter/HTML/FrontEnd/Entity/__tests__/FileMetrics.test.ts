@@ -18,12 +18,12 @@ describe('FileMetrics', () => {
 
   describe('.getMaximumComplexity()', () => {
     it('should returns maximumComplexity.', () => {
-      const expected = new MetricsValue(MetricsType.CongnativeComplexity, 4);
+      const expected = new MetricsValue(MetricsType.CognitiveComplexity, 4);
       const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
         new Metrics('test', [expected], { start: 0, end: 1 }),
         new Metrics(
           'test2',
-          [new MetricsValue(MetricsType.CongnativeComplexity, 3)],
+          [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
           { start: 0, end: 1 }
         ),
       ]);
@@ -37,18 +37,18 @@ describe('FileMetrics', () => {
       const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
         new Metrics(
           'test',
-          [new MetricsValue(MetricsType.CongnativeComplexity, 4)],
+          [new MetricsValue(MetricsType.CognitiveComplexity, 4)],
           { start: 0, end: 1 }
         ),
         new Metrics(
           'test2',
-          [new MetricsValue(MetricsType.CongnativeComplexity, 3)],
+          [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
           { start: 0, end: 1 }
         ),
       ]);
 
       expect(metrics.getAverageComplexity()).toStrictEqual(
-        new MetricsValue(MetricsType.CongnativeComplexity, 3.5)
+        new MetricsValue(MetricsType.CognitiveComplexity, 3.5)
       );
     });
   });

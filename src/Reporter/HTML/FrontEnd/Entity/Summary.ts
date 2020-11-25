@@ -12,7 +12,7 @@ export class Summary {
   }
 
   getAverageComplexity() {
-    return this.metricsCalculator.average(MetricsType.CongnativeComplexity);
+    return this.metricsCalculator.average(MetricsType.CognitiveComplexity);
   }
 
   getAverageMaintainability() {

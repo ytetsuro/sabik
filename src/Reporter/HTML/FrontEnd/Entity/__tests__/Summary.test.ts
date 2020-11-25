@@ -11,26 +11,26 @@ describe('Summary', () => {
         new FileMetrics('dummy1.ts', { logical: 1, physical: 2 }, [
           new Metrics(
             'dummy',
-            [new MetricsValue(MetricsType.CongnativeComplexity, 2)],
+            [new MetricsValue(MetricsType.CognitiveComplexity, 2)],
             { start: 1, end: 1 }
           ),
           new Metrics(
             'dummy',
-            [new MetricsValue(MetricsType.CongnativeComplexity, 5)],
+            [new MetricsValue(MetricsType.CognitiveComplexity, 5)],
             { start: 1, end: 1 }
           ),
         ]),
         new FileMetrics('dummy2.ts', { logical: 1, physical: 2 }, [
           new Metrics(
             'dummy',
-            [new MetricsValue(MetricsType.CongnativeComplexity, 5)],
+            [new MetricsValue(MetricsType.CognitiveComplexity, 5)],
             { start: 1, end: 1 }
           ),
         ]),
       ]);
 
       expect(summary.getAverageComplexity()).toStrictEqual(
-        new MetricsValue(MetricsType.CongnativeComplexity, 4)
+        new MetricsValue(MetricsType.CognitiveComplexity, 4)
       );
     });
   });
