@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CongnitiveComplexity/Adapter/ComplexityCountableNode';
+import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
 
 export class ComplexityCountableNode

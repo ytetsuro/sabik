@@ -10,7 +10,7 @@ describe('MetricsType', () => {
   describe('.getLevel()', () => {
     it.each([
       [MetricsType.BugsDelivered, 2],
-      [MetricsType.CongnativeComplexity, 8],
+      [MetricsType.CognitiveComplexity, 8],
       [MetricsType.LineOfCodeLogical, 80],
       [MetricsType.Maintainability, 39],
     ])('should get alert level.', (type, value) => {

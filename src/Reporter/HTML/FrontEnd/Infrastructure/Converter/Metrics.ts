@@ -9,8 +9,8 @@ export class Metrics {
       dataModel.defineName,
       [
         new MetricsValue(
-          MetricsType.CongnativeComplexity,
-          dataModel.congnitiveComplexity.complexity
+          MetricsType.CognitiveComplexity,
+          dataModel.cognitiveComplexity.complexity
         ),
         new MetricsValue(MetricsType.HalsteadLength, dataModel.halstead.length),
         new MetricsValue(

@@ -1,14 +1,14 @@
 import { Halstead } from '../../Halstead/Halstead';
 import { OperandAndOperator } from '../../Halstead/OperandAndOperator';
-import { ComplexityStore } from '../../CongnitiveComplexity/ComplexityStore';
-import { Complexity } from '../../CongnitiveComplexity/Complexity';
+import { ComplexityStore } from '../../CognitiveComplexity/ComplexityStore';
+import { Complexity } from '../../CognitiveComplexity/Complexity';
 import { LineOfCode } from '../../LineOfCode/LineOfCode';
 import { Calculator } from '../Calculator';
 import { ComplexityCountableNode } from '../../../TestHelpers/ComplexityCountableNode';
 
 describe('Maintainability Calculator Class', () => {
-  describe('Maintainability Index = MAX(0,(171 - 5.2 * ln(Halstead Volume) - 0.23 * (Congnitive Complexity) - 16.2 * ln(Lines of Code))*100 / 171)', () => {
-    it('should maintainability is 81.02887883601011 when Halstead Volume is 14 and Congnitive Complexity is 4 and Logical line of code is 3.', () => {
+  describe('Maintainability Index = MAX(0,(171 - 5.2 * ln(Halstead Volume) - 0.23 * (Cognitive Complexity) - 16.2 * ln(Lines of Code))*100 / 171)', () => {
+    it('should maintainability is 81.02887883601011 when Halstead Volume is 14 and Cognitive Complexity is 4 and Logical line of code is 3.', () => {
       const calculator = new Calculator();
       const halstead = new Halstead(
         new OperandAndOperator(

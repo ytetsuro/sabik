@@ -1,5 +1,5 @@
-import { Complexity } from '../../../Calculator/CongnitiveComplexity/Complexity';
-import { ComplexityStore } from '../../../Calculator/CongnitiveComplexity/ComplexityStore';
+import { Complexity } from '../../../Calculator/CognitiveComplexity/Complexity';
+import { ComplexityStore } from '../../../Calculator/CognitiveComplexity/ComplexityStore';
 import { Halstead } from '../../../Calculator/Halstead/Halstead';
 import { OperandAndOperator } from '../../../Calculator/Halstead/OperandAndOperator';
 import { LineOfCode } from '../../../Calculator/LineOfCode/LineOfCode';
@@ -51,7 +51,7 @@ describe('MetricsAnalyzer', () => {
       );
 
       expect(actual).toStrictEqual({
-        congnitiveComplexity: new ComplexityStore([
+        cognitiveComplexity: new ComplexityStore([
           new Complexity(new ComplexityCountableNode({ DSL: 'IN' }), 0),
           new Complexity(new ComplexityCountableNode({ DSL: 'I' }), 1),
         ]),

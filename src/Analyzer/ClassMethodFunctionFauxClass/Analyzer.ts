@@ -44,7 +44,7 @@ export class Analyzer<T, K> {
     ];
 
     return [...astNode.getChilds()]
-      .flatMap(row => this.extractFunctionAndMethodNode(row))
+      .flatMap((row) => this.extractFunctionAndMethodNode(row))
       .map((row) => this.createMethod(row, codeStructures));
   }
 
@@ -67,7 +67,7 @@ export class Analyzer<T, K> {
   private extractFunctionAndMethodNode(astNode: ASTNode): ASTNode[] {
     const result: ASTNode[] = [];
 
-    if (astNode.isFunction()||astNode.isMethod()) {
+    if (astNode.isFunction() || astNode.isMethod()) {
       return [astNode];
     }
     if (astNode.isClass()) {
@@ -75,7 +75,9 @@ export class Analyzer<T, K> {
     }
 
     return result.concat(
-      ...astNode.getChilds().map((row) => this.extractFunctionAndMethodNode(row))
+      ...astNode
+        .getChilds()
+        .map((row) => this.extractFunctionAndMethodNode(row))
     );
   }
 }

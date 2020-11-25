@@ -1,7 +1,7 @@
 import { Calculator } from '../Calculator';
 import { ComplexityCountableNode } from '../../../TestHelpers/ComplexityCountableNode';
 
-describe('Congnitive Complexity Calculator', () => {
+describe('Cognitive Complexity Calculator', () => {
   let calculator: Calculator;
   beforeAll(() => {
     calculator = new Calculator();

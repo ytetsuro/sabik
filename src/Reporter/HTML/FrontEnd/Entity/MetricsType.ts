@@ -5,8 +5,8 @@ type Alert = 2;
 type Level = Success | Warning | Alert;
 
 export class MetricsType {
-  public static readonly CongnativeComplexity = new MetricsType(
-    'CongnativeComplexity',
+  public static readonly CognitiveComplexity = new MetricsType(
+    'CognitiveComplexity',
     new Map([[8, 2]])
   );
   public static readonly BugsDelivered = new MetricsType(
