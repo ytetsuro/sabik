@@ -89,15 +89,10 @@
     }
   },
   "lint-staged": {
-    "linters": {
-      "*.ts": [
-        "npm run lint:fix",
-        "git add",
-        "npm run lint"
-      ]
-    },
-    "ignore": [
-      "lib/**/*"
+    "*.ts": [
+      "npm run lint:fix",
+      "git add",
+      "npm run lint"
     ]
   }
 }
