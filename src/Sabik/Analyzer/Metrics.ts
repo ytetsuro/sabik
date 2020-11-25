@@ -65,7 +65,7 @@ export interface Maintainability {
 }
 
 export interface Metrics {
-  readonly congnitiveComplexity: ComplexityStore;
+  readonly cognitiveComplexity: ComplexityStore;
   readonly halstead: Halstead;
   readonly lineOfCode: LineOfCode;
   readonly maintainability: Maintainability;

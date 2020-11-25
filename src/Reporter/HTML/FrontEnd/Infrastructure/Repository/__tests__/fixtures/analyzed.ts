@@ -23,7 +23,7 @@ export const fixture = [
           time: 600,
           bugsDelivered: 700,
         },
-        congnitiveComplexity: {
+        cognitiveComplexity: {
           complexity: 800,
           items: [
             {
@@ -66,7 +66,7 @@ export const fixture = [
           time: 600,
           bugsDelivered: 7000,
         },
-        congnitiveComplexity: {
+        cognitiveComplexity: {
           complexity: 80,
           items: [
             {
@@ -109,7 +109,7 @@ export const fixture = [
           time: 600,
           bugsDelivered: 7000,
         },
-        congnitiveComplexity: {
+        cognitiveComplexity: {
           complexity: 80,
           items: [
             {

@@ -15,7 +15,7 @@ export interface Metrics {
     time: number;
     bugsDelivered: number;
   };
-  congnitiveComplexity: {
+  cognitiveComplexity: {
     complexity: number;
     items: {
       complexity: number;

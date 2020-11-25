@@ -1,6 +1,6 @@
 import { Analyzer } from '../Analyzer';
 
-describe('Source file analayzer class', () => {
+describe('Source file analyzer class', () => {
   it('should change to calculatable node then do calculate.', () => {
     const calculator = {
       calculate: jest.fn((calculatableNode) => ({

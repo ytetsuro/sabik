@@ -24,7 +24,7 @@ describe('Metrics', () => {
           time: 600,
           bugsDelivered: 700,
         },
-        congnitiveComplexity: {
+        cognitiveComplexity: {
           complexity: 80,
           items: [
             {

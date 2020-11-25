@@ -1,5 +1,5 @@
 import { Converter } from '../Analyzer/Adapter/Converter';
-import { ComplexityCountableNode } from '../Calculator/CongnitiveComplexity/Adapter/ComplexityCountableNode';
+import { ComplexityCountableNode } from '../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { LineOfCodeCountableNode } from '../Calculator/LineOfCode/Adapter/LineOfCodeCountableNode';
 import { HalsteadCountableNode } from '../Calculator/Halstead/Adapter/HalsteadCountableNode';
 import { ASTGenerator } from '../Sabik/ASTGenerator';

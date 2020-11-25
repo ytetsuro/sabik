@@ -1,4 +1,4 @@
-import { ComplexityStore } from '../../CongnitiveComplexity/ComplexityStore';
+import { ComplexityStore } from '../../CognitiveComplexity/ComplexityStore';
 import { Halstead } from '../../Halstead/Halstead';
 import { LineOfCode } from '../../LineOfCode/LineOfCode';
 

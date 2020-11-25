@@ -13,7 +13,7 @@ export class Summary implements m.Component<{ summary: SummarySource }> {
   view(vnode: m.Vnode<{ summary: SummarySource }>) {
     return m('.level', [
       m(SummaryColumn, {
-        title: 'Congnitive Complexity',
+        title: 'Cognitive Complexity',
         metrics: vnode.attrs.summary.getAverageComplexity(),
       }),
       m(SummaryColumn, {

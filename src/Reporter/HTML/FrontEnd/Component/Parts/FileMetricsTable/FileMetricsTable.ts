@@ -47,7 +47,7 @@ export class FileMetricsTable<T extends string>
           m('thead', [
             m('tr', [
               m('th', 'FilePath'),
-              m('th', 'CongnitiveComplexity(Max/Avg)'),
+              m('th', 'CognitiveComplexity(Max/Avg)'),
               m('th', 'BugsDelivered(Sum/Max)'),
               m('th', 'Maintainability(Min/Avg)'),
               m('th', 'LineOfCode'),
