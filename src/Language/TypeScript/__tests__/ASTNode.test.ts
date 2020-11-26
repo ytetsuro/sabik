@@ -96,7 +96,7 @@ describe('ASTNode', () => {
     });
   });
 
-  describe('.getChilds()', () => {
+  describe('.getChildren()', () => {
     it('should get children ASTNode.', () => {
       const sourceFile = ts.createSourceFile(
         'dummy.ts',
@@ -106,7 +106,7 @@ describe('ASTNode', () => {
       );
 
       const classStructure = new ASTNode(sourceFile.statements[0], sourceFile);
-      const actual = classStructure.getChilds();
+      const actual = classStructure.getChildren();
 
       expect(actual.length).toBe(3);
       expect(actual[1]).toBeInstanceOf(ASTNode);

@@ -58,7 +58,7 @@ export class ASTNode implements ASTNodeInterface {
 
     return (
       new ASTNode((<ts.FunctionExpression>this.node).body, this.sourceFile)
-        .getChilds()
+        .getChildren()
         .filter(
           (row) =>
             new ComplexityCountableNode(row).isIncrement() && !row.isFunction()
@@ -153,7 +153,7 @@ export class ASTNode implements ASTNodeInterface {
     return result;
   }
 
-  getChilds() {
+  getChildren() {
     const result: ts.Node[] = [];
     ts.forEachChild(this.node, (row) => {
       result.push(row);

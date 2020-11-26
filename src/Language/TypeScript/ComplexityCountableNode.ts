@@ -81,9 +81,9 @@ export class ComplexityCountableNode
     );
   }
 
-  getChilds() {
+  getChildren() {
     return this.node
-      .getChilds()
+      .getChildren()
       .map((node) => new ComplexityCountableNode(node));
   }
 }

@@ -27,7 +27,7 @@ export class HalsteadCountableNode {
     return this.text;
   }
 
-  getChilds() {
+  getChildren() {
     return this.childs.map((config) => new HalsteadCountableNode(config));
   }
 }

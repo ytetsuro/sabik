@@ -20,7 +20,7 @@ describe('Cognitive Complexity Calculator', () => {
       const actual = calculator.calculate(
         new ComplexityCountableNode({
           DSL: '',
-          childs: [{ DSL: 'I' }],
+          children: [{ DSL: 'I' }],
         })
       );
 
@@ -31,7 +31,7 @@ describe('Cognitive Complexity Calculator', () => {
       const actual = calculator.calculate(
         new ComplexityCountableNode({
           DSL: 'N',
-          childs: [{ DSL: 'I' }],
+          children: [{ DSL: 'I' }],
         })
       );
 
@@ -42,7 +42,7 @@ describe('Cognitive Complexity Calculator', () => {
       const actual = calculator.calculate(
         new ComplexityCountableNode({
           DSL: 'N',
-          childs: [{ DSL: 'IN' }],
+          children: [{ DSL: 'IN' }],
         })
       );
 

@@ -59,7 +59,7 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
     return '';
   }
 
-  getChilds() {
-    return this.node.getChilds().map((row) => new HalsteadCountableNode(row));
+  getChildren() {
+    return this.node.getChildren().map((row) => new HalsteadCountableNode(row));
   }
 }

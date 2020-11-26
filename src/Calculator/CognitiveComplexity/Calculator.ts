@@ -23,14 +23,14 @@ export class Calculator {
       const incrementedNest = nest + 1;
       return result.concat(
         ...node
-          .getChilds()
+          .getChildren()
           .map((row) => this.extractComplexity(row, incrementedNest))
           .filter((row) => row.length > 0)
       );
     }
 
     return result.concat(
-      ...node.getChilds().map((row) => this.extractComplexity(row, nest))
+      ...node.getChildren().map((row) => this.extractComplexity(row, nest))
     );
   }
 }

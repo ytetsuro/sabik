@@ -12,7 +12,7 @@ describe('Analyzer', () => {
       convert: (_) =>
         new ComplexityCountableNode({
           DSL: 'IN',
-          childs: [{ DSL: 'I' }, { DSL: '' }],
+          children: [{ DSL: 'I' }, { DSL: '' }],
         }),
     },
     halsteadConverter: {

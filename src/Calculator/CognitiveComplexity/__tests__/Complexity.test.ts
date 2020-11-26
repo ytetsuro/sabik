@@ -38,5 +38,5 @@ const createDummyNode = (DSL: string) => ({
   isIncrement: () => DSL.includes('I'),
   isNestLevelUp: () => DSL.includes('N'),
   isNestingIncrement: () => DSL.includes('I') && DSL.includes('N'),
-  getChilds: () => [],
+  getChildren: () => [],
 });

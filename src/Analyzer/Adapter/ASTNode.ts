@@ -1,5 +1,5 @@
 export interface ASTNode {
-  getChilds(): ASTNode[];
+  getChildren(): ASTNode[];
   isFunction(): boolean;
   isFauxClass(): boolean;
   isMethod(): boolean;
