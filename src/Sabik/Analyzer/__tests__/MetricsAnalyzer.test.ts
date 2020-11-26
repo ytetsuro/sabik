@@ -24,7 +24,7 @@ describe('MetricsAnalyzer', () => {
           new HalsteadCountableNode({
             DSL: 'T',
             text: '+',
-            childs: [
+            children: [
               { DSL: 'N', text: '1' },
               { DSL: '', text: 'dummy' },
             ],

@@ -22,7 +22,7 @@ describe('Halstead Calculator', () => {
         new HalsteadCountableNode({
           DSL: '',
           text: 'Dummy',
-          childs: [{ DSL: 'N', text: 'Dummy' }],
+          children: [{ DSL: 'N', text: 'Dummy' }],
         })
       );
 
@@ -34,7 +34,7 @@ describe('Halstead Calculator', () => {
         new HalsteadCountableNode({
           DSL: 'N',
           text: 'dummy',
-          childs: [{ DSL: 'N', text: 'dummy' }],
+          children: [{ DSL: 'N', text: 'dummy' }],
         })
       );
 
@@ -57,7 +57,7 @@ describe('Halstead Calculator', () => {
         new HalsteadCountableNode({
           DSL: '',
           text: 'Dummy',
-          childs: [{ DSL: 'T', text: 'Dummy' }],
+          children: [{ DSL: 'T', text: 'Dummy' }],
         })
       );
 
@@ -69,7 +69,7 @@ describe('Halstead Calculator', () => {
         new HalsteadCountableNode({
           DSL: 'T',
           text: 'dummy',
-          childs: [{ DSL: 'T', text: 'dummy' }],
+          children: [{ DSL: 'T', text: 'dummy' }],
         })
       );
 
@@ -84,12 +84,12 @@ describe('Halstead Calculator', () => {
         new HalsteadCountableNode({
           DSL: 'T',
           text: 'dummy',
-          childs: [
+          children: [
             { DSL: 'N', text: 'operator' },
             {
               DSL: 'N',
               text: 'operator',
-              childs: [
+              children: [
                 { DSL: 'T', text: 'operand' },
                 { DSL: 'T', text: 'operand' },
               ],

@@ -1,18 +1,18 @@
 type Config = {
   DSL: string;
   text: string;
-  childs?: Config[];
+  children?: Config[];
 };
 
 export class HalsteadCountableNode {
   private DSL: string;
   private text: string;
-  private childs: Config[];
+  private children: Config[];
 
-  constructor({ DSL, text, childs = [] }: Config) {
+  constructor({ DSL, text, children = [] }: Config) {
     this.DSL = DSL;
     this.text = text;
-    this.childs = childs;
+    this.children = children;
   }
 
   isOperator() {
@@ -28,6 +28,6 @@ export class HalsteadCountableNode {
   }
 
   getChildren() {
-    return this.childs.map((config) => new HalsteadCountableNode(config));
+    return this.children.map((config) => new HalsteadCountableNode(config));
   }
 }
