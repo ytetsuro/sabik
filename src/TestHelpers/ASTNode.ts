@@ -5,16 +5,16 @@ export class ASTNode {
   private startLine: number = 0;
   private endLine: number = 0;
   private name: string;
-  private childs: NodeSource;
+  private children: NodeSource;
 
-  constructor(DSL: string, childs: NodeSource = {}) {
+  constructor(DSL: string, children: NodeSource = {}) {
     const [structureType, name, startLine, endLine] = DSL.split(':', 4);
 
     this.structureType = structureType;
     this.name = name;
     this.startLine = Number(startLine);
     this.endLine = Number(endLine);
-    this.childs = childs;
+    this.children = children;
   }
 
   isClass() {
@@ -45,9 +45,9 @@ export class ASTNode {
     return this.endLine;
   }
 
-  getChilds() {
-    return Object.keys(this.childs).map(
-      (keyName) => new ASTNode(keyName, this.childs[keyName])
+  getChildren() {
+    return Object.keys(this.children).map(
+      (keyName) => new ASTNode(keyName, this.children[keyName])
     );
   }
 }

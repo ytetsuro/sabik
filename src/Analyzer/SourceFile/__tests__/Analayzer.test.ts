@@ -22,7 +22,7 @@ describe('Source file analyzer class', () => {
       getName: () => '',
       getStartLineNumber: () => 0,
       getEndLineNumber: () => 0,
-      getChilds: () => [],
+      getChildren: () => [],
     });
 
     expect(actual.dummy).toBe(2);

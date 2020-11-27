@@ -1,15 +1,15 @@
 type Config = {
   DSL: string;
-  childs?: Config[];
+  children?: Config[];
 };
 
 export class ComplexityCountableNode {
   private DSL: string;
-  private childs: Config[];
+  private children: Config[];
 
-  constructor({ DSL, childs = [] }: Config) {
+  constructor({ DSL, children = [] }: Config) {
     this.DSL = DSL;
-    this.childs = childs;
+    this.children = children;
   }
 
   isIncrement() {
@@ -24,7 +24,7 @@ export class ComplexityCountableNode {
     return this.DSL.includes('I') && this.DSL.includes('N');
   }
 
-  getChilds() {
-    return this.childs.map((config) => new ComplexityCountableNode(config));
+  getChildren() {
+    return this.children.map((config) => new ComplexityCountableNode(config));
   }
 }

@@ -16,7 +16,7 @@ describe('MetricsAnalyzer', () => {
         convert: (_) =>
           new ComplexityCountableNode({
             DSL: 'IN',
-            childs: [{ DSL: 'I' }, { DSL: '' }],
+            children: [{ DSL: 'I' }, { DSL: '' }],
           }),
       },
       {
@@ -24,7 +24,7 @@ describe('MetricsAnalyzer', () => {
           new HalsteadCountableNode({
             DSL: 'T',
             text: '+',
-            childs: [
+            children: [
               { DSL: 'N', text: '1' },
               { DSL: '', text: 'dummy' },
             ],

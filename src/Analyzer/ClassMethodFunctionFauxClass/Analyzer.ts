@@ -13,7 +13,9 @@ export class Analyzer<T, K> {
 
   analyze(rootASTNode: ASTNode): K {
     const result: CodeMetrics<T>[] = [];
-    const classesNodes = rootASTNode.getChilds().filter((row) => row.isClass());
+    const classesNodes = rootASTNode
+      .getChildren()
+      .filter((row) => row.isClass());
     const functionNodes = this.extractFunctionAndMethodNode(rootASTNode);
     const fauxNodes = functionNodes.filter((row) => row.isFauxClass());
     const pureFunctionNodes = functionNodes.filter((row) => !row.isFauxClass());
@@ -43,7 +45,7 @@ export class Analyzer<T, K> {
       },
     ];
 
-    return [...astNode.getChilds()]
+    return [...astNode.getChildren()]
       .flatMap((row) => this.extractFunctionAndMethodNode(row))
       .map((row) => this.createMethod(row, codeStructures));
   }
@@ -76,7 +78,7 @@ export class Analyzer<T, K> {
 
     return result.concat(
       ...astNode
-        .getChilds()
+        .getChildren()
         .map((row) => this.extractFunctionAndMethodNode(row))
     );
   }

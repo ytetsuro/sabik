@@ -21,7 +21,7 @@ export class Calculator {
     }
 
     result = result.concat(
-      ...node.getChilds().map((row) => this.extractOperandsAndOperators(row))
+      ...node.getChildren().map((row) => this.extractOperandsAndOperators(row))
     );
 
     return result;

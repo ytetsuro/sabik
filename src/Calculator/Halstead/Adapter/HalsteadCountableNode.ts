@@ -1,6 +1,6 @@
 export interface HalsteadCountableNode {
   isOperand(): boolean;
   isOperator(): boolean;
-  getChilds(): HalsteadCountableNode[];
+  getChildren(): HalsteadCountableNode[];
   getText(): string;
 }
