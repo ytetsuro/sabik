@@ -18,27 +18,27 @@ describe('ComplexityCountableNode', () => {
     `${__dirname}/fixtures/example.php`
   );
 
-  const [_, ...members] = (new ASTNode(node.children[0])).getChilds();
+  const [_, ...members] = (new ASTNode(node.children[0])).getChildren();
 
   const map = [...members].reduce(
-    (map, node) => map.set((<any>node.node).name.name, node.getChilds()[1]),
+    (map, node) => map.set((<any>node.node).name.name, node.getChildren()[1]),
     new Map<string, any>()
   );
   describe('.isNestLevelUp()', () => {
     it.each([
-      ['if', map.get('if')!.getChilds()[0]],
-      ['switch', map.get('switch')!.getChilds()[0]],
-      ['for', map.get('for')!.getChilds()[0]],
-      ['while', map.get('while')!.getChilds()[0]],
-      ['catch', map.get('try')!.getChilds()[0].getChilds().pop()],
-      ['do', map.get('do')!.getChilds()[0]],
+      ['if', map.get('if')!.getChildren()[0]],
+      ['switch', map.get('switch')!.getChildren()[0]],
+      ['for', map.get('for')!.getChildren()[0]],
+      ['while', map.get('while')!.getChildren()[0]],
+      ['catch', map.get('try')!.getChildren()[0].getChildren().pop()],
+      ['do', map.get('do')!.getChildren()[0]],
       [
         'function',
-        map.get('function')!.getChilds()[0].getChilds()[0],
+        map.get('function')!.getChildren()[0].getChildren()[0],
       ],
       [
         'arrowFunction',
-        map.get('arrowFunction')!.getChilds()[0].getChilds()[0],
+        map.get('arrowFunction')!.getChildren()[0].getChildren()[0],
       ],
     ])('should %s is nest level up.', (_, astNode) => {
       const actual = new ComplexityCountableNode(astNode);
@@ -47,8 +47,8 @@ describe('ComplexityCountableNode', () => {
     });
 
     it('should returns false when elseif or else statement.', () => {
-      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2]);
-      const elseActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2].getChilds()[2]);
+      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
+      const elseActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]);
 
       expect(elseIfActual.isNestLevelUp()).toBe(false);
       expect(elseActual.isNestLevelUp()).toBe(false);
@@ -57,12 +57,12 @@ describe('ComplexityCountableNode', () => {
 
   describe('.isNestingIncrement()', () => {
     it.each([
-      ['if', map.get('if')!.getChilds()[0]],
-      ['switch', map.get('switch')!.getChilds()[0]],
-      ['for', map.get('for')!.getChilds()[0]],
-      ['while', map.get('while')!.getChilds()[0]],
-      ['catch', map.get('try')!.getChilds()[0].getChilds().pop()],
-      ['conditional', map.get('conditional')!.getChilds()[0].getChilds()[0]],
+      ['if', map.get('if')!.getChildren()[0]],
+      ['switch', map.get('switch')!.getChildren()[0]],
+      ['for', map.get('for')!.getChildren()[0]],
+      ['while', map.get('while')!.getChildren()[0]],
+      ['catch', map.get('try')!.getChildren()[0].getChildren().pop()],
+      ['conditional', map.get('conditional')!.getChildren()[0].getChildren()[0]],
     ])('should %s is nesting increment.', (_, astNode) => {
       const actual = new ComplexityCountableNode(astNode);
 
@@ -70,8 +70,8 @@ describe('ComplexityCountableNode', () => {
     });
 
     it('should returns false when elseif or else statement.', () => {
-      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2]);
-      const elseActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2].getChilds()[2]);
+      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
+      const elseActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]);
 
       expect(elseIfActual.isNestingIncrement()).toBe(false);
       expect(elseActual.isNestingIncrement()).toBe(false);
@@ -80,21 +80,21 @@ describe('ComplexityCountableNode', () => {
 
   describe('.isIncrement()', () => {
     it.each([
-      ['if', map.get('if')!.getChilds()[0]],
-      ['switch', map.get('switch')!.getChilds()[0]],
-      ['for', map.get('for')!.getChilds()[0]],
-      ['while', map.get('while')!.getChilds()[0]],
-      ['catch', map.get('try')!.getChilds()[0].getChilds().pop()],
-      ['conditional', map.get('conditional')!.getChilds()[0].getChilds()[0]],
+      ['if', map.get('if')!.getChildren()[0]],
+      ['switch', map.get('switch')!.getChildren()[0]],
+      ['for', map.get('for')!.getChildren()[0]],
+      ['while', map.get('while')!.getChildren()[0]],
+      ['catch', map.get('try')!.getChildren()[0].getChildren().pop()],
+      ['conditional', map.get('conditional')!.getChildren()[0].getChildren()[0]],
       [
         'ampersand',
-        map.get('ampersand')!.getChilds()[0].getChilds()[0],
+        map.get('ampersand')!.getChildren()[0].getChildren()[0],
       ],
       [
         'barbar',
-        map.get('barbar')!.getChilds()[0].getChilds()[0],
+        map.get('barbar')!.getChildren()[0].getChildren()[0],
       ],
-      ['label', map.get('label')!.getChilds()[1]],
+      ['label', map.get('label')!.getChildren()[1]],
     ])('should %s is increment.', (_, astNode) => {
       const actual = new ComplexityCountableNode(astNode);
 
@@ -102,8 +102,8 @@ describe('ComplexityCountableNode', () => {
     });
 
     it('should returns true when elseif or else statement.', () => {
-      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2]);
-      const elseActual = new ComplexityCountableNode(map.get('if')!.getChilds()[0].getChilds()[2].getChilds()[2]);
+      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
+      const elseActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]);
 
       expect(elseIfActual.isIncrement()).toBe(true);
       expect(elseActual.isIncrement()).toBe(true);

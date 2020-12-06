@@ -1,5 +1,5 @@
 import * as PHPParser from 'php-parser';
-import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CongnitiveComplexity/Adapter/ComplexityCountableNode';
+import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
 
 type BinNode = PHPParser.Node & {type: string};
@@ -76,9 +76,9 @@ export class ComplexityCountableNode
     );
   }
 
-  getChilds() {
+  getChildren() {
     return this.node
-      .getChilds()
+      .getChildren()
       .map((node) => new ComplexityCountableNode(node));
   }
 }

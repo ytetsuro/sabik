@@ -106,7 +106,7 @@ describe('ASTNode', () => {
     });
   });
 
-  describe('.getChilds()', () => {
+  describe('.getChildren()', () => {
     it('should get children ASTNode.', () => {
       const sourceFile = engine.parseEval(`
       class A {
@@ -115,7 +115,7 @@ describe('ASTNode', () => {
       }`);
 
       const classStructure = new ASTNode(sourceFile.children[0]);
-      const actual = classStructure.getChilds();
+      const actual = classStructure.getChildren();
 
       expect(actual.length).toBe(3);
       expect(actual[1]).toBeInstanceOf(ASTNode);
@@ -170,7 +170,7 @@ describe('ASTNode', () => {
         $a = function () {};
       `);
 
-      const functionStructure = (new ASTNode(sourceFile)).getChilds()[0].getChilds()[0].getChilds()[1];
+      const functionStructure = (new ASTNode(sourceFile)).getChildren()[0].getChildren()[0].getChildren()[1];
 
       expect(functionStructure.getName()).toBe('$a');
     });
@@ -181,11 +181,11 @@ describe('ASTNode', () => {
       `);
 
       const functionStructure = (new ASTNode(sourceFile))
-        .getChilds()[0]
-        .getChilds()[0]
-        .getChilds()[1]
-        .getChilds()[0]
-        .getChilds()[1];
+        .getChildren()[0]
+        .getChildren()[0]
+        .getChildren()[1]
+        .getChildren()[0]
+        .getChildren()[1];
 
       expect(functionStructure.getName()).toBe('$a.b');
     });
@@ -198,9 +198,9 @@ describe('ASTNode', () => {
       `);
 
       const functionStructure = (new ASTNode(sourceFile))
-        .getChilds()[0]
-        .getChilds()[0]
-        .getChilds()[1];
+        .getChildren()[0]
+        .getChildren()[0]
+        .getChildren()[1];
 
       expect(functionStructure.getName()).toBe('$a.c.d.$c');
     });

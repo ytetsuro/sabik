@@ -50,9 +50,9 @@ export class ASTNode implements ASTNodeInterface {
   getName() {
     let result = '';
     if (this.isClass()) {
-      result = this.extractNameString((<StructureNode>this.node).name) ?? 'Anynomus Class';
+      result = this.extractNameString((<StructureNode>this.node).name) ?? 'Anonymous Class';
     } else if (this.isMethod()) {
-      const methodName = this.extractNameString((<StructureNode>this.node).name) ?? 'Anynomus Class';
+      const methodName = this.extractNameString((<StructureNode>this.node).name) ?? 'Anonymous Class';
       const params = (<MethodNode>this.node).arguments
         .map(row => this.extractNameString(row))
         .filter(row => row)
@@ -123,7 +123,7 @@ export class ASTNode implements ASTNodeInterface {
     return 0;
   }
 
-  getChilds() {
+  getChildren() {
     return [...Object.values(this.node)]
       .filter(row => !!row)
       .flatMap(row => row)
