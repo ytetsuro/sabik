@@ -1,6 +1,7 @@
 import * as PHPParser from 'php-parser';
 import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
+import {ASTKind} from './ASTKind';
 
 type BinNode = PHPParser.Node & {type: string};
 type IfNode = PHPParser.Node & {alternate: PHPParser.Node};
@@ -9,25 +10,25 @@ export class ComplexityCountableNode
   implements ComplexityCountableNodeInterface {
 
   private static readonly nestLevelUpKinds = [
-    'if',
-    'catch',
-    'switch',
-    'for',
-    'while',
-    'do',
-    'retif',
-    'function',
-    'closure',
-    'arrowfunc',
+    ASTKind.IF,
+    ASTKind.CATCH,
+    ASTKind.SWITCH,
+    ASTKind.FOR,
+    ASTKind.WHILE,
+    ASTKind.DO,
+    ASTKind.RETURN_IF,
+    ASTKind.FUNCTION,
+    ASTKind.CLOSURE,
+    ASTKind.ARROW_FUNCTION,
   ];
 
   private static readonly nestingIncrementSyntaxKinds = [
-    'if',
-    'catch',
-    'switch',
-    'for',
-    'while',
-    'retif',
+    ASTKind.IF,
+    ASTKind.CATCH,
+    ASTKind.SWITCH,
+    ASTKind.FOR,
+    ASTKind.WHILE,
+    ASTKind.RETURN_IF,
   ];
 
   private readonly node: ASTNode;
@@ -48,9 +49,9 @@ export class ComplexityCountableNode
       return true;
     } else if (ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind)) {
       return true;
-    } else if (this.node.kind === 'label') {
+    } else if (this.node.kind === ASTKind.LABEL) {
       return true;
-    } else if (this.node.kind === 'bin' && ['and', 'or', '&&', '||', 'xor'].includes((<BinNode>this.node.node).type)) {
+    } else if (this.node.kind === ASTKind.BIN && ['and', 'or', '&&', '||', 'xor'].includes((<BinNode>this.node.node).type)) {
       return true;
     }
 
@@ -71,7 +72,7 @@ export class ComplexityCountableNode
     const parent = this.node.parentNode;
 
     return (
-      parent?.kind === 'if' &&
+      parent?.kind === ASTKind.IF &&
       (<IfNode>parent.node).alternate === this.node.node
     );
   }

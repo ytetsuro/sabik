@@ -1,5 +1,6 @@
 import * as PHPParser from 'php-parser';
 import { ASTNode as ASTNodeInterface } from '../../Analyzer/Adapter/ASTNode';
+import {ASTKind} from './ASTKind';
 
 type Node = PHPParser.Program|PHPParser.Node|PHPParser.Block;
 type IdentifierNode = PHPParser.Node & {name: string};
@@ -12,23 +13,6 @@ type NameExtractableNode = PHPParser.Node & {
 type EntryNode = PHPParser.Node & {key?: NameExtractableNode};
 type AssignNode = PHPParser.Node & {left: NameExtractableNode};
 
-enum Kind {
-  CLASS = 'class',
-  TRAIT = 'trait',
-  METHOD = 'method',
-  FUNCTION = 'function',
-  CLOSURE = 'closure',
-  ALLOW_FUNCTION = 'arrowfunc',
-  ENTRY = 'entry',
-  ASSIGN = 'assign',
-  ARRAY = 'array',
-  PROPERTY_LOOKUP = 'propertylookup',
-  STATIC_LOOKUP = 'staticlookup',
-  LABEL = 'label',
-  BIN = 'bin',
-  IF = 'if'
-};
-
 export class ASTNode implements ASTNodeInterface {
   constructor(
     public readonly node: Node,
@@ -36,15 +20,15 @@ export class ASTNode implements ASTNodeInterface {
   ) {}
 
   get kind() {
-    return <Kind>this.node.kind;
+    return <ASTKind>this.node.kind;
   }
 
   isClass() {
-    return [Kind.CLASS, Kind.TRAIT].includes(this.kind);
+    return [ASTKind.CLASS, ASTKind.TRAIT].includes(this.kind);
   }
 
   isMethod() {
-    return this.node.kind === Kind.METHOD;
+    return this.node.kind === ASTKind.METHOD;
   }
 
   getName() {
@@ -67,18 +51,18 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   private getFunctionName(node: ASTNode, args: string[] = []): string {
-    if (node.node.kind === Kind.FUNCTION) {
+    if (node.node.kind === ASTKind.FUNCTION) {
       return this.extractNameString(node.node) ?? 'Anonymous Function';
     }
 
     const currentNode = node?.parentNode?.node;
     switch (currentNode?.kind) {
-      case Kind.ARRAY:
+      case ASTKind.ARRAY:
         break;
-      case Kind.ENTRY:
+      case ASTKind.ENTRY:
         args.push(this.extractNameString((<EntryNode>currentNode)?.key) ?? '[]');
         break;
-      case Kind.ASSIGN:
+      case ASTKind.ASSIGN:
         args.push(`$${this.extractNameString((<AssignNode>currentNode)?.left) ?? ''}`);
 
         return args.reverse().join('.');
@@ -95,7 +79,7 @@ export class ASTNode implements ASTNodeInterface {
 
      if (result !== null) {
        return result;
-     } else if ([Kind.PROPERTY_LOOKUP, Kind.STATIC_LOOKUP].includes(<Kind>node?.kind)) {
+     } else if ([ASTKind.PROPERTY_LOOKUP, ASTKind.STATIC_LOOKUP].includes(<ASTKind>node?.kind)) {
        return node?.loc.source
         .split('=', 2)[0]
         .replace(/[\n|\r|\s|\t]+/g, '')
@@ -108,7 +92,7 @@ export class ASTNode implements ASTNodeInterface {
 
 
   isFunction() {
-    return [Kind.FUNCTION, Kind.ALLOW_FUNCTION, Kind.CLOSURE].includes(<Kind>this.node.kind);
+    return [ASTKind.FUNCTION, ASTKind.ALLOW_FUNCTION, ASTKind.CLOSURE].includes(<ASTKind>this.node.kind);
   }
 
   isFauxClass() {
