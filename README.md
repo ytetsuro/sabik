@@ -2,6 +2,8 @@ Sabik
 ===
 
 ![ci-build](https://github.com/ytetsuro/sabik/workflows/ci-build/badge.svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/ytetsuro/sabik/badge.svg)](https://snyk.io/test/github/ytetsuro/sabik)
+
 
 Sabik is a source code metrics tool.
 It's a compass tool for warriors fighting a project that smells bad.
