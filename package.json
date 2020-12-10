@@ -14,7 +14,7 @@
     "@types/codemirror": "0.0.98",
     "autoprefixer": "^9.8.6",
     "bulma": "^0.9.1",
-    "codemirror": "^5.58.2",
+    "codemirror": "^5.58.3",
     "core-js": "^3.7.0",
     "esbuild": "^0.8.9",
     "immutable": "^4.0.0-rc.12",
