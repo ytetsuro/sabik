@@ -23,6 +23,10 @@ export class ASTNode implements ASTNodeInterface {
     return <ASTKind>this.node.kind;
   }
 
+  get source() {
+    return `${this.node.loc.source}${(<{body?: Node}>this.node)?.body?.loc?.source ?? ''}`;
+  }
+
   isClass() {
     return [ASTKind.CLASS, ASTKind.TRAIT].includes(this.kind);
   }
@@ -92,7 +96,7 @@ export class ASTNode implements ASTNodeInterface {
 
 
   isFunction() {
-    return [ASTKind.FUNCTION, ASTKind.ALLOW_FUNCTION, ASTKind.CLOSURE].includes(<ASTKind>this.node.kind);
+    return [ASTKind.FUNCTION, ASTKind.ARROW_FUNCTION, ASTKind.CLOSURE].includes(<ASTKind>this.node.kind);
   }
 
   isFauxClass() {
