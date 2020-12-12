@@ -1,39 +1,34 @@
-/*
 import { readFileSync } from 'fs';
-import ts from 'typescript';
+import Engine from 'php-parser';
 import { ASTNode } from '../ASTNode';
 import { HalsteadCountableNode } from '../HalsteadCountableNode';
 
 describe('HalsteadCountableNode', () => {
-  const parent = ts.createSourceFile(
-    `${__dirname}/fixtures/example.ts`,
-    readFileSync(`${__dirname}/fixtures/example.ts`).toString(),
-    ts.ScriptTarget.ES2016,
-    true
+  const engine = new Engine({
+    parser: {
+      extractDoc: true,
+    },
+    ast: {
+      withPositions: true,
+      withSource: true,
+    }
+  });
+
+  const parent = engine.parseCode(
+    readFileSync(`${__dirname}/fixtures/example.php`).toString(),
   );
-  const variableStatement = <ts.VariableStatement>parent.statements[2];
+
+  const functionNode = new HalsteadCountableNode(new ASTNode(parent.children[2]));
 
   const findByText = (
     text: string,
-    statement: ts.Node = variableStatement
   ): HalsteadCountableNode | null => {
-    const node = statement.getChildren().find((row) => row.getText() === text);
-
-    if (node) {
-      return new HalsteadCountableNode(new ASTNode(node, parent));
-    }
-
-    return (
-      statement
-        .getChildren()
-        .flatMap((row) => findByText(text, row))
-        .find((row) => row) ?? null
-    );
+    return functionNode.getChildren().find((row) => row.getText() === text) ?? null;
   };
 
   describe('.isOperand()', () => {
-    it('should Math is operand.', () => {
-      const actual = findByText('Math');
+    it('should min is operand.', () => {
+      const actual = findByText('min');
 
       expect(actual!.isOperand()).toBe(true);
     });
@@ -52,8 +47,8 @@ describe('HalsteadCountableNode', () => {
   });
 
   describe('.isOperator()', () => {
-    it('should Math is not operator.', () => {
-      const actual = findByText('Math');
+    it('should min is not operator.', () => {
+      const actual = findByText('min');
 
       expect(actual!.isOperator()).toBe(false);
     });
@@ -67,9 +62,9 @@ describe('HalsteadCountableNode', () => {
 
   describe('.getText()', () => {
     it('should get operator text', () => {
-      const actual = findByText('Math');
+      const actual = findByText('min');
 
-      expect(actual!.getText()).toBe('Math');
+      expect(actual!.getText()).toBe('min');
     });
 
     it('should get operand text', () => {
@@ -79,4 +74,3 @@ describe('HalsteadCountableNode', () => {
     });
   });
 });
-*/

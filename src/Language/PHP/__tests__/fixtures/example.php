@@ -82,5 +82,5 @@ trait MyTrait {
 }
 
 function Func(int ...$arg) {
-  return min($arg);
+  return min($arg) + 3;
 }
