@@ -13,13 +13,16 @@ describe('ASTNode', () => {
     ast: {
       withPositions: true,
       withSource: true,
+    },
+    lexer: {
+      all_tokens: true
     }
   });
   describe('.isClass()', () => {
     it('should checkable class structure.', () => {
-      const sourceFile = engine.parseEval('class A {}; function a() {}');
-      const classStructure = new ASTNode(sourceFile.children[0]);
-      const notClassStructure = new ASTNode(sourceFile.children[1]);
+      const sourceFile = engine.parseCode('<?php class A {}; function a() {}');
+      const classStructure = new ASTNode(sourceFile.children[0], sourceFile);
+      const notClassStructure = new ASTNode(sourceFile.children[1], sourceFile);
 
       expect(classStructure.isClass()).toBe(true);
       expect(notClassStructure.isClass()).toBe(false);
@@ -29,7 +32,7 @@ describe('ASTNode', () => {
       const sourceFile = engine.parseEval('trait A {}');
 
       const fauxClassStructure = new ASTNode(
-        sourceFile.children[0],
+        sourceFile.children[0], sourceFile
       );
 
       expect(fauxClassStructure.isClass()).toBe(true);
@@ -41,13 +44,13 @@ describe('ASTNode', () => {
       const sourceFile = engine.parseEval('trait A {}; class B{}; function a() {}');
 
       const traitStructure = new ASTNode(
-        sourceFile.children[0],
+        sourceFile.children[0], sourceFile
       );
       const classStructure = new ASTNode(
-        sourceFile.children[1],
+        sourceFile.children[1], sourceFile
       );
       const functionStructure = new ASTNode(
-        sourceFile.children[2],
+        sourceFile.children[2], sourceFile
       );
 
       expect(traitStructure.isFauxClass()).toBe(false);
@@ -61,10 +64,10 @@ describe('ASTNode', () => {
       const sourceFile = engine.parseEval('trait A {}; function a() {}');
 
       const functionStructure = new ASTNode(
-        sourceFile.children[1],
+        sourceFile.children[1], sourceFile
       );
       const notFunctionStructure = new ASTNode(
-        sourceFile.children[0],
+        sourceFile.children[0], sourceFile
       );
 
       expect(functionStructure.isFunction()).toBe(true);
@@ -76,6 +79,7 @@ describe('ASTNode', () => {
 
       const functionStructure = new ASTNode(
         (<ExpressionStatement>sourceFile.children[0]).expression.right,
+        sourceFile
       );
 
       expect(functionStructure.isFunction()).toBe(true);
@@ -91,13 +95,16 @@ describe('ASTNode', () => {
       }`);
 
       const notMethodStructure = new ASTNode(
-        sourceFile.children[0]
+        sourceFile.children[0],
+        sourceFile,
       );
       const constructorStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[0]
+        (<ClassStatement>sourceFile.children[0]).body[0],
+        sourceFile,
       );
       const methodStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[1]
+        (<ClassStatement>sourceFile.children[0]).body[1],
+        sourceFile,
       );
 
       expect(notMethodStructure.isMethod()).toBe(false);
@@ -114,7 +121,7 @@ describe('ASTNode', () => {
         function methodA() {}
       }`);
 
-      const classStructure = new ASTNode(sourceFile.children[0]);
+      const classStructure = new ASTNode(sourceFile.children[0], sourceFile);
       const actual = classStructure.getChildren();
 
       expect(actual.length).toBe(3);
@@ -130,7 +137,7 @@ describe('ASTNode', () => {
         function methodA() {}
       }`);
 
-      const classStructure = new ASTNode(sourceFile.children[0]);
+      const classStructure = new ASTNode(sourceFile.children[0], sourceFile);
 
       expect(classStructure.getName()).toBe('A');
     });
@@ -143,10 +150,12 @@ describe('ASTNode', () => {
       }`);
 
       const constructorStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[0]
+        (<ClassStatement>sourceFile.children[0]).body[0],
+        sourceFile
       );
       const methodStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[1]
+        (<ClassStatement>sourceFile.children[0]).body[1],
+        sourceFile
       );
 
       expect(constructorStructure.getName()).toBe('__construct($arg)');
@@ -160,6 +169,7 @@ describe('ASTNode', () => {
 
       const functionStructure = new ASTNode(
         sourceFile.children[0],
+        sourceFile
       );
 
       expect(functionStructure.getName()).toBe('a');
@@ -170,7 +180,7 @@ describe('ASTNode', () => {
         $a = function () {};
       `);
 
-      const functionStructure = (new ASTNode(sourceFile)).getChildren()[0].getChildren()[0].getChildren()[1];
+      const functionStructure = (new ASTNode(sourceFile, sourceFile)).getChildren()[0].getChildren()[0].getChildren()[1];
 
       expect(functionStructure.getName()).toBe('$a');
     });
@@ -180,7 +190,7 @@ describe('ASTNode', () => {
         $a = ['b' => fn() => 1];
       `);
 
-      const functionStructure = (new ASTNode(sourceFile))
+      const functionStructure = (new ASTNode(sourceFile, sourceFile))
         .getChildren()[0]
         .getChildren()[0]
         .getChildren()[1]
@@ -197,7 +207,7 @@ describe('ASTNode', () => {
           ::$c = fn() => 1;
       `);
 
-      const functionStructure = (new ASTNode(sourceFile))
+      const functionStructure = (new ASTNode(sourceFile, sourceFile))
         .getChildren()[0]
         .getChildren()[0]
         .getChildren()[1];
@@ -205,4 +215,130 @@ describe('ASTNode', () => {
       expect(functionStructure.getName()).toBe('$a.c.d.$c');
     });
   });
+
+  describe('.source', () => {
+    const sourceFile = engine.parseEval(`
+      /**
+       * Class Comment.
+       **/
+      class A {
+        /**
+         * MultiLine Comment.
+         **/
+        function hasCommentMethod() {
+          // inline comment.
+          return 1;
+          // this is end comment.
+        }
+
+        function hasNotCommentMethod() {
+          return 2;
+        }
+      }`);
+
+    it('should returns has comment method source code.', () => {
+      const methodStructure = (new ASTNode(sourceFile, sourceFile))
+        .getChildren()[0]
+        .getChildren()[2];
+
+      expect(methodStructure.source).toBe(`/**
+         * MultiLine Comment.
+         **/
+        function hasCommentMethod() {
+          // inline comment.
+          return 1;
+          // this is end comment.
+        }`);
+    });
+
+    it('should returns has not comment method source code.', () => {
+      const methodStructure = (new ASTNode(sourceFile, sourceFile))
+        .getChildren()[0]
+        .getChildren()[3];
+
+      expect(methodStructure.source).toBe(`function hasNotCommentMethod() {
+          return 2;
+        }`);
+    });
+
+    it('should return all source code.', () => {
+      const structure = (new ASTNode(sourceFile, sourceFile));
+
+      expect(structure.source).toBe(`
+      /**
+       * Class Comment.
+       **/
+      class A {
+        /**
+         * MultiLine Comment.
+         **/
+        function hasCommentMethod() {
+          // inline comment.
+          return 1;
+          // this is end comment.
+        }
+
+        function hasNotCommentMethod() {
+          return 2;
+        }
+      }`);
+    })
+  });
+
+  describe('.commentStripSource', () => {
+    const sourceFile = engine.parseEval(`
+      /**
+       * Class Comment.
+       **/
+      class A {
+        /**
+         * MultiLine Comment.
+         **/
+        function hasCommentMethod() {
+          // inline comment.
+          return 1;
+          // this is end comment.
+        }
+
+        function hasNotCommentMethod() {
+          $hearDocument = <<<EOT
+          /** this is Not Comment **/
+          EOT;
+
+          return $hearDocument;
+        }
+      }`);
+
+    it('should returns striped comment method source code.', () => {
+      const methodStructure = (new ASTNode(sourceFile, sourceFile))
+        .getChildren()[0]
+        .getChildren()[2];
+
+      expect(methodStructure.commentStripSource).toBe(`
+        function hasCommentMethod() {
+                    return 1;
+                  }`);
+    });
+
+    it('should return striped comment all source code.', () => {
+      const structure = (new ASTNode(sourceFile, sourceFile));
+
+      expect(structure.commentStripSource).toBe(`
+      
+      class A {
+        
+        function hasCommentMethod() {
+                    return 1;
+                  }
+
+        function hasNotCommentMethod() {
+          $hearDocument = <<<EOT
+          /** this is Not Comment **/
+          EOT;
+
+          return $hearDocument;
+        }
+      }`);
+    })
+  })
 });

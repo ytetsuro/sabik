@@ -16,15 +16,47 @@ type AssignNode = PHPParser.Node & {left: NameExtractableNode};
 export class ASTNode implements ASTNodeInterface {
   constructor(
     public readonly node: Node,
+    public readonly sourceFile: Node,
     public readonly parentNode?: ASTNode
-  ) {}
+  ) {
+    if (sourceFile.kind !== ASTKind.PROGRAM) {
+      throw new Error('sourceFile ast node is not program kind.');
+    }
+  }
 
   get kind() {
     return <ASTKind>this.node.kind;
   }
 
   get source() {
-    return `${this.node.loc.source}${(<{body?: Node}>this.node)?.body?.loc?.source ?? ''}`;
+    const startOffset = this.getStartOffset();
+    const endOffset = this.getEndOffset();
+
+    return this.sourceFile.loc.source.substr(startOffset, (endOffset - startOffset))
+  }
+
+  get commentStripSource() {
+    const startOffset = this.getStartOffset();
+    const endOffset = this.getEndOffset();
+    const sourceArray = this.source.split('');
+    const commentPositions = (<{comments?: Node[]}>this.sourceFile).comments
+      ?.map(row => row.loc)
+      .filter(({start, end}) => start.offset >= startOffset && endOffset >= end.offset)
+      .reduce((result, {start, end}, index) => result.concat({
+          offset: ((<number>start.offset) - startOffset),
+          size: (<number>end.offset) - (<number>start.offset),
+          currentTotalSize: (result?.[index - 1]?.currentTotalSize ?? 0) +  (<number>end.offset) - (<number>start.offset),
+      }), <{offset: number, size: number, currentTotalSize: number}[]>[])
+      .map((row, index, list) => ({
+        ...row,
+        offset: row.offset - (list?.[index - 1]?.currentTotalSize ?? 0)
+      })) ?? [];
+
+    commentPositions.forEach(({offset, size}) => {
+      sourceArray.splice(offset, size);
+    });
+
+    return sourceArray.join('')
   }
 
   isClass() {
@@ -103,12 +135,20 @@ export class ASTNode implements ASTNodeInterface {
     return false;
   }
 
-  getStartLineNumber() {
-    return 0;
+  getStartLineNumber(): number {
+    return <number>this.node.loc.start.line - 1;
   }
 
   getEndLineNumber() {
-    return 0;
+    return <number>this.node.loc.end.line + 1;
+  }
+
+  getStartOffset() {
+    return <number>(<{leadingComments?: Node[]}>this.node)?.leadingComments?.[0]?.loc.start.offset ?? this.node.loc.start.offset;
+  }
+
+  getEndOffset() {
+    return <number>this.node.loc.end.offset;
   }
 
   getChildren() {
@@ -117,6 +157,6 @@ export class ASTNode implements ASTNodeInterface {
       .flatMap(row => row)
       .filter(row => typeof row === 'object')
       .filter(row => typeof row.kind === 'string')
-      .map(row => new ASTNode(row, this));
+      .map(row => new ASTNode(row, this.sourceFile, this));
   }
 }

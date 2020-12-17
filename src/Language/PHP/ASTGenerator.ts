@@ -20,6 +20,6 @@ export class ASTGenerator implements ASTGeneratorInterface {
       filePath
     );
 
-    return new ASTNode(node);
+    return new ASTNode(node, node);
   }
 }

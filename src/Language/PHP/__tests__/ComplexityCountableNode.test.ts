@@ -18,7 +18,7 @@ describe('ComplexityCountableNode', () => {
     `${__dirname}/fixtures/example.php`
   );
 
-  const [_, ...members] = (new ASTNode(node.children[0])).getChildren();
+  const [_, ...members] = (new ASTNode(node.children[0], node)).getChildren();
 
   const map = [...members].reduce(
     (map, node) => map.set((<any>node.node).name.name, node.getChildren()[1]),

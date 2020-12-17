@@ -18,7 +18,7 @@ describe('HalsteadCountableNode', () => {
     readFileSync(`${__dirname}/fixtures/example.php`).toString(),
   );
 
-  const functionNode = new HalsteadCountableNode(new ASTNode(parent.children[2]));
+  const functionNode = new HalsteadCountableNode(new ASTNode(parent.children[2], parent));
 
   const findByText = (
     text: string,

@@ -1,4 +1,5 @@
 export enum ASTKind {
+  PROGRAM = 'program',
   CLASS = 'class',
   TRAIT = 'trait',
   METHOD = 'method',
