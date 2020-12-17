@@ -140,7 +140,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   getEndLineNumber() {
-    return <number>this.node.loc.end.line + 1;
+    return <number>this.node.loc.end.line - 1;
   }
 
   getStartOffset() {
