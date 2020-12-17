@@ -11,7 +11,7 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^2.2.3",
-    "@types/codemirror": "0.0.99",
+    "@types/codemirror": "0.0.100",
     "autoprefixer": "^9.8.6",
     "bulma": "^0.9.1",
     "codemirror": "^5.58.3",
