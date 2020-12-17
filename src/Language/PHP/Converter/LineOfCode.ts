@@ -1,5 +1,5 @@
 import { ASTNode } from '../ASTNode';
-import { LineOfCodeCountableNode } from '../LineOfCodeContableNode';
+import { LineOfCodeCountableNode } from '../LineOfCodeCountableNode';
 
 export class LineOfCode {
   convert(astNode: ASTNode) {
