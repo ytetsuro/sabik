@@ -15,7 +15,7 @@ export class FileFinder {
   constructor(
     @inject(Types.rootPath) currentPath: string,
     @inject(Types.fileMatches) findSource: RegExp,
-    @inject(Types.fileExcludes) excludes: RegExp[] = []
+    @inject(Types.fileExcludes) excludes: RegExp[]
   ) {
     this.currentPath = currentPath.endsWith('/')
       ? currentPath.substr(0, currentPath.length - 1)
