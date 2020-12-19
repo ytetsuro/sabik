@@ -16,6 +16,6 @@ export class Reporter {
       <Promise<void>[]>this.builders.map((builder) => builder.build(metrics))
     );
 
-    console.log(`Generated repot. ${this.outputPath}`);
+    console.log(`Generated report. ${this.outputPath}`);
   }
 }
