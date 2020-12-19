@@ -56,4 +56,4 @@ export enum ASTKind {
   USE = 'usegroup',
   YIELD = 'yield',
   YIELD_FROM = 'yieldfrom',
-};
+}

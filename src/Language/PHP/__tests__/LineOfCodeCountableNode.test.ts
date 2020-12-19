@@ -12,8 +12,8 @@ describe('LineOfCodeCountableNode', () => {
       withSource: true,
     },
     lexer: {
-      all_tokens: true
-    }
+      all_tokens: true,
+    },
   });
   const source = `<?php
     /**
@@ -51,8 +51,7 @@ describe('LineOfCodeCountableNode', () => {
     it('should get strip empty line text.', () => {
       const actual = new LineOfCodeCountableNode(new ASTNode(parent, parent));
 
-      expect(actual.getRemovedCommentAndEmptyLineText())
-        .toBe(`<?php
+      expect(actual.getRemovedCommentAndEmptyLineText()).toBe(`<?php
     class A {
       function hasCommentMethod() {
                 return 1;

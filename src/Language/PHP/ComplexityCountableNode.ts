@@ -1,14 +1,13 @@
 import * as PHPParser from 'php-parser';
 import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
-import {ASTKind} from './ASTKind';
+import { ASTKind } from './ASTKind';
 
-type BinNode = PHPParser.Node & {type: string};
-type IfNode = PHPParser.Node & {alternate: PHPParser.Node};
+type BinNode = PHPParser.Node & { type: string };
+type IfNode = PHPParser.Node & { alternate: PHPParser.Node };
 
 export class ComplexityCountableNode
   implements ComplexityCountableNodeInterface {
-
   private static readonly nestLevelUpKinds = [
     ASTKind.IF,
     ASTKind.CATCH,
@@ -47,11 +46,18 @@ export class ComplexityCountableNode
   isIncrement() {
     if (this.isElse()) {
       return true;
-    } else if (ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind)) {
+    } else if (
+      ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(
+        this.node.kind
+      )
+    ) {
       return true;
     } else if (this.node.kind === ASTKind.LABEL) {
       return true;
-    } else if (this.node.kind === ASTKind.BIN && ['and', 'or', '&&', '||', 'xor'].includes((<BinNode>this.node.node).type)) {
+    } else if (
+      this.node.kind === ASTKind.BIN &&
+      ['and', 'or', '&&', '||', 'xor'].includes((<BinNode>this.node.node).type)
+    ) {
       return true;
     }
 

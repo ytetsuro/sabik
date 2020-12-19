@@ -11,7 +11,7 @@ export class ASTGenerator implements ASTGeneratorInterface {
     ast: {
       withPositions: true,
       withSource: true,
-    }
+    },
   });
 
   generate(filePath: string) {

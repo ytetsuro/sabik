@@ -11,19 +11,21 @@ describe('HalsteadCountableNode', () => {
     ast: {
       withPositions: true,
       withSource: true,
-    }
+    },
   });
 
   const parent = engine.parseCode(
-    readFileSync(`${__dirname}/fixtures/example.php`).toString(),
+    readFileSync(`${__dirname}/fixtures/example.php`).toString()
   );
 
-  const functionNode = new HalsteadCountableNode(new ASTNode(parent.children[2], parent));
+  const functionNode = new HalsteadCountableNode(
+    new ASTNode(parent.children[2], parent)
+  );
 
-  const findByText = (
-    text: string,
-  ): HalsteadCountableNode | null => {
-    return functionNode.getChildren().find((row) => row.getText() === text) ?? null;
+  const findByText = (text: string): HalsteadCountableNode | null => {
+    return (
+      functionNode.getChildren().find((row) => row.getText() === text) ?? null
+    );
   };
 
   describe('.isOperand()', () => {
