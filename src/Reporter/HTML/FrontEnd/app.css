@@ -27,3 +27,10 @@ table td.sabikMetricsFilePath {
   direction: rtl;
   text-align: left;
 }
+
+.sabikMetricsCard {
+  width: 100%;
+}
+.sabikMetricsCard > p.card-header-title{
+  word-break: break-all;
+}

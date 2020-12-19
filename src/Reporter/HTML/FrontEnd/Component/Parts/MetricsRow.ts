@@ -23,7 +23,7 @@ export class MetricsRow implements m.Component<Params> {
               vnode.attrs.onSelect();
             },
           },
-          m('div', [
+          m('div.sabikMetricsCard', [
             m('p.card-header-title.is-size-7', vnode.attrs.metrics.defineName),
             m(
               '.card-header-title.field.is-grouped.is-grouped-multiline.is-size-7',
