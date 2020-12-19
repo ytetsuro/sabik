@@ -40,10 +40,10 @@ OPTIONS
 
 * TypeScript
 * JavaScript
+* PHP < 8.0
 
 # Feature Support Programming Language
 
 * C++
 * Java
-* PHP
 * Python
