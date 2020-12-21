@@ -23,7 +23,7 @@ export class Detail implements m.Component<Param> {
         m(
           '.column.is-one-quarter',
           m(Metrics, {
-            metrics: vnode.attrs.fileMetrics.metrics,
+            metrics: vnode.attrs.fileMetrics.getMetrics(),
           })
         ),
         m('.column', [

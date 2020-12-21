@@ -26,6 +26,12 @@ export class FileMetrics {
     return this.lineOfCode.logical;
   }
 
+  getMetrics() {
+    return this.metrics
+      .slice()
+      .sort((a, b) => a.getStartLineNumber() - b.getStartLineNumber());
+  }
+
   getLength() {
     return this.metricsCalculator.getLength();
   }
