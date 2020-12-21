@@ -2,6 +2,7 @@ import m from 'mithril';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/meta';
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/jsx/jsx';
 import 'codemirror/mode/php/php';
 import { SourceCode as SourceCodeEntity } from '../../../Entity/SourceCode';
 import { SourceCode as SourceCodePresenter } from './SourceCode';
