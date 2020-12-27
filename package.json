@@ -15,7 +15,7 @@
     "autoprefixer": "^9.8.6",
     "bulma": "^0.9.1",
     "codemirror": "^5.58.3",
-    "core-js": "^3.8.0",
+    "core-js": "^3.8.1",
     "esbuild": "^0.8.18",
     "immutable": "^4.0.0-rc.12",
     "inversify": "^5.0.1",
