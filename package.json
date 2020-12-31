@@ -18,7 +18,7 @@
     "core-js": "^3.8.1",
     "esbuild": "^0.8.20",
     "immutable": "^4.0.0-rc.12",
-    "inversify": "^5.0.1",
+    "inversify": "^5.0.5",
     "mithril": "^2.0.3",
     "pako": "^1.0.11",
     "php-parser": "^3.0.2",
