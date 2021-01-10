@@ -9,6 +9,13 @@ export class ASTNode implements ASTNodeInterface {
     ts.SyntaxKind.ArrowFunction,
   ];
 
+  private static readonly methodSyntaxKinds = [
+      ts.SyntaxKind.MethodDeclaration,
+      ts.SyntaxKind.Constructor,
+      ts.SyntaxKind.GetAccessor,
+      ts.SyntaxKind.SetAccessor,
+  ];
+
   readonly node: ts.Node;
 
   constructor(node: ts.Node, private readonly sourceFile: ts.SourceFile) {
@@ -20,12 +27,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isMethod() {
-    return (
-      this.node.kind === ts.SyntaxKind.MethodDeclaration ||
-      this.node.kind === ts.SyntaxKind.Constructor ||
-      this.node.kind === ts.SyntaxKind.GetAccessor ||
-      this.node.kind === ts.SyntaxKind.SetAccessor
-    );
+    return ASTNode.methodSyntaxKinds.includes(this.node.kind);
   }
 
   getName() {
@@ -50,7 +52,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isFunction() {
-    return ASTNode.functionSyntaxKinds.indexOf(this.node.kind) > -1;
+    return ASTNode.functionSyntaxKinds.includes(this.node.kind);
   }
 
   isFauxClass() {
