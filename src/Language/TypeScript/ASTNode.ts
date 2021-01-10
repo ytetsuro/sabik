@@ -22,7 +22,9 @@ export class ASTNode implements ASTNodeInterface {
   isMethod() {
     return (
       this.node.kind === ts.SyntaxKind.MethodDeclaration ||
-      this.node.kind === ts.SyntaxKind.Constructor
+      this.node.kind === ts.SyntaxKind.Constructor ||
+      this.node.kind === ts.SyntaxKind.GetAccessor ||
+      this.node.kind === ts.SyntaxKind.SetAccessor
     );
   }
 
