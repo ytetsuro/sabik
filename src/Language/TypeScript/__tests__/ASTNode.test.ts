@@ -72,7 +72,7 @@ describe('ASTNode', () => {
     it('should checkable function structure', () => {
       const sourceFile = ts.createSourceFile(
         'dummy.ts',
-        'class A {constructor() {} methodA() {}}',
+        'class A {constructor() {} methodA() {} get foo() {} set bar() {}}',
         ts.ScriptTarget.ES2016,
         true
       );
@@ -89,10 +89,20 @@ describe('ASTNode', () => {
         (<ts.ClassDeclaration>sourceFile.statements[0]).members[1],
         sourceFile
       );
+      const getAccessStructure = new ASTNode(
+        (<ts.ClassDeclaration>sourceFile.statements[0]).members[2],
+        sourceFile
+      );
+      const setAccessStructure = new ASTNode(
+        (<ts.ClassDeclaration>sourceFile.statements[0]).members[3],
+        sourceFile
+      );
 
       expect(notMethodStructure.isMethod()).toBe(false);
       expect(constructorStructure.isMethod()).toBe(true);
       expect(methodStructure.isMethod()).toBe(true);
+      expect(getAccessStructure.isMethod()).toBe(true);
+      expect(setAccessStructure.isMethod()).toBe(true);
     });
   });
 
