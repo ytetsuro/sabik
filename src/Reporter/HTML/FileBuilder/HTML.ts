@@ -12,7 +12,9 @@ export class HTML {
             <html lang="en">
             <head><meta charset="UTF-8">
             <link rel="stylesheet" href="./index.css">
-            <script src="./index.js"></script></head>
+            <script src="./index.js"></script>
+            <title>Sabik Report</title>
+            </head>
             <body></body>
          </html>`
     );
