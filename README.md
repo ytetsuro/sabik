@@ -32,7 +32,7 @@ OPTIONS
   -h, --help                             show CLI help
   -o, --outputReportDir=outputReportDir  output report directory path. default: ./sabik_report
   -v, --version                          show CLI version
-  --excludes=excludes                    exclude patterns is separated by a comma. example: *.test.ts,*.spec.ts
+  --excludes=excludes                    exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$
   --matches=matches                      match patterns. example: .ts$
 ```
 
