@@ -19,7 +19,7 @@ class Sabik extends Command {
     }),
     excludes: flags.string({
       description:
-        'exclude patterns is separated by a comma. example: *.test.ts,*.spec.ts',
+        'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$',
     }),
     matches: flags.string({ description: 'match patterns. example: .ts$' }),
   };
