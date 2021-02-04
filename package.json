@@ -16,7 +16,7 @@
     "bulma": "^0.9.1",
     "codemirror": "^5.59.1",
     "core-js": "^3.8.2",
-    "esbuild": "^0.8.31",
+    "esbuild": "^0.8.32",
     "immutable": "^4.0.0-rc.12",
     "inversify": "^5.0.5",
     "mithril": "^2.0.3",
