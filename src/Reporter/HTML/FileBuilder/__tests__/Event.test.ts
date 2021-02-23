@@ -1,16 +1,22 @@
 import { basename, dirname } from 'path';
-import { LineOfCode } from '../../../../Calculator/LineOfCode/LineOfCode';
-import { Analyzed } from '../../../../Sabik/Analyzer/Analyzed';
+import { LogicalLineOfCode } from '../../../../Calculator/LineOfCode/MetricsValue/LogicalLineOfCode';
+import { Metrics } from '../../../../Analyzer/Metrics/Metrics';
 import { Event } from '../Event';
+import { CodePoint } from '../../../../Analyzer/Metrics/CodePoint';
+import { CodePointType } from '../../../../Analyzer/Metrics/CodePointType';
 
 describe('Event', () => {
   describe('build', () => {
     it('should create html.', async () => {
       const writerMock = { write: jest.fn((_, __) => Promise.resolve()) };
+      const relativePath = basename(__filename);
       const builder = new Event(<any>writerMock, dirname(__filename));
 
       await builder.build([
-        new Analyzed(basename(__filename), [], new LineOfCode(2, 1)),
+        new Metrics(
+          {fullPath: __filename, relativePath, extension: '.ts'},
+          [new CodePoint(CodePointType.Method, 'unitTest', 0, 1)],
+          [new LogicalLineOfCode(2)]),
       ]);
 
       expect(writerMock.write.mock.calls.length).toBe(2);

@@ -1,53 +1,22 @@
 import { FileMetrics } from '../FileMetrics';
 import { Metrics } from '../Metrics';
+import { MetricsValue } from '../MetricsValue';
 
 describe('Metrics', () => {
   describe('.to()', () => {
     it('should convert dataModel to entity.', () => {
-      const converter = new FileMetrics(new Metrics());
+      const converter = new FileMetrics(new Metrics(new MetricsValue()));
       const actual = converter.to({
         fileName: 'dummy.ts',
-        lineOfCode: {
-          logical: 800,
-          physical: 1000,
-        },
-        metrics: [
-          {
-            defineName: 'UnitTest',
-            position: {
-              start: 0,
-              end: 1000,
-            },
-            halstead: {
-              operands: [],
-              operators: [],
-              volume: 100,
-              length: 200,
-              vocabulary: 300,
-              difficulty: 400,
-              effort: 500,
-              time: 600,
-              bugsDelivered: 700,
-            },
-            cognitiveComplexity: {
-              complexity: 80,
-              items: [
-                {
-                  complexity: 1,
-                  deepCount: 79,
-                },
-              ],
-            },
-            lineOfCode: {
-              physical: 1000,
-              logical: 800,
-            },
-            maintainability: {
-              maintainability: 900,
-            },
-          },
+        codePointType: 2,
+        name: 'UnitTest',
+        startLineNumber: 0,
+        endLineNumber: 1000,
+        metricsList: [
+          {type: 8, value: 800,},
+          {type: 9, value: 1000,},
         ],
-      });
+      }, []);
 
       expect(actual.fileName).toBe('dummy.ts');
       expect(actual.logicalLineOfCode).toStrictEqual(800);

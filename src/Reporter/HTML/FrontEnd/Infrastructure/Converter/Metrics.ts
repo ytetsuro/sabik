@@ -1,47 +1,18 @@
-import { Metrics as DataModel } from '../DataModel/Metrics';
+import { FileMetrics as DataModel } from '../DataModel/FileMetrics';
 import { Metrics as Entity } from '../../Entity/Metrics';
-import { MetricsValue } from '../../Entity/MetricsValue';
-import { MetricsType } from '../../Entity/MetricsType';
+import { MetricsValue as MetricsValue } from './MetricsValue';
 
 export class Metrics {
+  constructor(private readonly converter: MetricsValue) {}
+
   to(dataModel: DataModel) {
     return new Entity(
-      dataModel.defineName,
-      [
-        new MetricsValue(
-          MetricsType.CognitiveComplexity,
-          dataModel.cognitiveComplexity.complexity
-        ),
-        new MetricsValue(MetricsType.HalsteadLength, dataModel.halstead.length),
-        new MetricsValue(
-          MetricsType.HalsteadDifficulty,
-          dataModel.halstead.difficulty
-        ),
-        new MetricsValue(MetricsType.HalsteadEffort, dataModel.halstead.effort),
-        new MetricsValue(MetricsType.HalsteadTime, dataModel.halstead.time),
-        new MetricsValue(
-          MetricsType.HalsteadVocabulary,
-          dataModel.halstead.vocabulary
-        ),
-        new MetricsValue(MetricsType.HalsteadVolume, dataModel.halstead.volume),
-        new MetricsValue(
-          MetricsType.BugsDelivered,
-          dataModel.halstead.bugsDelivered
-        ),
-        new MetricsValue(
-          MetricsType.LineOfCodeLogical,
-          dataModel.lineOfCode.logical
-        ),
-        new MetricsValue(
-          MetricsType.LineOfCodePhysical,
-          dataModel.lineOfCode.physical
-        ),
-        new MetricsValue(
-          MetricsType.Maintainability,
-          dataModel.maintainability.maintainability
-        ),
-      ],
-      dataModel.position
+      dataModel.name,
+      dataModel.metricsList.map(row => this.converter.to(row)),
+      {
+        start: dataModel.startLineNumber,
+        end: dataModel.endLineNumber,
+      }
     );
   }
 }

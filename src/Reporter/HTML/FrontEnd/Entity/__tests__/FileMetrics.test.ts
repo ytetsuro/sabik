@@ -8,7 +8,14 @@ describe('FileMetrics', () => {
     it('should returns metrics length.', () => {
       const metrics = new FileMetrics(
         'dummy.ts',
-        { logical: 1, physical: 2 },
+        new Metrics(
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
+        ),
         []
       );
 
@@ -19,14 +26,24 @@ describe('FileMetrics', () => {
   describe('.getMaximumComplexity()', () => {
     it('should returns maximumComplexity.', () => {
       const expected = new MetricsValue(MetricsType.CognitiveComplexity, 4);
-      const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
-        new Metrics('test', [expected], { start: 0, end: 1 }),
+      const metrics = new FileMetrics(
+        'dummy.ts',
         new Metrics(
-          'test2',
-          [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
-          { start: 0, end: 1 }
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
         ),
-      ]);
+        [
+          new Metrics('test', [expected], { start: 0, end: 1 }),
+          new Metrics(
+            'test2',
+            [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
+            { start: 0, end: 1 }
+          ),
+        ]);
 
       expect(metrics.getMaximumComplexity()).toStrictEqual(expected);
     });
@@ -34,17 +51,27 @@ describe('FileMetrics', () => {
 
   describe('.getAverageComplexity()', () => {
     it('should returns average complexity.', () => {
-      const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
+      const metrics = new FileMetrics(
+        'dummy.ts',
         new Metrics(
-          'test',
-          [new MetricsValue(MetricsType.CognitiveComplexity, 4)],
-          { start: 0, end: 1 }
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
         ),
-        new Metrics(
-          'test2',
-          [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
-          { start: 0, end: 1 }
-        ),
+        [
+          new Metrics(
+            'test',
+            [new MetricsValue(MetricsType.CognitiveComplexity, 4)],
+            { start: 0, end: 1 }
+          ),
+          new Metrics(
+            'test2',
+            [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
+            { start: 0, end: 1 }
+          ),
       ]);
 
       expect(metrics.getAverageComplexity()).toStrictEqual(
@@ -55,14 +82,24 @@ describe('FileMetrics', () => {
 
   describe('.getMaximumBugsDelivered()', () => {
     it('should returns maximumBugsDelivered.', () => {
-      const expected = new MetricsValue(MetricsType.BugsDelivered, 4);
-      const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
-        new Metrics('test', [expected], { start: 0, end: 1 }),
-        new Metrics('test2', [new MetricsValue(MetricsType.BugsDelivered, 3)], {
-          start: 0,
-          end: 1,
-        }),
-      ]);
+      const expected = new MetricsValue(MetricsType.HalsteadBugsDelivered, 4);
+      const metrics = new FileMetrics(
+        'dummy.ts',
+        new Metrics(
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
+        ),
+        [
+          new Metrics('test', [expected], { start: 0, end: 1 }),
+          new Metrics('test2', [new MetricsValue(MetricsType.HalsteadBugsDelivered, 3)], {
+            start: 0,
+            end: 1,
+          }),
+        ]);
 
       expect(metrics.getMaximumBugsDelivered()).toStrictEqual(expected);
     });
@@ -70,19 +107,29 @@ describe('FileMetrics', () => {
 
   describe('.getSumBugsDelivered()', () => {
     it('should returns average bugsDelivered.', () => {
-      const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
-        new Metrics('test', [new MetricsValue(MetricsType.BugsDelivered, 4)], {
-          start: 0,
-          end: 1,
-        }),
-        new Metrics('test2', [new MetricsValue(MetricsType.BugsDelivered, 3)], {
-          start: 0,
-          end: 1,
-        }),
+      const metrics = new FileMetrics(
+        'dummy.ts',
+        new Metrics(
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
+        ),
+        [
+          new Metrics('test', [new MetricsValue(MetricsType.HalsteadBugsDelivered, 4)], {
+            start: 0,
+            end: 1,
+          }),
+          new Metrics('test2', [new MetricsValue(MetricsType.HalsteadBugsDelivered, 3)], {
+            start: 0,
+            end: 1,
+          }),
       ]);
 
       expect(metrics.getSumBugsDelivered()).toStrictEqual(
-        new MetricsValue(MetricsType.BugsDelivered, 7)
+        new MetricsValue(MetricsType.HalsteadBugsDelivered, 7)
       );
     });
   });
@@ -90,13 +137,23 @@ describe('FileMetrics', () => {
   describe('.getMinimumMaintainability()', () => {
     it('should returns minimumMaintainability.', () => {
       const expected = new MetricsValue(MetricsType.Maintainability, 4);
-      const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
-        new Metrics('test', [expected], { start: 0, end: 1 }),
+      const metrics = new FileMetrics(
+        'dummy.ts',
         new Metrics(
-          'test2',
-          [new MetricsValue(MetricsType.Maintainability, 5)],
-          { start: 0, end: 1 }
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
         ),
+        [
+          new Metrics('test', [expected], { start: 0, end: 1 }),
+          new Metrics(
+            'test2',
+            [new MetricsValue(MetricsType.Maintainability, 5)],
+            { start: 0, end: 1 }
+          ),
       ]);
 
       expect(metrics.getMinimumMaintainability()).toStrictEqual(expected);
@@ -105,17 +162,27 @@ describe('FileMetrics', () => {
 
   describe('.getAverageMaintainability()', () => {
     it('should returns average maintainability.', () => {
-      const metrics = new FileMetrics('dummy.ts', { logical: 1, physical: 2 }, [
+      const metrics = new FileMetrics(
+        'dummy.ts',
         new Metrics(
-          'test',
-          [new MetricsValue(MetricsType.Maintainability, 4)],
-          { start: 0, end: 1 }
+          'dummy.ts',
+          [
+            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+            new MetricsValue(MetricsType.LineOfCodePhysical, 2)
+          ],
+          {start: 0, end: 2}
         ),
-        new Metrics(
-          'test2',
-          [new MetricsValue(MetricsType.Maintainability, 3)],
-          { start: 0, end: 1 }
-        ),
+        [
+          new Metrics(
+            'test',
+            [new MetricsValue(MetricsType.Maintainability, 4)],
+            { start: 0, end: 1 }
+          ),
+          new Metrics(
+            'test2',
+            [new MetricsValue(MetricsType.Maintainability, 3)],
+            { start: 0, end: 1 }
+          ),
       ]);
 
       expect(metrics.getAverageMaintainability()).toStrictEqual(

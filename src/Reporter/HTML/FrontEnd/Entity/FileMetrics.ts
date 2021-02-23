@@ -12,22 +12,22 @@ export class FileMetrics {
 
   constructor(
     public readonly fileName: string,
-    private readonly lineOfCode: LineOfCode,
-    public readonly metrics: Metrics[]
+    private readonly metrics: Metrics,
+    public readonly childrenMetrics: Metrics[]
   ) {
-    this.metricsCalculator = new MetricsCalculator(metrics);
+    this.metricsCalculator = new MetricsCalculator(childrenMetrics);
   }
 
   get physicalLineOfCode() {
-    return this.lineOfCode.physical;
+    return Number(this.metrics.getByType(MetricsType.LineOfCodePhysical) ?? 0);
   }
 
   get logicalLineOfCode() {
-    return this.lineOfCode.logical;
+    return Number(this.metrics.getByType(MetricsType.LineOfCodeLogical) ?? 0);
   }
 
   getMetrics() {
-    return this.metrics
+    return this.childrenMetrics
       .slice()
       .sort((a, b) => a.getStartLineNumber() - b.getStartLineNumber());
   }
@@ -45,11 +45,11 @@ export class FileMetrics {
   }
 
   getMaximumBugsDelivered() {
-    return this.metricsCalculator.max(MetricsType.BugsDelivered);
+    return this.metricsCalculator.max(MetricsType.HalsteadBugsDelivered);
   }
 
   getSumBugsDelivered() {
-    return this.metricsCalculator.sum(MetricsType.BugsDelivered);
+    return this.metricsCalculator.sum(MetricsType.HalsteadBugsDelivered);
   }
 
   getMinimumMaintainability() {
