@@ -5,8 +5,8 @@ import { LogicalLineOfCode } from './MetricsValue/LogicalLineOfCode';
 import { PhysicalLineOfCode } from './MetricsValue/PhysicalLineOfCode';
 
 type MetricsSource = {
-    astNode: ASTNode,
-    file: File,
+  astNode: ASTNode;
+  file: File;
 };
 
 export class Calculator {

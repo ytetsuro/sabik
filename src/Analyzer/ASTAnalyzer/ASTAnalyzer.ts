@@ -3,8 +3,8 @@ import { ASTNode } from '../Adapter/ASTNode';
 import { File } from '../Adapter/File';
 
 type MetricsSource = {
-    astNode: ASTNode,
-    file: File,
+  astNode: ASTNode;
+  file: File;
 };
 
 export interface ASTAnalyzer {

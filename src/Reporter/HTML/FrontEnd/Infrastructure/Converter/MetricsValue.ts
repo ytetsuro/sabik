@@ -4,9 +4,6 @@ import { MetricsType } from '../../Entity/MetricsType';
 
 export class MetricsValue {
   to(dataModel: DataModel) {
-    return new Entity(
-      MetricsType.castAs(dataModel.type),
-      dataModel.value,
-    );
+    return new Entity(MetricsType.castAs(dataModel.type), dataModel.value);
   }
 }

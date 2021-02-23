@@ -1,3 +1,3 @@
 export interface MetricsType {
-    valueOf(): number;
+  valueOf(): number;
 }

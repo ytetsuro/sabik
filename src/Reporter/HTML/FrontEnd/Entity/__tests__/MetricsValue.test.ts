@@ -18,7 +18,10 @@ describe('MetricsValue', () => {
 
   describe('.toString()', () => {
     it('should return a readable number.', () => {
-      const actual = new MetricsValue(MetricsType.HalsteadBugsDelivered, 10223.212);
+      const actual = new MetricsValue(
+        MetricsType.HalsteadBugsDelivered,
+        10223.212
+      );
 
       expect(String(actual)).toBe('10,223.21');
     });
@@ -32,7 +35,10 @@ describe('MetricsValue', () => {
 
   describe('.getLevel()', () => {
     it('should return level.', () => {
-      const actual = new MetricsValue(MetricsType.HalsteadBugsDelivered, 10223.212);
+      const actual = new MetricsValue(
+        MetricsType.HalsteadBugsDelivered,
+        10223.212
+      );
 
       expect(actual.getLevel()).toBe(2);
     });

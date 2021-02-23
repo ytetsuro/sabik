@@ -1,5 +1,5 @@
 export interface File {
-    readonly fullPath: string,
-    readonly relativePath: string
-    readonly extension: string,
+  readonly fullPath: string;
+  readonly relativePath: string;
+  readonly extension: string;
 }

@@ -26,7 +26,15 @@ export class Calculator {
     const effort = new HalsteadEffort(volume, difficulty);
     const time = new HalsteadTime(effort);
 
-    return [length, vocabulary, difficulty, volume, bugsDelivered, effort, time];
+    return [
+      length,
+      vocabulary,
+      difficulty,
+      volume,
+      bugsDelivered,
+      effort,
+      time,
+    ];
   }
 
   private extractOperandsAndOperators(node: HalsteadCountableNode) {

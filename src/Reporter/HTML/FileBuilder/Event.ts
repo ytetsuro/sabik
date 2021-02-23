@@ -14,7 +14,10 @@ export class Event {
 
   async build(metrics: Metrics[]) {
     const events = [];
-    const fileList = metrics.reduce((fileList, {file}) => fileList.add(file.relativePath), new Set<string>());
+    const fileList = metrics.reduce(
+      (fileList, { file }) => fileList.add(file.relativePath),
+      new Set<string>()
+    );
 
     events.push(
       this.writer.write(

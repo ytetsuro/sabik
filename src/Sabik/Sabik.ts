@@ -15,13 +15,11 @@ import { ExtractMethodMetricsAnalyzer } from '../Analyzer/MetricsAnalyzer/Extrac
 
 @injectable()
 export class Sabik {
-
   constructor(
     private language: Language,
     private fileFinder: FileFinder,
     @inject(Types.reporter) private presenter: Reporter
-  ) {
-  }
+  ) {}
 
   exec(findPath: string) {
     const paths = this.fileFinder.find(findPath);
@@ -29,17 +27,32 @@ export class Sabik {
     const analyzer = new Analyzer(
       this.language.createASTNodeGenerator(),
       [
-        new MethodAnalyzer(extractor, this.language.createCountableNodeConverter('complexityConverter'), new CognitiveComplexity),
-        new MethodAnalyzer(extractor, this.language.createCountableNodeConverter('halsteadConverter'), new Halstead),
-        new MethodAnalyzer(extractor, this.language.createCountableNodeConverter('lineOfCodeConverter'), new LineOfCode),
-        new FileAnalyzer(this.language.createCountableNodeConverter('lineOfCodeConverter'), new LineOfCode),
+        new MethodAnalyzer(
+          extractor,
+          this.language.createCountableNodeConverter('complexityConverter'),
+          new CognitiveComplexity()
+        ),
+        new MethodAnalyzer(
+          extractor,
+          this.language.createCountableNodeConverter('halsteadConverter'),
+          new Halstead()
+        ),
+        new MethodAnalyzer(
+          extractor,
+          this.language.createCountableNodeConverter('lineOfCodeConverter'),
+          new LineOfCode()
+        ),
+        new FileAnalyzer(
+          this.language.createCountableNodeConverter('lineOfCodeConverter'),
+          new LineOfCode()
+        ),
       ],
-      [
-        new ExtractMethodMetricsAnalyzer(new Maintainability()),
-      ]
+      [new ExtractMethodMetricsAnalyzer(new Maintainability())]
     );
 
-    const targetPaths = paths.filter((path) => this.language.isSupport(path.extension));
+    const targetPaths = paths.filter((path) =>
+      this.language.isSupport(path.extension)
+    );
 
     const fileMetricsList = analyzer.analyze(targetPaths);
 

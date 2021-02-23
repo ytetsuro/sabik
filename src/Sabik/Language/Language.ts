@@ -10,37 +10,57 @@ import { Types } from '../../types/Types';
 
 @injectable()
 export class Language {
-    constructor(@multiInject(Types.languageConfig) private configs: LanguageConfig[]) {
-    }
+  constructor(
+    @multiInject(Types.languageConfig) private configs: LanguageConfig[]
+  ) {}
 
-    addConfig(config: LanguageConfig) {
-        this.configs.push(config);
-    }
+  addConfig(config: LanguageConfig) {
+    this.configs.push(config);
+  }
 
-    isSupport(extension: string) {
-        return this.configs.some(({extensions}) => extensions.includes(extension));
-    }
+  isSupport(extension: string) {
+    return this.configs.some(({ extensions }) =>
+      extensions.includes(extension)
+    );
+  }
 
-    createASTNodeGenerator() {
-        const astGeneratorPerExtension = this.configs
-            .reduce((map, {extensions, astGenerator}) => 
-                extensions.reduce((map, extension) => map.set(extension, astGenerator), map)
-            , new Map<string, ASTGenerator>());
+  createASTNodeGenerator() {
+    const astGeneratorPerExtension = this.configs.reduce(
+      (map, { extensions, astGenerator }) =>
+        extensions.reduce(
+          (map, extension) => map.set(extension, astGenerator),
+          map
+        ),
+      new Map<string, ASTGenerator>()
+    );
 
-        return new SabikASTGenerator(astGeneratorPerExtension);
-    }
+    return new SabikASTGenerator(astGeneratorPerExtension);
+  }
 
-    createCountableNodeConverter(by: 'complexityConverter'): CountableNodeConverter<ComplexityCountableNode>;
-    createCountableNodeConverter(by: 'halsteadConverter'): CountableNodeConverter<HalsteadCountableNode>;
-    createCountableNodeConverter(by: 'lineOfCodeConverter'): CountableNodeConverter<LineOfCodeCountableNode>;
+  createCountableNodeConverter(
+    by: 'complexityConverter'
+  ): CountableNodeConverter<ComplexityCountableNode>;
+  createCountableNodeConverter(
+    by: 'halsteadConverter'
+  ): CountableNodeConverter<HalsteadCountableNode>;
+  createCountableNodeConverter(
+    by: 'lineOfCodeConverter'
+  ): CountableNodeConverter<LineOfCodeCountableNode>;
 
-    createCountableNodeConverter(by: 'complexityConverter'|'halsteadConverter'|'lineOfCodeConverter') {
-        return new CountableNodeConverter(<any>this.extractCountableNodeConverter(by));
-    }
+  createCountableNodeConverter(
+    by: 'complexityConverter' | 'halsteadConverter' | 'lineOfCodeConverter'
+  ) {
+    return new CountableNodeConverter(
+      <any>this.extractCountableNodeConverter(by)
+    );
+  }
 
-    private extractCountableNodeConverter<T extends keyof LanguageConfig>(propertyName: T): Map<LanguageConfig['astNodeConstructor'], LanguageConfig[T]>
-    {
-        return this.configs.reduce((map, config) => map.set(config.astNodeConstructor, config[propertyName]), new Map);
-    }
-
+  private extractCountableNodeConverter<T extends keyof LanguageConfig>(
+    propertyName: T
+  ): Map<LanguageConfig['astNodeConstructor'], LanguageConfig[T]> {
+    return this.configs.reduce(
+      (map, config) => map.set(config.astNodeConstructor, config[propertyName]),
+      new Map()
+    );
+  }
 }

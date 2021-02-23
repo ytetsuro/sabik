@@ -14,9 +14,10 @@ describe('Event', () => {
 
       await builder.build([
         new Metrics(
-          {fullPath: __filename, relativePath, extension: '.ts'},
+          { fullPath: __filename, relativePath, extension: '.ts' },
           [new CodePoint(CodePointType.Method, 'unitTest', 0, 1)],
-          [new LogicalLineOfCode(2)]),
+          [new LogicalLineOfCode(2)]
+        ),
       ]);
 
       expect(writerMock.write.mock.calls.length).toBe(2);

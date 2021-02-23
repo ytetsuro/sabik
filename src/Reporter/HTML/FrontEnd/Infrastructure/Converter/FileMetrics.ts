@@ -9,7 +9,7 @@ export class FileMetrics {
     return new Entity(
       fileMetricsDataModel.fileName,
       this.converter.to(fileMetricsDataModel),
-      metricsDataModels.map(row => this.converter.to(row))
+      metricsDataModels.map((row) => this.converter.to(row))
     );
   }
 }

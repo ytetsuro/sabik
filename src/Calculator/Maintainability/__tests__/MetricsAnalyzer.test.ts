@@ -3,7 +3,7 @@ import { ComplexityCountableNode } from '../../../TestHelpers/ComplexityCountabl
 import { HalsteadLength } from '../../Halstead/MetricsValue/HalsteadLength';
 import { HalsteadVocabulary } from '../..//Halstead/MetricsValue/HalsteadVocabulary';
 import { HalsteadVolume } from '../..//Halstead/MetricsValue/HalsteadVolume';
-import { OperandAndOperator } from "../..//Halstead/OperandAndOperator";
+import { OperandAndOperator } from '../..//Halstead/OperandAndOperator';
 import { CognitiveComplexity } from '../../CognitiveComplexity/CognitiveComplexity';
 import { ComplexityIncrement } from '../../CognitiveComplexity/ComplexityIncrement';
 import { LogicalLineOfCode } from '../../LineOfCode/MetricsValue/LogicalLineOfCode';
@@ -23,8 +23,8 @@ describe('Maintainability Calculator Class', () => {
         ])
       );
       const volume = new HalsteadVolume(
-          new HalsteadLength(operandAndOperator),
-          new HalsteadVocabulary(operandAndOperator)
+        new HalsteadLength(operandAndOperator),
+        new HalsteadVocabulary(operandAndOperator)
       );
       const complexity = new CognitiveComplexity([
         new ComplexityIncrement(new ComplexityCountableNode({ DSL: 'IN' }), 2),

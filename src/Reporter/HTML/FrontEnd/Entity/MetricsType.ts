@@ -57,7 +57,7 @@ export class MetricsType {
 
   static castAs(id: number) {
     const result = Object.values(MetricsType)
-      .filter(row => row instanceof MetricsType)
+      .filter((row) => row instanceof MetricsType)
       .find((row: MetricsType) => row.scaler === id);
 
     if (!result) {

@@ -10,10 +10,10 @@ export class ASTNode implements ASTNodeInterface {
   ];
 
   private static readonly methodSyntaxKinds = [
-      ts.SyntaxKind.MethodDeclaration,
-      ts.SyntaxKind.Constructor,
-      ts.SyntaxKind.GetAccessor,
-      ts.SyntaxKind.SetAccessor,
+    ts.SyntaxKind.MethodDeclaration,
+    ts.SyntaxKind.Constructor,
+    ts.SyntaxKind.GetAccessor,
+    ts.SyntaxKind.SetAccessor,
   ];
 
   readonly node: ts.Node;

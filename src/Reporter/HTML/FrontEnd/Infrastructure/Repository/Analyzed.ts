@@ -63,14 +63,16 @@ export class Analyzed {
       const seed = await this.resourceLoader.load('analyzed', 'analyzed');
       const dataModels: DataModel[] = JSON.parse(seed);
       this.fileMetrics = dataModels
-        .filter(({codePointType}) => codePointType === 0)
-        .map(row => ({
+        .filter(({ codePointType }) => codePointType === 0)
+        .map((row) => ({
           dataModel: row,
           childDataModels: dataModels
-            .filter(({fileName}) => fileName === row.fileName)
-            .filter(({codePointType}) => codePointType !== 0)
+            .filter(({ fileName }) => fileName === row.fileName)
+            .filter(({ codePointType }) => codePointType !== 0),
         }))
-        .map(({dataModel, childDataModels}) => this.converter.to(dataModel, childDataModels))
+        .map(({ dataModel, childDataModels }) =>
+          this.converter.to(dataModel, childDataModels)
+        )
         .reduce(
           (map, fileMetrics) => map.set(fileMetrics.fileName, fileMetrics),
           new Map()

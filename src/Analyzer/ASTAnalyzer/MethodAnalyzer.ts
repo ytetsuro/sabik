@@ -7,34 +7,34 @@ import { ASTNodeExtractor } from '../ASTNodeExtractor';
 import { Calculator } from '../Adapter/Calculator';
 
 type MetricsSource = {
-    astNode: ASTNode,
-    file: File,
+  astNode: ASTNode;
+  file: File;
 };
 
 export class MethodAnalyzer<T> implements ASTAnalyzer {
-    constructor(
-        private readonly extractor: ASTNodeExtractor,
-        private readonly converter: Converter<T>,
-        private readonly calculator: Calculator<T>,
-    ) {
-    }
+  constructor(
+    private readonly extractor: ASTNodeExtractor,
+    private readonly converter: Converter<T>,
+    private readonly calculator: Calculator<T>
+  ) {}
 
   analyze(rootASTNodeList: MetricsSource[]): Metrics[] {
-      return rootASTNodeList
-        .flatMap(rootASTNode => this.analyzeMethod(rootASTNode));
+    return rootASTNodeList.flatMap((rootASTNode) =>
+      this.analyzeMethod(rootASTNode)
+    );
   }
 
   private analyzeMethod(rootASTNode: MetricsSource): Metrics[] {
-      const targets = this.extractor.extractMethods(rootASTNode.astNode);
+    const targets = this.extractor.extractMethods(rootASTNode.astNode);
 
-      return targets.map(target => {
-          const node = this.converter.convert(target.astNode);
+    return targets.map((target) => {
+      const node = this.converter.convert(target.astNode);
 
-          return new Metrics(
-              rootASTNode.file,
-              target.codePoints,
-              this.calculator.calculate(node),
-          );
-      });
+      return new Metrics(
+        rootASTNode.file,
+        target.codePoints,
+        this.calculator.calculate(node)
+      );
+    });
   }
 }

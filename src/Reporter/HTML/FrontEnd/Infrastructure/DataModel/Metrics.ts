@@ -1,4 +1,4 @@
 export interface Metrics {
-  type: number,
-  value: number
+  type: number;
+  value: number;
 }

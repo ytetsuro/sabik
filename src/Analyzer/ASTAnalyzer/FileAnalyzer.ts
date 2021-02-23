@@ -9,19 +9,18 @@ import { CodePointType } from '../Metrics/CodePointType';
 import { Calculator } from '../Adapter/Calculator';
 
 type MetricsSource = {
-    astNode: ASTNode,
-    file: File,
+  astNode: ASTNode;
+  file: File;
 };
 
 export class FileAnalyzer<T> implements ASTAnalyzer {
   constructor(
-      private readonly converter: Converter<T>,
-      private readonly calculator: Calculator<T>
-  ) {
-  }
+    private readonly converter: Converter<T>,
+    private readonly calculator: Calculator<T>
+  ) {}
 
   analyze(rootASTNodeList: MetricsSource[]): Metrics[] {
-      return rootASTNodeList.map(rootASTNode => this.analyzeFile(rootASTNode));
+    return rootASTNodeList.map((rootASTNode) => this.analyzeFile(rootASTNode));
   }
 
   analyzeFile(rootASTNode: MetricsSource): Metrics {
@@ -29,12 +28,14 @@ export class FileAnalyzer<T> implements ASTAnalyzer {
 
     return new Metrics(
       rootASTNode.file,
-      [new CodePoint(
-        CodePointType.File,
-        rootASTNode.file.fullPath,
-        rootASTNode.astNode.getStartLineNumber(),
-        rootASTNode.astNode.getEndLineNumber(),
-      )],
+      [
+        new CodePoint(
+          CodePointType.File,
+          rootASTNode.file.fullPath,
+          rootASTNode.astNode.getStartLineNumber(),
+          rootASTNode.astNode.getEndLineNumber()
+        ),
+      ],
       this.calculator.calculate(countableNode)
     );
   }

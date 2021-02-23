@@ -5,17 +5,29 @@ import { LogicalLineOfCode } from '../LineOfCode/MetricsValue/LogicalLineOfCode'
 import { MetricsValue } from '../MetricsValue';
 
 export class Calculator {
-  readonly targetMetrics = [HalsteadVolume, LogicalLineOfCode, CognitiveComplexity];
+  readonly targetMetrics = [
+    HalsteadVolume,
+    LogicalLineOfCode,
+    CognitiveComplexity,
+  ];
 
   calculate(metricsList: MetricsValue[]): MetricsValue[] {
-    const halsteadVolume = <HalsteadVolume>metricsList.find(row => row instanceof HalsteadVolume)!;
-    const logicalLineOfCode = <LogicalLineOfCode>metricsList.find(row => row instanceof LogicalLineOfCode)!;
-    const cognitiveComplexity = <CognitiveComplexity>metricsList.find(row => row instanceof CognitiveComplexity)!;
+    const halsteadVolume = <HalsteadVolume>(
+      metricsList.find((row) => row instanceof HalsteadVolume)!
+    );
+    const logicalLineOfCode = <LogicalLineOfCode>(
+      metricsList.find((row) => row instanceof LogicalLineOfCode)!
+    );
+    const cognitiveComplexity = <CognitiveComplexity>(
+      metricsList.find((row) => row instanceof CognitiveComplexity)!
+    );
 
-    return [new Maintainability(
-      halsteadVolume,
-      cognitiveComplexity,
-      logicalLineOfCode,
-    )];
+    return [
+      new Maintainability(
+        halsteadVolume,
+        cognitiveComplexity,
+        logicalLineOfCode
+      ),
+    ];
   }
 }

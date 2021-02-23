@@ -1,16 +1,12 @@
-import { ASTNode } from "../Adapter/ASTNode";
+import { ASTNode } from '../Adapter/ASTNode';
 
-export class CodePointType
-{
+export class CodePointType {
   public static readonly File = new CodePointType(0);
   public static readonly Class = new CodePointType(1);
   public static readonly FauxClass = new CodePointType(2);
   public static readonly Method = new CodePointType(3);
 
-  private constructor(
-    private readonly scaler: number,
-  ) {
-  }
+  private constructor(private readonly scaler: number) {}
 
   isMoreDetail(codePoint: CodePointType) {
     return this.scaler < codePoint.scaler;
