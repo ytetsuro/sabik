@@ -5,4 +5,5 @@ export const Types = {
   fileExcludes: Symbol.for('fileExcludes'),
   outputFileBuilder: Symbol.for('outputFileBuilder'),
   reporter: Symbol.for('reporter'),
+  languageConfig: Symbol.for('languageConfig'),
 };
