@@ -1,15 +1,23 @@
+import { ASTNode } from '../../Analyzer/Adapter/ASTNode';
+import { File } from '../../Analyzer/Adapter/File';
 import { LineOfCodeCountableNode } from './Adapter/LineOfCodeCountableNode';
-import { LineOfCode } from './LineOfCode';
+import { LogicalLineOfCode } from './MetricsValue/LogicalLineOfCode';
+import { PhysicalLineOfCode } from './MetricsValue/PhysicalLineOfCode';
+
+type MetricsSource = {
+    astNode: ASTNode,
+    file: File,
+};
 
 export class Calculator {
   public calculate(node: LineOfCodeCountableNode) {
     const sourceText = node.getText();
     const removedUnnecessaryCodeSourceText = node.getRemovedCommentAndEmptyLineText();
 
-    return new LineOfCode(
-      this.getAllLine(sourceText),
-      this.getAllLine(removedUnnecessaryCodeSourceText)
-    );
+    return [
+      new LogicalLineOfCode(this.getAllLine(removedUnnecessaryCodeSourceText)),
+      new PhysicalLineOfCode(this.getAllLine(sourceText)),
+    ];
   }
 
   private getAllLine(text: string) {

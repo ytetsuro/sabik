@@ -1,9 +1,15 @@
 import { HalsteadCountableNode } from './Adapter/HalsteadCountableNode';
-import { Halstead } from './Halstead';
 import { OperandAndOperator } from './OperandAndOperator';
+import { HalsteadBugsDelivered } from './MetricsValue/HalsteadBugsDelivered';
+import { HalsteadDifficulty } from './MetricsValue/HalsteadDifficulty';
+import { HalsteadEffort } from './MetricsValue/HalsteadEffort';
+import { HalsteadLength } from './MetricsValue/HalsteadLength';
+import { HalsteadTime } from './MetricsValue/HalsteadTime';
+import { HalsteadVocabulary } from './MetricsValue/HalsteadVocabulary';
+import { HalsteadVolume } from './MetricsValue/HalsteadVolume';
 
 export class Calculator {
-  calculate(node: HalsteadCountableNode): Halstead {
+  calculate(node: HalsteadCountableNode) {
     const operands = new Map<string, number>();
     const operators = new Map<string, number>();
 
@@ -11,7 +17,16 @@ export class Calculator {
       this.add(row, operands, operators);
     });
 
-    return new Halstead(new OperandAndOperator(operands, operators));
+    const operandAndOperator = new OperandAndOperator(operands, operators);
+    const length = new HalsteadLength(operandAndOperator);
+    const vocabulary = new HalsteadVocabulary(operandAndOperator);
+    const difficulty = new HalsteadDifficulty(operandAndOperator);
+    const volume = new HalsteadVolume(length, vocabulary);
+    const bugsDelivered = new HalsteadBugsDelivered(volume);
+    const effort = new HalsteadEffort(volume, difficulty);
+    const time = new HalsteadTime(effort);
+
+    return [length, vocabulary, difficulty, volume, bugsDelivered, effort, time];
   }
 
   private extractOperandsAndOperators(node: HalsteadCountableNode) {

@@ -1,6 +1,6 @@
 import { ComplexityCountableNode } from './Adapter/ComplexityCountableNode';
 
-export class Complexity {
+export class ComplexityIncrement {
   public readonly complexity: number;
 
   public readonly nestDeepCount: number;

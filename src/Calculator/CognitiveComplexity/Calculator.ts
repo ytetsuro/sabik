@@ -1,22 +1,22 @@
 import { ComplexityCountableNode } from './Adapter/ComplexityCountableNode';
-import { Complexity } from './Complexity';
-import { ComplexityStore } from './ComplexityStore';
+import { ComplexityIncrement } from './ComplexityIncrement';
+import { CognitiveComplexity } from './CognitiveComplexity';
 
 export class Calculator {
-  calculate(node: ComplexityCountableNode): ComplexityStore {
+  calculate(node: ComplexityCountableNode): CognitiveComplexity[] {
     const complexities = this.extractComplexity(node, 0);
 
-    return new ComplexityStore(complexities);
+    return [new CognitiveComplexity(complexities)];
   }
 
   private extractComplexity(
     node: ComplexityCountableNode,
     nest: number
-  ): Complexity[] {
-    const result: Complexity[] = [];
+  ): ComplexityIncrement[] {
+    const result: ComplexityIncrement[] = [];
 
     if (node.isIncrement()) {
-      result.push(new Complexity(node, nest));
+      result.push(new ComplexityIncrement(node, nest));
     }
 
     if (node.isNestLevelUp()) {

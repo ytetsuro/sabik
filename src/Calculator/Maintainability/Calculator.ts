@@ -1,18 +1,21 @@
-import { MaintainabilityCountableNode } from './Adapter/MaintainabilityCountableNode';
 import { Maintainability } from './Maintainability';
+import { HalsteadVolume } from '../Halstead/MetricsValue/HalsteadVolume';
+import { CognitiveComplexity } from '../CognitiveComplexity/CognitiveComplexity';
+import { LogicalLineOfCode } from '../LineOfCode/MetricsValue/LogicalLineOfCode';
+import { MetricsValue } from '../MetricsValue';
 
 export class Calculator {
-  public calculate(node: MaintainabilityCountableNode) {
-    return new Maintainability(
-      Math.max(
-        0,
-        ((171 -
-          5.2 * Math.log(node.halstead.getVolume()) -
-          0.23 * Number(node.complexity) -
-          16.2 * Math.log(node.lineOfCode.logical)) *
-          100) /
-          171
-      )
-    );
+  readonly targetMetrics = [HalsteadVolume, LogicalLineOfCode, CognitiveComplexity];
+
+  calculate(metricsList: MetricsValue[]): MetricsValue[] {
+    const halsteadVolume = <HalsteadVolume>metricsList.find(row => row instanceof HalsteadVolume)!;
+    const logicalLineOfCode = <LogicalLineOfCode>metricsList.find(row => row instanceof LogicalLineOfCode)!;
+    const cognitiveComplexity = <CognitiveComplexity>metricsList.find(row => row instanceof CognitiveComplexity)!;
+
+    return [new Maintainability(
+      halsteadVolume,
+      cognitiveComplexity,
+      logicalLineOfCode,
+    )];
   }
 }
