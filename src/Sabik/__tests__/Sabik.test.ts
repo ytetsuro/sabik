@@ -2,20 +2,19 @@ import { ASTNode } from '../../TestHelpers/ASTNode';
 import { ComplexityCountableNode } from '../../TestHelpers/ComplexityCountableNode';
 import { HalsteadCountableNode } from '../../TestHelpers/HalsteadCountableNode';
 import { LineOfCodeCountableNode } from '../../TestHelpers/LineOfCodeCountableNode';
-import { Analyzed } from '../Analyzer/Analyzed';
-import { AnalyzerMap } from '../AnalyzerMap';
 import { File } from '../FileFinder/File';
+import { Language } from '../Language/Language';
 import { Reporter } from '../Reporter';
 import { Sabik } from '../Sabik';
 
 describe('Sabik', () => {
   describe('exec()', () => {
     let sabik: Sabik;
-    let reporter: { output: jest.Mock<Promise<void>> };
+    let reporter: jest.Mocked<Reporter>;
     beforeEach(() => {
       reporter = { output: jest.fn((_) => Promise.resolve()) };
-      const map = new AnalyzerMap();
-      map.register('.txt', {
+      const language = new Language([{
+        extensions: ['.txt'],
         complexityConverter: {
           convert: (_) =>
             new ComplexityCountableNode({
@@ -47,10 +46,11 @@ describe('Sabik', () => {
               'F:dummyFauxMethod1:1:9': {},
             }),
         },
-      });
+        astNodeConstructor: ASTNode,
+      }]);
 
       sabik = new Sabik(
-        map,
+        language,
         <any>{
           find: () => [
             new File('/tmp/foo.txt', 'foo.txt'),
@@ -64,8 +64,8 @@ describe('Sabik', () => {
     it('should analyze only analyzeable source.', async () => {
       await sabik.exec('./');
 
-      expect(reporter.output.mock.calls[0][0].length).toBe(1);
-      expect(reporter.output.mock.calls[0][0][0].fileName).toBe('foo.txt');
+      expect(reporter.output.mock.calls[0][0].length).toBe(2);
+      expect((reporter.output.mock.calls[0][0]).map(({file}) => file.relativePath)).toStrictEqual(['foo.txt', 'foo.txt']);
     });
   });
 });
