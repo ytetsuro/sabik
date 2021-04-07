@@ -1,42 +1,41 @@
-import { Metrics } from '../Metrics/Metrics';
 import { ASTNode } from '../Adapter/ASTNode';
 import { File } from '../Adapter/File';
-import { ASTAnalyzer } from './ASTAnalyzer';
 import { Converter } from '../Adapter/Converter';
-import { ASTNodeExtractor } from '../ASTNodeExtractor';
 import { CodePoint } from '../Metrics/CodePoint';
 import { CodePointType } from '../Metrics/CodePointType';
-import { Calculator } from '../Adapter/Calculator';
 
-type MetricsSource = {
+type ASTNodeSource = {
   astNode: ASTNode;
   file: File;
 };
 
-export class FileAnalyzer<T> implements ASTAnalyzer {
+type MetricsSource<T> = {
+  file: File,
+  codePoints: CodePoint[],
+  countableNode: T,
+};
+
+export class FileAnalyzer<T> {
   constructor(
     private readonly converter: Converter<T>,
-    private readonly calculator: Calculator<T>
   ) {}
 
-  analyze(rootASTNodeList: MetricsSource[]): Metrics[] {
+  analyze(rootASTNodeList: ASTNodeSource[]): MetricsSource<T>[] {
     return rootASTNodeList.map((rootASTNode) => this.analyzeFile(rootASTNode));
   }
 
-  analyzeFile(rootASTNode: MetricsSource): Metrics {
+  analyzeFile(rootASTNode: ASTNodeSource): MetricsSource<T> {
     const countableNode = this.converter.convert(rootASTNode.astNode);
 
-    return new Metrics(
-      rootASTNode.file,
-      [
-        new CodePoint(
-          CodePointType.File,
-          rootASTNode.file.fullPath,
-          rootASTNode.astNode.getStartLineNumber(),
-          rootASTNode.astNode.getEndLineNumber()
-        ),
-      ],
-      this.calculator.calculate(countableNode)
-    );
+    return {
+      file: rootASTNode.file,
+      codePoints: [new CodePoint(
+        CodePointType.File,
+        rootASTNode.file.fullPath,
+        rootASTNode.astNode.getStartLineNumber(),
+        rootASTNode.astNode.getEndLineNumber()
+      )],
+      countableNode,
+    };
   }
 }

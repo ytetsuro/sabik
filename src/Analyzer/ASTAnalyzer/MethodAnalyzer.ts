@@ -1,40 +1,39 @@
-import { Metrics } from '../Metrics/Metrics';
 import { ASTNode } from '../Adapter/ASTNode';
 import { File } from '../Adapter/File';
-import { ASTAnalyzer } from './ASTAnalyzer';
 import { Converter } from '../Adapter/Converter';
 import { ASTNodeExtractor } from '../ASTNodeExtractor';
-import { Calculator } from '../Adapter/Calculator';
+import { CodePoint } from '../Metrics/CodePoint';
 
-type MetricsSource = {
+type ASTNodeSource = {
   astNode: ASTNode;
   file: File;
 };
 
-export class MethodAnalyzer<T> implements ASTAnalyzer {
+type MetricsSource<T> = {
+  file: File,
+  codePoints: CodePoint[],
+  countableNode: T,
+};
+
+export class MethodAnalyzer<T> {
   constructor(
     private readonly extractor: ASTNodeExtractor,
     private readonly converter: Converter<T>,
-    private readonly calculator: Calculator<T>
   ) {}
 
-  analyze(rootASTNodeList: MetricsSource[]): Metrics[] {
+  analyze(rootASTNodeList: ASTNodeSource[]): MetricsSource<T>[] {
     return rootASTNodeList.flatMap((rootASTNode) =>
       this.analyzeMethod(rootASTNode)
     );
   }
 
-  private analyzeMethod(rootASTNode: MetricsSource): Metrics[] {
+  private analyzeMethod(rootASTNode: ASTNodeSource): MetricsSource<T>[] {
     const targets = this.extractor.extractMethods(rootASTNode.astNode);
 
-    return targets.map((target) => {
-      const node = this.converter.convert(target.astNode);
-
-      return new Metrics(
-        rootASTNode.file,
-        target.codePoints,
-        this.calculator.calculate(node)
-      );
-    });
+    return targets.map((target) => ({
+        file: rootASTNode.file,
+        codePoints: target.codePoints,
+        countableNode: this.converter.convert(target.astNode),
+    }));
   }
 }

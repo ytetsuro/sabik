@@ -1,8 +1,26 @@
 import { ComplexityCountableNode } from './Adapter/ComplexityCountableNode';
 import { ComplexityIncrement } from './ComplexityIncrement';
 import { CognitiveComplexity } from './CognitiveComplexity';
+import { ASTAnalyzer } from '../../Analyzer/ASTAnalyzer/ASTAnalyzer';
+import { MethodAnalyzer } from '../../Analyzer/ASTAnalyzer/MethodAnalyzer';
+import { ASTNode } from '../../Analyzer/Adapter/ASTNode';
+import { File } from '../../Analyzer/Adapter/File';
+import { Metrics } from '../../Analyzer/Metrics/Metrics';
 
-export class Calculator {
+type ASTNodeSource = {
+  astNode: ASTNode;
+  file: File;
+};
+
+export class Calculator implements ASTAnalyzer {
+  constructor(private readonly analyzer: MethodAnalyzer<ComplexityCountableNode>) {
+  }
+
+  analyze(astNodes: ASTNodeSource[]) {
+    return this.analyzer.analyze(astNodes)
+      .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
+  }  
+
   calculate(node: ComplexityCountableNode): CognitiveComplexity[] {
     const complexities = this.extractComplexity(node, 0);
 

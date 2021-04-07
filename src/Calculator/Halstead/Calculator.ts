@@ -7,8 +7,25 @@ import { HalsteadLength } from './MetricsValue/HalsteadLength';
 import { HalsteadTime } from './MetricsValue/HalsteadTime';
 import { HalsteadVocabulary } from './MetricsValue/HalsteadVocabulary';
 import { HalsteadVolume } from './MetricsValue/HalsteadVolume';
+import { MethodAnalyzer } from '../../Analyzer/ASTAnalyzer/MethodAnalyzer';
+import { ASTNode } from '../../Analyzer/Adapter/ASTNode';
+import { File } from '../../Analyzer/Adapter/File';
+import { Metrics } from '../../Analyzer/Metrics/Metrics';
+
+type ASTNodeSource = {
+  astNode: ASTNode;
+  file: File;
+};
 
 export class Calculator {
+  constructor(private readonly analyzer: MethodAnalyzer<HalsteadCountableNode>) {
+  }
+
+  analyze(astNodes: ASTNodeSource[]) {
+    return this.analyzer.analyze(astNodes)
+      .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
+  }
+
   calculate(node: HalsteadCountableNode) {
     const operands = new Map<string, number>();
     const operators = new Map<string, number>();
