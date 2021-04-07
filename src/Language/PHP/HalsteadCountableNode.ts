@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import Engine from 'php-parser';
 import { HalsteadCountableNode as HalsteadCountableNodeInterface } from '../../Calculator/Halstead/Adapter/HalsteadCountableNode';
 import { ASTNode } from './ASTNode';
@@ -7,6 +8,7 @@ type Token = {
   source: string;
 };
 
+@injectable()
 export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
   private readonly token: Token;
   private readonly tokenChildren: Token[] = [];

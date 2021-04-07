@@ -2,7 +2,9 @@ import Engine from 'php-parser';
 import { readFileSync } from 'fs';
 import { ASTGenerator as ASTGeneratorInterface } from '../../Sabik/ASTGenerator';
 import { ASTNode } from './ASTNode';
+import { injectable } from 'inversify';
 
+@injectable()
 export class ASTGenerator implements ASTGeneratorInterface {
   private engine = new Engine({
     parser: {

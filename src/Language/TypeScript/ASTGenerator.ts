@@ -2,7 +2,9 @@ import * as ts from 'typescript';
 import { ASTGenerator as ASTGeneratorInterface } from '../../Sabik/ASTGenerator';
 import { readFileSync } from 'fs';
 import { ASTNode } from './ASTNode';
+import { injectable } from 'inversify';
 
+@injectable()
 export class ASTGenerator implements ASTGeneratorInterface {
   generate(filePath: string) {
     const node = ts.createSourceFile(

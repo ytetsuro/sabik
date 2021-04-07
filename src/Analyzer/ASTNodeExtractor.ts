@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import { ASTNode } from './Adapter/ASTNode';
 import { CodePoint } from './Metrics/CodePoint';
 import { CodePointType } from './Metrics/CodePointType';
@@ -7,6 +8,7 @@ type AnalyzePointNode = {
   codePoints: CodePoint[];
 };
 
+@injectable()
 export class ASTNodeExtractor {
   private cache: Map<
     ASTNode,

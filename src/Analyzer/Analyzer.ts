@@ -5,7 +5,9 @@ import { CodePoint } from './Metrics/CodePoint';
 import { Metrics } from './Metrics/Metrics';
 import { MetricsAnalyzer } from './MetricsAnalyzer/MetricsAnalyzer';
 import { ASTGenerator } from './Adapter/ASTGenerator';
+import { injectable } from 'inversify';
 
+@injectable()
 export class Analyzer {
   private readonly metricsMap = new Map<CodePoint, Metrics>();
 

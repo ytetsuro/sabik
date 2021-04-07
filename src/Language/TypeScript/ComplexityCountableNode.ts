@@ -1,7 +1,9 @@
+import { injectable } from 'inversify';
 import * as ts from 'typescript';
 import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
 
+@injectable()
 export class ComplexityCountableNode
   implements ComplexityCountableNodeInterface {
   private static readonly nestLevelUpKinds = [
