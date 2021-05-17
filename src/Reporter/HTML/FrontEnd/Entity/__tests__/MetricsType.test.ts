@@ -3,13 +3,13 @@ import { MetricsType } from '../MetricsType';
 describe('MetricsType', () => {
   describe('.toString()', () => {
     it('should to string.', () => {
-      expect(String(MetricsType.BugsDelivered)).toBe('BugsDelivered');
+      expect(String(MetricsType.HalsteadBugsDelivered)).toBe('BugsDelivered');
     });
   });
 
   describe('.getLevel()', () => {
     it.each([
-      [MetricsType.BugsDelivered, 2],
+      [MetricsType.HalsteadBugsDelivered, 2],
       [MetricsType.CognitiveComplexity, 8],
       [MetricsType.LineOfCodeLogical, 80],
       [MetricsType.Maintainability, 39],

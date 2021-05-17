@@ -1,11 +1,13 @@
 import * as PHPParser from 'php-parser';
-import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Calculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
+import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { ASTNode } from './ASTNode';
 import { ASTKind } from './ASTKind';
+import { injectable } from 'inversify';
 
 type BinNode = PHPParser.Node & { type: string };
 type IfNode = PHPParser.Node & { alternate: PHPParser.Node };
 
+@injectable()
 export class ComplexityCountableNode
   implements ComplexityCountableNodeInterface {
   private static readonly nestLevelUpKinds = [

@@ -8,25 +8,47 @@ describe('Summary', () => {
   describe('.getAverageComplexity()', () => {
     it('should returns average complexity.', () => {
       const summary = new Summary([
-        new FileMetrics('dummy1.ts', { logical: 1, physical: 2 }, [
+        new FileMetrics(
+          'dummy1.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.CognitiveComplexity, 2)],
-            { start: 1, end: 1 }
+            'dummy1.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.CognitiveComplexity, 2)],
+              { start: 1, end: 1 }
+            ),
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.CognitiveComplexity, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
+        new FileMetrics(
+          'dummy2.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.CognitiveComplexity, 5)],
-            { start: 1, end: 1 }
+            'dummy2.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
-        ]),
-        new FileMetrics('dummy2.ts', { logical: 1, physical: 2 }, [
-          new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.CognitiveComplexity, 5)],
-            { start: 1, end: 1 }
-          ),
-        ]),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.CognitiveComplexity, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
       ]);
 
       expect(summary.getAverageComplexity()).toStrictEqual(
@@ -38,25 +60,47 @@ describe('Summary', () => {
   describe('.getAverageMaintainability()', () => {
     it('should returns average maintainability.', () => {
       const summary = new Summary([
-        new FileMetrics('dummy1.ts', { logical: 1, physical: 2 }, [
+        new FileMetrics(
+          'dummy1.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.Maintainability, 2)],
-            { start: 1, end: 1 }
+            'dummy1.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.Maintainability, 2)],
+              { start: 1, end: 1 }
+            ),
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.Maintainability, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
+        new FileMetrics(
+          'dummy2.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.Maintainability, 5)],
-            { start: 1, end: 1 }
+            'dummy2.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
-        ]),
-        new FileMetrics('dummy2.ts', { logical: 1, physical: 2 }, [
-          new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.Maintainability, 5)],
-            { start: 1, end: 1 }
-          ),
-        ]),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.Maintainability, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
       ]);
 
       expect(summary.getAverageMaintainability()).toStrictEqual(
@@ -68,25 +112,47 @@ describe('Summary', () => {
   describe('.getTotalLineOfCode()', () => {
     it('should returns total line of code.', () => {
       const summary = new Summary([
-        new FileMetrics('dummy1.ts', { logical: 1, physical: 2 }, [
+        new FileMetrics(
+          'dummy1.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.Maintainability, 2)],
-            { start: 1, end: 1 }
+            'dummy1.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.Maintainability, 2)],
+              { start: 1, end: 1 }
+            ),
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.Maintainability, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
+        new FileMetrics(
+          'dummy2.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.Maintainability, 5)],
-            { start: 1, end: 1 }
+            'dummy1.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
-        ]),
-        new FileMetrics('dummy2.ts', { logical: 1, physical: 2 }, [
-          new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.Maintainability, 5)],
-            { start: 1, end: 1 }
-          ),
-        ]),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.Maintainability, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
       ]);
 
       expect(summary.getTotalLineOfCode()).toBe(2);
@@ -96,29 +162,51 @@ describe('Summary', () => {
   describe('.getSumBugsDelivered()', () => {
     it('should returns sum bugs delivered.', () => {
       const summary = new Summary([
-        new FileMetrics('dummy1.ts', { logical: 1, physical: 2 }, [
+        new FileMetrics(
+          'dummy1.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.BugsDelivered, 2)],
-            { start: 1, end: 1 }
+            'dummy1.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.HalsteadBugsDelivered, 2)],
+              { start: 1, end: 1 }
+            ),
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.HalsteadBugsDelivered, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
+        new FileMetrics(
+          'dummy2.ts',
           new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.BugsDelivered, 5)],
-            { start: 1, end: 1 }
+            'dummy1.ts',
+            [
+              new MetricsValue(MetricsType.LineOfCodeLogical, 1),
+              new MetricsValue(MetricsType.LineOfCodePhysical, 2),
+            ],
+            { start: 0, end: 2 }
           ),
-        ]),
-        new FileMetrics('dummy2.ts', { logical: 1, physical: 2 }, [
-          new Metrics(
-            'dummy',
-            [new MetricsValue(MetricsType.BugsDelivered, 5)],
-            { start: 1, end: 1 }
-          ),
-        ]),
+          [
+            new Metrics(
+              'dummy',
+              [new MetricsValue(MetricsType.HalsteadBugsDelivered, 5)],
+              { start: 1, end: 1 }
+            ),
+          ]
+        ),
       ]);
 
       expect(summary.getSumBugsDelivered()).toStrictEqual(
-        new MetricsValue(MetricsType.BugsDelivered, 12)
+        new MetricsValue(MetricsType.HalsteadBugsDelivered, 12)
       );
     });
   });

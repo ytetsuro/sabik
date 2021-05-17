@@ -14,6 +14,6 @@ export class EntryPoint {
       `${__dirname}/../FrontEnd/Bootstrap.ts`
     );
 
-    return this.writer.write('index.js', script);
+    return this.writer.write('app.js', script);
   }
 }

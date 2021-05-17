@@ -7,7 +7,7 @@ export class Summary {
 
   constructor(private readonly fileSummaries: FileMetrics[]) {
     this.metricsCalculator = new MetricsCalculator(
-      fileSummaries.flatMap((fileSummary) => fileSummary.metrics)
+      fileSummaries.flatMap((fileSummary) => fileSummary.childrenMetrics)
     );
   }
 
@@ -29,6 +29,6 @@ export class Summary {
   }
 
   getSumBugsDelivered() {
-    return this.metricsCalculator.sum(MetricsType.BugsDelivered);
+    return this.metricsCalculator.sum(MetricsType.HalsteadBugsDelivered);
   }
 }

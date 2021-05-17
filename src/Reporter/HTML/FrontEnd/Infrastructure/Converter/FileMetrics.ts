@@ -5,11 +5,11 @@ import { FileMetrics as Entity } from '../../Entity/FileMetrics';
 export class FileMetrics {
   constructor(private readonly converter: Metrics) {}
 
-  to(dataModel: DataModel) {
+  to(fileMetricsDataModel: DataModel, metricsDataModels: DataModel[]) {
     return new Entity(
-      dataModel.fileName,
-      dataModel.lineOfCode,
-      dataModel.metrics.map((row) => this.converter.to(row))
+      fileMetricsDataModel.fileName,
+      this.converter.to(fileMetricsDataModel),
+      metricsDataModels.map((row) => this.converter.to(row))
     );
   }
 }

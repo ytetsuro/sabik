@@ -1,13 +1,11 @@
-import { Complexity } from '../../Language/PHP/Converter/Complexity';
-import { LineOfCode } from '../../Language/PHP/Converter/LineOfCode';
-import { Halstead } from '../../Language/PHP/Converter/Halstead';
-import { ASTGenerator } from '../../Language/PHP/ASTGenerator';
-import { LanguageConfig } from './LanguageConfig';
+import { inject, injectable, named } from 'inversify';
+import { Analyzer } from '../../Analyzer/Analyzer';
+import { LanguageAnalyzer } from '../Analyzer/LanguageAnalyzer';
 
-export class PHP implements LanguageConfig {
+@injectable()
+export class PHP extends LanguageAnalyzer {
   public readonly extensions = ['.php'];
-  public readonly complexityConverter = new Complexity();
-  public readonly lineOfCodeConverter = new LineOfCode();
-  public readonly halsteadConverter = new Halstead();
-  public readonly astGenerator = new ASTGenerator();
+  constructor(@inject(Analyzer) @named('PHP') analyzer: Analyzer) {
+    super(analyzer);
+  }
 }

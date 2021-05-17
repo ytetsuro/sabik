@@ -31,6 +31,6 @@ table td.sabikMetricsFilePath {
 .sabikMetricsCard {
   width: 100%;
 }
-.sabikMetricsCard > p.card-header-title{
+.sabikMetricsCard > p.card-header-title {
   word-break: break-all;
 }
