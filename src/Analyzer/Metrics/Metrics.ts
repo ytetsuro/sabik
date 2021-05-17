@@ -1,6 +1,5 @@
 import { CodePoint } from './CodePoint';
-import { MetricsType } from '../Adapter/MetricsType';
-import { MetricsValue } from '../Adapter/MetricsValue';
+import { MetricsValue } from './MetricsValue';
 import { File } from '../Adapter/File';
 
 type MetricsValueConstructor<T extends MetricsValue> = new (..._: any) => T;

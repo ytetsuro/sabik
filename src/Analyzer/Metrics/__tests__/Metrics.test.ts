@@ -2,15 +2,10 @@ import { File } from '../../../Sabik/FileFinder/File';
 import { CodePoint } from '../CodePoint';
 import { CodePointType } from '../CodePointType';
 import { Metrics } from '../Metrics';
-
-class DummyMetricsType {
-  valueOf() {
-    return 2;
-  }
-}
+import { MetricsType } from '../MetricsType';
 
 class DummyMetricsValue {
-  type = new DummyMetricsType();
+  type = MetricsType.CognitiveComplexity;
   valueOf() {
     return 2;
   }
@@ -23,7 +18,7 @@ describe('Metrics', () => {
       const metrics = new Metrics(
         new File('/unit/test/path', './test/path'),
         [new CodePoint(CodePointType.Method, 'WhoAmI', 0, 1)],
-        [metricsValue, { type: new DummyMetricsType(), valueOf: () => 2 }]
+        [metricsValue, { type: MetricsType.CognitiveComplexity, valueOf: () => 2 }]
       );
 
       expect(
@@ -35,7 +30,7 @@ describe('Metrics', () => {
       const metrics = new Metrics(
         new File('/unit/test/path', './test/path'),
         [new CodePoint(CodePointType.Method, 'WhoAmI', 0, 1)],
-        [{ type: new DummyMetricsType(), valueOf: () => 2 }]
+        [{ type: MetricsType.CognitiveComplexity, valueOf: () => 2 }]
       );
 
       expect(metrics.getMetricsByMetricsValue(DummyMetricsValue)).toBe(null);
