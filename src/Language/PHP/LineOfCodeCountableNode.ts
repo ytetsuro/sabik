@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import Engine from 'php-parser';
-import { LineOfCodeCountableNode as LineOfCodeCountableNodeInterface } from '../../Calculator/LineOfCode/Adapter/LineOfCodeCountableNode';
+import { LineOfCodeCountableNode as LineOfCodeCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/LineOfCode/Adapter/LineOfCodeCountableNode';
 import { ASTNode } from './ASTNode';
 
 @injectable()
