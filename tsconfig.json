@@ -15,6 +15,7 @@
     "esModuleInterop": true,
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
+    "paths": {"*": ["./@types/*"]},
     "typeRoots": ["node_modules/@types"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
