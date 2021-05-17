@@ -26,3 +26,8 @@ rules:
     - off
   "@typescript-eslint/no-non-null-assertion":
     - off
+  "max-len":
+    - warn
+    -
+      code: 120
+      ignoreComments: true
