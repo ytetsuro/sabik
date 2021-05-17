@@ -1,20 +1,21 @@
 import { ASTNode } from './Adapter/ASTNode';
 import { File } from './Adapter/File';
-import { ASTAnalyzer } from './ASTAnalyzer/ASTAnalyzer';
+import { CalculatorForAST } from './FromASTNode/CalculatorForAST';
 import { CodePoint } from './Metrics/CodePoint';
 import { Metrics } from './Metrics/Metrics';
-import { MetricsAnalyzer } from './MetricsAnalyzer/MetricsAnalyzer';
+import { CalculatorForMetrics } from './FromOtherMetrics/CalculatorForMetrics';
 import { ASTGenerator } from './Adapter/ASTGenerator';
-import { injectable } from 'inversify';
+import { inject, injectable, multiInject } from 'inversify';
+import { Types } from '../types/Types';
 
 @injectable()
 export class Analyzer {
   private readonly metricsMap = new Map<CodePoint, Metrics>();
 
   constructor(
-    private readonly astNodeGenerator: ASTGenerator,
-    private readonly astAnalyzers: ASTAnalyzer[],
-    private readonly metricsAnalyzers: MetricsAnalyzer[]
+    @inject(Types.astNodeGenerator) private readonly astNodeGenerator: ASTGenerator,
+    @multiInject(Types.codeMetricsCalculatorForAST) private readonly calculatorForAST: CalculatorForAST[],
+    @multiInject(Types.codeMetricsCalculatorForMetrics) private readonly calculatorForMetrics: CalculatorForMetrics[]
   ) {}
 
   analyze(files: File[]) {
@@ -31,7 +32,7 @@ export class Analyzer {
   }
 
   private metricsAnalyze(metricsList: Metrics[]) {
-    const analyzedMetricsList = this.metricsAnalyzers.flatMap((analyzer) =>
+    const analyzedMetricsList = this.calculatorForMetrics.flatMap((analyzer) =>
       analyzer.analyze(metricsList)
     );
 
@@ -39,7 +40,7 @@ export class Analyzer {
   }
 
   private astAnalyze(fileAndMetricsList: { file: File; astNode: ASTNode }[]) {
-    const metricsList = this.astAnalyzers.flatMap((analyzer) =>
+    const metricsList = this.calculatorForAST.flatMap((analyzer) =>
       analyzer.analyze(fileAndMetricsList)
     );
 

@@ -3,7 +3,7 @@ import { Analyzer } from '../Analyzer';
 import { CodePoint } from '../Metrics/CodePoint';
 import { CodePointType } from '../Metrics/CodePointType';
 import { Metrics } from '../Metrics/Metrics';
-import { MetricsType } from '../../Calculator/MetricsType';
+import { MetricsType } from '../Metrics/MetricsType';
 
 describe('Analyzer class.', () => {
   describe('should return a list of metrics parsed from the file.', () => {
@@ -34,7 +34,7 @@ describe('Analyzer class.', () => {
         ],
         [
           {
-            analyze: (metricsList) =>
+            analyze: (metricsList: Metrics[]) =>
               metricsList.map(
                 (metrics) =>
                   new Metrics(metrics.file, metrics.codePoints, [
