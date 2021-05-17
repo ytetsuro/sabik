@@ -1,5 +1,5 @@
 import { basename, dirname } from 'path';
-import { LogicalLineOfCode } from '../../../../Calculator/LineOfCode/MetricsValue/LogicalLineOfCode';
+import { LogicalLineOfCode } from '../../../../Analyzer/CodeMetricsCalculator/LineOfCode/MetricsValue/LogicalLineOfCode';
 import { Metrics } from '../../../../Analyzer/Metrics/Metrics';
 import { Event } from '../Event';
 import { CodePoint } from '../../../../Analyzer/Metrics/CodePoint';
