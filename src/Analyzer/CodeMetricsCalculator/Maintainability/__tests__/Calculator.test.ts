@@ -36,17 +36,21 @@ describe('Maintainability Calculator Class', () => {
       ]);
       const lineOfCode = new LogicalLineOfCode(3);
 
-      const actual = analyzer.analyze([new Metrics({
-        fullPath: '',
-        relativePath: '',
-        extension: '',
-      }, [new CodePoint(CodePointType.Method, 'Dummy', 2, 5)], [
-        volume,
-        complexity,
-        lineOfCode
-      ])]);
+      const actual = analyzer.analyze([
+        new Metrics(
+          {
+            fullPath: '',
+            relativePath: '',
+            extension: '',
+          },
+          [new CodePoint(CodePointType.Method, 'Dummy', 2, 5)],
+          [volume, complexity, lineOfCode]
+        ),
+      ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(Maintainability))).toBe(91.45659057778633);
+      expect(Number(actual[0].getMetricsByMetricsValue(Maintainability))).toBe(
+        91.45659057778633
+      );
     });
   });
 });

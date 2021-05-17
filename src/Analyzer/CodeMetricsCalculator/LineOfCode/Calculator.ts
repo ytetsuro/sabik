@@ -12,13 +12,25 @@ import { Converter } from '../../Adapter/Converter';
 export class Calculator {
   constructor(
     @multiInject(Types.analyzer) private readonly analyzers: Analyzer[],
-    @inject(Types.lineOfCodeConverter) private readonly converter: Converter<LineOfCodeCountableNode>
+    @inject(Types.lineOfCodeConverter)
+    private readonly converter: Converter<LineOfCodeCountableNode>
   ) {}
 
   analyze(astNodes: ASTNodeSource[]): Metrics[] {
-    return this.analyzers.flatMap(analyzer => analyzer.analyze(astNodes))
-      .map((row) => ({...row, countableNode: this.converter.convert(row.astNode)}))
-      .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
+    return this.analyzers
+      .flatMap((analyzer) => analyzer.analyze(astNodes))
+      .map((row) => ({
+        ...row,
+        countableNode: this.converter.convert(row.astNode),
+      }))
+      .map(
+        (row) =>
+          new Metrics(
+            row.file,
+            row.codePoints,
+            this.calculate(row.countableNode)
+          )
+      );
   }
 
   public calculate(node: LineOfCodeCountableNode) {

@@ -7,7 +7,7 @@ import { Metrics } from '../../Metrics/Metrics';
 import { CodePointType } from '../../Metrics/CodePointType';
 import { injectable } from 'inversify';
 
-type TargetMetrics = HalsteadVolume|LogicalLineOfCode|CognitiveComplexity;
+type TargetMetrics = HalsteadVolume | LogicalLineOfCode | CognitiveComplexity;
 
 @injectable()
 export class Calculator {
@@ -23,20 +23,17 @@ export class Calculator {
         (metrics) =>
           metrics.getMinimalCodePoint()?.type === CodePointType.Method
       )
-      .filter((metrics) =>
-        metrics.hasMetricsValue(...this.targetMetrics)
-      )
+      .filter((metrics) => metrics.hasMetricsValue(...this.targetMetrics))
       .map((metrics) => ({
         file: metrics.file,
         codePoints: metrics.codePoints,
-        values: this.targetMetrics.map(row => metrics.getMetricsByMetricsValue<TargetMetrics>(row)!)
+        values: this.targetMetrics.map(
+          (row) => metrics.getMetricsByMetricsValue<TargetMetrics>(row)!
+        ),
       }))
       .map(
-        ({file, codePoints, values}) => new Metrics(
-          file,
-          codePoints,
-          this.calculate(values)
-        )
+        ({ file, codePoints, values }) =>
+          new Metrics(file, codePoints, this.calculate(values))
       );
   }
 

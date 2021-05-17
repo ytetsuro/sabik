@@ -18,13 +18,25 @@ import { Types } from '../../../types/Types';
 export class Calculator {
   constructor(
     @inject(MethodAnalyzer) private readonly analyzer: MethodAnalyzer,
-    @inject(Types.halsteadConverter) private readonly converter: Converter<HalsteadCountableNode>
+    @inject(Types.halsteadConverter)
+    private readonly converter: Converter<HalsteadCountableNode>
   ) {}
 
   analyze(astNodes: ASTNodeSource[]) {
-    return this.analyzer.analyze(astNodes)
-      .map(({astNode, ...other}) => ({...other, countableNode: this.converter.convert(astNode)}))
-      .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
+    return this.analyzer
+      .analyze(astNodes)
+      .map(({ astNode, ...other }) => ({
+        ...other,
+        countableNode: this.converter.convert(astNode),
+      }))
+      .map(
+        (row) =>
+          new Metrics(
+            row.file,
+            row.codePoints,
+            this.calculate(row.countableNode)
+          )
+      );
   }
 
   calculate(node: HalsteadCountableNode) {

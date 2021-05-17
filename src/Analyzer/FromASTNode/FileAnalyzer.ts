@@ -16,12 +16,14 @@ export class FileAnalyzer implements Analyzer {
   private analyzeFile(rootASTNode: ASTNodeSource): MetricsSource {
     return {
       file: rootASTNode.file,
-      codePoints: [new CodePoint(
-        CodePointType.File,
-        rootASTNode.file.fullPath,
-        rootASTNode.astNode.getStartLineNumber(),
-        rootASTNode.astNode.getEndLineNumber()
-      )],
+      codePoints: [
+        new CodePoint(
+          CodePointType.File,
+          rootASTNode.file.fullPath,
+          rootASTNode.astNode.getStartLineNumber(),
+          rootASTNode.astNode.getEndLineNumber()
+        ),
+      ],
       astNode: rootASTNode.astNode,
     };
   }

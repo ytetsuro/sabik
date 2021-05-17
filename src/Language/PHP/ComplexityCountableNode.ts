@@ -8,7 +8,8 @@ type BinNode = PHPParser.Node & { type: string };
 type IfNode = PHPParser.Node & { alternate: PHPParser.Node };
 
 @injectable()
-export class ComplexityCountableNode implements ComplexityCountableNodeInterface {
+export class ComplexityCountableNode
+  implements ComplexityCountableNodeInterface {
   private static readonly nestLevelUpKinds = [
     ASTKind.IF,
     ASTKind.CATCH,

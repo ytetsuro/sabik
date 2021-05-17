@@ -57,20 +57,52 @@ container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(TypeScript);
 container.bind<Analyzer>(Analyzer).toSelf();
 container.bind<ASTNodeExtractor>(ASTNodeExtractor).toSelf().inSingletonScope();
 container.bind<MetricsAnalyzer>(MetricsAnalyzer).toSelf();
-container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(CognitiveComplexityCalculator);
-container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(HalsteadCalculator);
-container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(LineOfCodeCalculator);
-container.bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics).to(MaintainabilityCalculator);
+container
+  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
+  .to(CognitiveComplexityCalculator);
+container
+  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
+  .to(HalsteadCalculator);
+container
+  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
+  .to(LineOfCodeCalculator);
+container
+  .bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics)
+  .to(MaintainabilityCalculator);
 container.bind<MethodAnalyzer>(MethodAnalyzer).toSelf();
 container.bind<ASTNodeAnalyzer>(Types.analyzer).to(MethodAnalyzer);
 container.bind<ASTNodeAnalyzer>(Types.analyzer).to(FileAnalyzer);
-container.bind<Converter<LineOfCodeCountableNode>>(Types.lineOfCodeConverter).to(LineOfCodeConverterForPHP).whenAnyAncestorNamed('PHP');
-container.bind<Converter<ComplexityCountableNode>>(Types.cognitiveComplexityConverter).to(ComplexityConverterForPHP).whenAnyAncestorNamed('PHP');
-container.bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter).to(HalsteadConverterForPHP).whenAnyAncestorNamed('PHP');
-container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForPHP).whenAnyAncestorNamed('PHP');
-container.bind<Converter<LineOfCodeCountableNode>>(Types.lineOfCodeConverter).to(LineOfCodeConverterForTypeScript).whenAnyAncestorNamed('TypeScript');
-container.bind<Converter<ComplexityCountableNode>>(Types.cognitiveComplexityConverter).to(ComplexityConverterForTypeScript).whenAnyAncestorNamed('TypeScript');
-container.bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter).to(HalsteadConverterForTypeScript).whenAnyAncestorNamed('TypeScript');
-container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForTypeScript).whenAnyAncestorNamed('TypeScript');
+container
+  .bind<Converter<LineOfCodeCountableNode>>(Types.lineOfCodeConverter)
+  .to(LineOfCodeConverterForPHP)
+  .whenAnyAncestorNamed('PHP');
+container
+  .bind<Converter<ComplexityCountableNode>>(Types.cognitiveComplexityConverter)
+  .to(ComplexityConverterForPHP)
+  .whenAnyAncestorNamed('PHP');
+container
+  .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
+  .to(HalsteadConverterForPHP)
+  .whenAnyAncestorNamed('PHP');
+container
+  .bind<ASTGenerator>(Types.astNodeGenerator)
+  .to(ASTGeneratorForPHP)
+  .whenAnyAncestorNamed('PHP');
+container
+  .bind<Converter<LineOfCodeCountableNode>>(Types.lineOfCodeConverter)
+  .to(LineOfCodeConverterForTypeScript)
+  .whenAnyAncestorNamed('TypeScript');
+container
+  .bind<Converter<ComplexityCountableNode>>(Types.cognitiveComplexityConverter)
+  .to(ComplexityConverterForTypeScript)
+  .whenAnyAncestorNamed('TypeScript');
+container
+  .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
+  .to(HalsteadConverterForTypeScript)
+  .whenAnyAncestorNamed('TypeScript');
+container
+  .bind<ASTGenerator>(Types.astNodeGenerator)
+  .to(ASTGeneratorForTypeScript)
+  .whenAnyAncestorNamed('TypeScript');
 
 export { container };

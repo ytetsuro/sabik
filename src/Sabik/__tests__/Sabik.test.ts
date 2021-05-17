@@ -12,7 +12,8 @@ describe('Sabik', () => {
     beforeEach(() => {
       reporter = { output: jest.fn((_) => Promise.resolve()) };
       const analyzer = <Analyzer>getDouble(Analyzer, {
-        analyze: (fileList: File[]) => fileList.map(file => new Metrics(file, [], [])), 
+        analyze: (fileList: File[]) =>
+          fileList.map((file) => new Metrics(file, [], [])),
       });
 
       sabik = new Sabik(

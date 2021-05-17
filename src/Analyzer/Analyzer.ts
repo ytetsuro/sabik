@@ -13,9 +13,12 @@ export class Analyzer {
   private readonly metricsMap = new Map<CodePoint, Metrics>();
 
   constructor(
-    @inject(Types.astNodeGenerator) private readonly astNodeGenerator: ASTGenerator,
-    @multiInject(Types.codeMetricsCalculatorForAST) private readonly calculatorForAST: CalculatorForAST[],
-    @multiInject(Types.codeMetricsCalculatorForMetrics) private readonly calculatorForMetrics: CalculatorForMetrics[]
+    @inject(Types.astNodeGenerator)
+    private readonly astNodeGenerator: ASTGenerator,
+    @multiInject(Types.codeMetricsCalculatorForAST)
+    private readonly calculatorForAST: CalculatorForAST[],
+    @multiInject(Types.codeMetricsCalculatorForMetrics)
+    private readonly calculatorForMetrics: CalculatorForMetrics[]
   ) {}
 
   analyze(files: File[]) {

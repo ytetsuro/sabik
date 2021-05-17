@@ -9,7 +9,7 @@ export class Sabik {
   constructor(
     private analyzer: Analyzer,
     private fileFinder: FileFinder,
-    @inject(Types.reporter) private presenter: Reporter,
+    @inject(Types.reporter) private presenter: Reporter
   ) {}
 
   exec(findPath: string) {

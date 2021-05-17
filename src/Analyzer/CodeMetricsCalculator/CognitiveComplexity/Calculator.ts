@@ -13,15 +13,26 @@ import { Converter } from '../../Adapter/Converter';
 export class Calculator implements CalculatorForAST {
   constructor(
     @inject(MethodAnalyzer) private readonly analyzer: MethodAnalyzer,
-    @inject(Types.cognitiveComplexityConverter) private readonly converter: Converter<ComplexityCountableNode>
-  ) {
-  }
+    @inject(Types.cognitiveComplexityConverter)
+    private readonly converter: Converter<ComplexityCountableNode>
+  ) {}
 
   analyze(astNodes: ASTNodeSource[]) {
-    return this.analyzer.analyze(astNodes)
-      .map(({astNode, ...other}) => ({...other, countableNode: this.converter.convert(astNode)}))
-      .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
-  }  
+    return this.analyzer
+      .analyze(astNodes)
+      .map(({ astNode, ...other }) => ({
+        ...other,
+        countableNode: this.converter.convert(astNode),
+      }))
+      .map(
+        (row) =>
+          new Metrics(
+            row.file,
+            row.codePoints,
+            this.calculate(row.countableNode)
+          )
+      );
+  }
 
   calculate(node: ComplexityCountableNode): CognitiveComplexity[] {
     const complexities = this.extractComplexity(node, 0);

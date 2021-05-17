@@ -8,7 +8,7 @@ describe('ASTGenerator', () => {
       const actual = astGenerator.generate({
         fullPath: `${__dirname}/fixtures/example.ts`,
         relativePath: `./fixtures/example.ts`,
-        extension: '.ts'
+        extension: '.ts',
       });
 
       expect(actual).toBeInstanceOf(ASTNode);
