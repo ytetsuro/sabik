@@ -31,7 +31,7 @@ describe('Metrics', () => {
     it('should returns overview metrics.', () => {
       const overviews = [
         new MetricsValue(MetricsType.Maintainability, 20),
-        new MetricsValue(MetricsType.BugsDelivered, 20),
+        new MetricsValue(MetricsType.HalsteadBugsDelivered, 20),
         new MetricsValue(MetricsType.CognitiveComplexity, 20),
       ];
 
@@ -53,7 +53,7 @@ describe('Metrics', () => {
         'dummy.ts',
         [
           new MetricsValue(MetricsType.Maintainability, 20),
-          new MetricsValue(MetricsType.BugsDelivered, 20),
+          new MetricsValue(MetricsType.HalsteadBugsDelivered, 20),
           new MetricsValue(MetricsType.CognitiveComplexity, 20),
           ...details,
         ],
@@ -70,7 +70,7 @@ describe('Metrics', () => {
         'dummy.ts',
         [
           new MetricsValue(MetricsType.Maintainability, 20),
-          new MetricsValue(MetricsType.BugsDelivered, 20),
+          new MetricsValue(MetricsType.HalsteadBugsDelivered, 20),
           new MetricsValue(MetricsType.CognitiveComplexity, 20),
           new MetricsValue(MetricsType.HalsteadDifficulty, 20),
         ],

@@ -1,7 +1,9 @@
 import * as ts from 'typescript';
 import { ComplexityCountableNode } from './ComplexityCountableNode';
 import { ASTNode as ASTNodeInterface } from '../../Analyzer/Adapter/ASTNode';
+import { injectable } from 'inversify';
 
+@injectable()
 export class ASTNode implements ASTNodeInterface {
   private static readonly functionSyntaxKinds = [
     ts.SyntaxKind.FunctionDeclaration,
@@ -10,10 +12,10 @@ export class ASTNode implements ASTNodeInterface {
   ];
 
   private static readonly methodSyntaxKinds = [
-      ts.SyntaxKind.MethodDeclaration,
-      ts.SyntaxKind.Constructor,
-      ts.SyntaxKind.GetAccessor,
-      ts.SyntaxKind.SetAccessor,
+    ts.SyntaxKind.MethodDeclaration,
+    ts.SyntaxKind.Constructor,
+    ts.SyntaxKind.GetAccessor,
+    ts.SyntaxKind.SetAccessor,
   ];
 
   readonly node: ts.Node;

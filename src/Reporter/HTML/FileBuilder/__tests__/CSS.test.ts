@@ -8,7 +8,7 @@ describe('CSS', () => {
 
       await css.build();
 
-      expect(writerMock.write.mock.calls[0][0]).toBe('index.css');
+      expect(writerMock.write.mock.calls[0][0]).toBe('app.css');
     });
   });
 });

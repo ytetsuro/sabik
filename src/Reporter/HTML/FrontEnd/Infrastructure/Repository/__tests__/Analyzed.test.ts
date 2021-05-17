@@ -1,6 +1,7 @@
 import { getDouble } from '../../../../../../TestHelpers/getDouble';
 import { FileMetrics } from '../../Converter/FileMetrics';
 import { Metrics } from '../../Converter/Metrics';
+import { MetricsValue } from '../../Converter/MetricsValue';
 import { ResourceLoader } from '../../ResourceLoader';
 import { Analyzed } from '../Analyzed';
 import { fixture } from './fixtures/analyzed';
@@ -12,7 +13,7 @@ describe('Analyzed', () => {
       getDouble(ResourceLoader, {
         load: () => Promise.resolve(JSON.stringify(fixture)),
       }),
-      new FileMetrics(new Metrics())
+      new FileMetrics(new Metrics(new MetricsValue()))
     );
   });
 
