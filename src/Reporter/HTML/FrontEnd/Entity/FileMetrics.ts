@@ -2,11 +2,6 @@ import { Metrics } from './Metrics';
 import { MetricsCalculator } from './MetricsCalculator';
 import { MetricsType } from './MetricsType';
 
-interface LineOfCode {
-  readonly physical: number;
-  readonly logical: number;
-}
-
 export class FileMetrics {
   private metricsCalculator: MetricsCalculator;
 

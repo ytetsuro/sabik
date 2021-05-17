@@ -2,6 +2,7 @@ import { CodePoint } from './CodePoint';
 import { MetricsValue } from './MetricsValue';
 import { File } from '../Adapter/File';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MetricsValueConstructor<T extends MetricsValue> = new (..._: any) => T;
 
 export class Metrics {

@@ -38,7 +38,14 @@ export class Event {
   }
 
   private createCode(type: 'analyzed' | 'sourceCode', eventData: string) {
-    return `document.dispatchEvent(new CustomEvent('sabik:resourceLoaded:${type}', {bubbles: true, detail: {data: '${eventData}'}}));`;
+    return `document.dispatchEvent(
+      new CustomEvent('sabik:resourceLoaded:${type}', {
+        bubbles: true,
+        detail: {
+          data: '${eventData}'
+        }
+      })
+    );`;
   }
 
   private createZIPBySourceCode(fileName: string) {

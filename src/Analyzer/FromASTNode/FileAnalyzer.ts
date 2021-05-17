@@ -1,6 +1,4 @@
-import { inject, injectable } from 'inversify';
-import { Types } from '../../types/Types';
-import { Converter } from '../Adapter/Converter';
+import { injectable } from 'inversify';
 import { CodePoint } from '../Metrics/CodePoint';
 import { CodePointType } from '../Metrics/CodePointType';
 import { Analyzer } from './Analyzer';

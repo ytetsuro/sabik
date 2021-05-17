@@ -31,3 +31,4 @@ rules:
     -
       code: 120
       ignoreComments: true
+      ignorePattern: '^import\s.+\sfrom\s.+;$'
