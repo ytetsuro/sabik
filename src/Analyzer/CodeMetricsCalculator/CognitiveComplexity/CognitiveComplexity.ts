@@ -1,5 +1,5 @@
-import { MetricsType } from '../MetricsType';
-import { MetricsValue } from '../MetricsValue';
+import { MetricsType } from '../../Metrics/MetricsType';
+import { MetricsValue } from '../../Metrics/MetricsValue';
 import { ComplexityIncrement } from './ComplexityIncrement';
 
 export class CognitiveComplexity implements MetricsValue {

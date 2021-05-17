@@ -2,12 +2,14 @@ import { Maintainability } from './Maintainability';
 import { HalsteadVolume } from '../Halstead/MetricsValue/HalsteadVolume';
 import { CognitiveComplexity } from '../CognitiveComplexity/CognitiveComplexity';
 import { LogicalLineOfCode } from '../LineOfCode/MetricsValue/LogicalLineOfCode';
-import { MetricsValue } from '../MetricsValue';
-import { Metrics } from '../../Analyzer/Metrics/Metrics';
-import { CodePointType } from '../../Analyzer/Metrics/CodePointType';
+import { MetricsValue } from '../../Metrics/MetricsValue';
+import { Metrics } from '../../Metrics/Metrics';
+import { CodePointType } from '../../Metrics/CodePointType';
+import { injectable } from 'inversify';
 
 type TargetMetrics = HalsteadVolume|LogicalLineOfCode|CognitiveComplexity;
 
+@injectable()
 export class Calculator {
   readonly targetMetrics = [
     HalsteadVolume,

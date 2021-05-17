@@ -7,22 +7,23 @@ import { HalsteadLength } from './MetricsValue/HalsteadLength';
 import { HalsteadTime } from './MetricsValue/HalsteadTime';
 import { HalsteadVocabulary } from './MetricsValue/HalsteadVocabulary';
 import { HalsteadVolume } from './MetricsValue/HalsteadVolume';
-import { MethodAnalyzer } from '../../Analyzer/ASTAnalyzer/MethodAnalyzer';
-import { ASTNode } from '../../Analyzer/Adapter/ASTNode';
-import { File } from '../../Analyzer/Adapter/File';
-import { Metrics } from '../../Analyzer/Metrics/Metrics';
+import { MethodAnalyzer } from '../../FromASTNode/MethodAnalyzer';
+import { Metrics } from '../../Metrics/Metrics';
+import { ASTNodeSource } from '../../FromASTNode/ASTNodeSource';
+import { inject, injectable } from 'inversify';
+import { Converter } from '../../Adapter/Converter';
+import { Types } from '../../../types/Types';
 
-type ASTNodeSource = {
-  astNode: ASTNode;
-  file: File;
-};
-
+@injectable()
 export class Calculator {
-  constructor(private readonly analyzer: MethodAnalyzer<HalsteadCountableNode>) {
-  }
+  constructor(
+    @inject(MethodAnalyzer) private readonly analyzer: MethodAnalyzer,
+    @inject(Types.halsteadConverter) private readonly converter: Converter<HalsteadCountableNode>
+  ) {}
 
   analyze(astNodes: ASTNodeSource[]) {
     return this.analyzer.analyze(astNodes)
+      .map(({astNode, ...other}) => ({...other, countableNode: this.converter.convert(astNode)}))
       .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
   }
 

@@ -1,6 +1,6 @@
 import { Decimal } from 'decimal.js';
-import { MetricsType } from '../../MetricsType';
-import { MetricsValue } from '../../MetricsValue';
+import { MetricsType } from '../../../Metrics/MetricsType';
+import { MetricsValue } from '../../../Metrics/MetricsValue';
 import { HalsteadEffort } from './HalsteadEffort';
 
 export class HalsteadTime implements MetricsValue {

@@ -1,23 +1,25 @@
 import { ComplexityCountableNode } from './Adapter/ComplexityCountableNode';
 import { ComplexityIncrement } from './ComplexityIncrement';
 import { CognitiveComplexity } from './CognitiveComplexity';
-import { ASTAnalyzer } from '../../Analyzer/ASTAnalyzer/ASTAnalyzer';
-import { MethodAnalyzer } from '../../Analyzer/ASTAnalyzer/MethodAnalyzer';
-import { ASTNode } from '../../Analyzer/Adapter/ASTNode';
-import { File } from '../../Analyzer/Adapter/File';
-import { Metrics } from '../../Analyzer/Metrics/Metrics';
+import { CalculatorForAST } from '../../FromASTNode/CalculatorForAST';
+import { MethodAnalyzer } from '../../FromASTNode/MethodAnalyzer';
+import { Metrics } from '../../Metrics/Metrics';
+import { ASTNodeSource } from '../../FromASTNode/ASTNodeSource';
+import { inject, injectable } from 'inversify';
+import { Types } from '../../../types/Types';
+import { Converter } from '../../Adapter/Converter';
 
-type ASTNodeSource = {
-  astNode: ASTNode;
-  file: File;
-};
-
-export class Calculator implements ASTAnalyzer {
-  constructor(private readonly analyzer: MethodAnalyzer<ComplexityCountableNode>) {
+@injectable()
+export class Calculator implements CalculatorForAST {
+  constructor(
+    @inject(MethodAnalyzer) private readonly analyzer: MethodAnalyzer,
+    @inject(Types.cognitiveComplexityConverter) private readonly converter: Converter<ComplexityCountableNode>
+  ) {
   }
 
   analyze(astNodes: ASTNodeSource[]) {
     return this.analyzer.analyze(astNodes)
+      .map(({astNode, ...other}) => ({...other, countableNode: this.converter.convert(astNode)}))
       .map(row => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
   }  
 
