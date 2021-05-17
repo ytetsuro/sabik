@@ -16,7 +16,7 @@ describe('EntryPoint', () => {
 
       await entryPoint.build();
 
-      expect(writerMock.write.mock.calls[0][0]).toBe('index.js');
+      expect(writerMock.write.mock.calls[0][0]).toBe('app.js');
       expect(writerMock.write.mock.calls[0][1]).toBe('unitTest');
     });
   });

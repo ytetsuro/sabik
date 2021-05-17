@@ -1,13 +1,11 @@
-import { Complexity } from '../../Language/TypeScript/Converter/Complexity';
-import { LineOfCode } from '../../Language/TypeScript/Converter/LineOfCode';
-import { Halstead } from '../../Language/TypeScript/Converter/Halstead';
-import { ASTGenerator } from '../../Language/TypeScript/ASTGenerator';
-import { LanguageConfig } from './LanguageConfig';
+import { inject, injectable, named } from 'inversify';
+import { Analyzer } from '../../Analyzer/Analyzer';
+import { LanguageAnalyzer } from '../Analyzer/LanguageAnalyzer';
 
-export class TypeScript implements LanguageConfig {
+@injectable()
+export class TypeScript extends LanguageAnalyzer {
   public readonly extensions = ['.js', '.cjs', '.mjs', '.jsx', '.ts', '.tsx'];
-  public readonly complexityConverter = new Complexity();
-  public readonly lineOfCodeConverter = new LineOfCode();
-  public readonly halsteadConverter = new Halstead();
-  public readonly astGenerator = new ASTGenerator();
+  constructor(@inject(Analyzer) @named('TypeScript') analyzer: Analyzer) {
+    super(analyzer);
+  }
 }

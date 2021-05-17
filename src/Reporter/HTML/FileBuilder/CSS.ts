@@ -21,6 +21,6 @@ export class CSS {
         });
     });
 
-    return this.writer.write('index.css', await css);
+    return this.writer.write('app.css', await css);
   }
 }
