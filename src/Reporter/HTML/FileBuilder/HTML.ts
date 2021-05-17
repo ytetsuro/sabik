@@ -11,8 +11,8 @@ export class HTML {
       `<!DOCTYPE html>
             <html lang="en">
             <head><meta charset="UTF-8">
-            <link rel="stylesheet" href="./index.css">
-            <script src="./index.js"></script>
+            <link rel="stylesheet" href="./app.css">
+            <script src="./app.js"></script>
             <title>Sabik Report</title>
             </head>
             <body></body>

@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import * as PHPParser from 'php-parser';
 import { ASTNode as ASTNodeInterface } from '../../Analyzer/Adapter/ASTNode';
 import { ASTKind } from './ASTKind';
@@ -13,11 +14,12 @@ type NameExtractableNode = PHPParser.Node & {
 type EntryNode = PHPParser.Node & { key?: NameExtractableNode };
 type AssignNode = PHPParser.Node & { left: NameExtractableNode };
 
+@injectable()
 export class ASTNode implements ASTNodeInterface {
   constructor(
     public readonly node: Node,
     public readonly sourceFile: Node,
-    public readonly parentNode?: ASTNode,
+    public readonly parentNode?: ASTNode
   ) {
     if (sourceFile.kind !== ASTKind.PROGRAM) {
       throw new Error('sourceFile ast node is not program kind.');

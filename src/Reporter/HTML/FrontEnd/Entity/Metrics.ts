@@ -4,7 +4,7 @@ import { MetricsValue } from './MetricsValue';
 export class Metrics {
   private overviews: MetricsType[] = [
     MetricsType.CognitiveComplexity,
-    MetricsType.BugsDelivered,
+    MetricsType.HalsteadBugsDelivered,
     MetricsType.Maintainability,
   ];
 

@@ -1,5 +1,5 @@
-import { Analyzed } from '../../../Sabik/Analyzer/Analyzed';
+import { Metrics } from '../../../Analyzer/Metrics/Metrics';
 
 export interface FileBuilder {
-  build(metrics: Analyzed[]): Promise<void | void[]>;
+  build(metrics: Metrics[]): Promise<void | void[]>;
 }
