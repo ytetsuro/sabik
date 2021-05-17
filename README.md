@@ -1,9 +1,14 @@
 Sabik
 ===
 
+This project is under development.
+
+Please feel free to PullRequest and Issue.
+
+---
+
 ![ci-build](https://github.com/ytetsuro/sabik/workflows/ci-build/badge.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/ytetsuro/sabik/badge.svg)](https://snyk.io/test/github/ytetsuro/sabik)
-
 
 Sabik is a source code metrics tool.
 It's a compass tool for warriors fighting a project that smells bad.
@@ -20,6 +25,20 @@ It's not a tool for keeping clean code like Linter.
 
 ```sh-session
 $ npx sabik /target/path
+```
+
+# Local installation
+
+If you felt sabik is slow, using local installation.
+
+```sh-session
+$ npm i -g sabik
+```
+
+## Using sabik with local installed
+
+```sh-session
+$ sabik /target/path
 ```
 
 ## Help
