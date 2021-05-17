@@ -28,7 +28,7 @@ export class FileFinder {
     let result: File[] = [];
     const fullPath = this.getFullPath(findPath);
 
-    if (fs.statSync(fullPath).isDirectory()) {
+    if (fs.lstatSync(fullPath).isDirectory()) {
       result = result.concat(...this.findByDirectoryPath(fullPath));
     } else if (this.isTarget(fullPath)) {
       result.push(this.createFindResult(fullPath));
@@ -51,7 +51,7 @@ export class FileFinder {
 
   private isTarget(path: string) {
     return (
-      fs.statSync(path).isFile() &&
+      fs.lstatSync(path).isFile() &&
       this.findSource.test(path) &&
       !this.isExcludePath(path)
     );
