@@ -19,7 +19,7 @@
     "decimal.js": "^10.2.1",
     "esbuild": "^0.11.23",
     "immutable": "^4.0.0-rc.12",
-    "inversify": "^5.0.5",
+    "inversify": "^5.1.1",
     "mithril": "^2.0.3",
     "pako": "^1.0.11",
     "php-parser": "^3.0.2",
