@@ -1,4 +1,4 @@
-import Engine, { Node } from 'php-parser';
+import {Engine, Node } from 'php-parser';
 import { ASTNode } from '../ASTNode';
 
 type Assign = Node & { right: Node; left: Node };
@@ -20,7 +20,7 @@ describe('ASTNode', () => {
   });
   describe('.isClass()', () => {
     it('should checkable class structure.', () => {
-      const sourceFile = engine.parseCode('<?php class A {}; function a() {}');
+      const sourceFile = engine.parseCode('<?php class A {}; function a() {}', '');
       const classStructure = new ASTNode(sourceFile.children[0], sourceFile);
       const notClassStructure = new ASTNode(sourceFile.children[1], sourceFile);
 

@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import Engine from 'php-parser';
+import {Engine} from 'php-parser';
 import { ASTNode } from '../ASTNode';
 import { HalsteadCountableNode } from '../HalsteadCountableNode';
 
@@ -15,7 +15,8 @@ describe('HalsteadCountableNode', () => {
   });
 
   const parent = engine.parseCode(
-    readFileSync(`${__dirname}/fixtures/example.php`).toString()
+    readFileSync(`${__dirname}/fixtures/example.php`).toString(),
+    ''
   );
 
   const functionNode = new HalsteadCountableNode(
