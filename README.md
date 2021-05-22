@@ -14,6 +14,8 @@ Visualize source code complexity with Sabik.
 This tool is to find the bad smell code.
 I think your helpful refactoring.
 
+If you want to see what it looks like, click [here](http://sabik.botch.me/example/).
+
 <!-- toc -->
 * [Basic Using](#basic-using)
 * [Support Programming Language](#support-programming-language)
