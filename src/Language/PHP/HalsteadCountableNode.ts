@@ -191,7 +191,8 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
           HalsteadCountableNode.operatorStrings.includes(String(row))
       )
       .map((row) => ({
-        token: typeof row === 'string' ? 'X_OPERATOR_STRING' : String((<any>row)[0]),
+        token:
+          typeof row === 'string' ? 'X_OPERATOR_STRING' : String((<any>row)[0]),
         source: typeof row === 'string' ? row : String((<any>row)[1]),
       }));
 

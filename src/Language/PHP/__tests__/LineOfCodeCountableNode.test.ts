@@ -1,4 +1,4 @@
-import {Engine} from 'php-parser';
+import { Engine } from 'php-parser';
 import { ASTNode } from '../ASTNode';
 import { LineOfCodeCountableNode } from '../LineOfCodeCountableNode';
 

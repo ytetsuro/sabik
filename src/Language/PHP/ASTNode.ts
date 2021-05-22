@@ -34,10 +34,12 @@ export class ASTNode implements ASTNodeInterface {
     const startOffset = this.getStartOffset();
     const endOffset = this.getEndOffset();
 
-    return this.sourceFile.loc?.source?.substr(
-      startOffset,
-      endOffset - startOffset
-    ) ?? '';
+    return (
+      this.sourceFile.loc?.source?.substr(
+        startOffset,
+        endOffset - startOffset
+      ) ?? ''
+    );
   }
 
   get commentStripSource() {
@@ -144,11 +146,13 @@ export class ASTNode implements ASTNodeInterface {
         <ASTKind>node?.kind
       )
     ) {
-      return node?.loc?.source
-        ?.split('=', 2)[0]
-        .replace(/[\n|\r|\s|\t]+/g, '')
-        .replace(/(->|::)/g, '.')
-        .replace(/^\$/, '') ?? '';
+      return (
+        node?.loc?.source
+          ?.split('=', 2)[0]
+          .replace(/[\n|\r|\s|\t]+/g, '')
+          .replace(/(->|::)/g, '.')
+          .replace(/^\$/, '') ?? ''
+      );
     }
 
     return null;
@@ -173,8 +177,10 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   getStartOffset() {
-    return this.node?.leadingComments?.[0]?.loc?.start.offset
-       ?? this.node.loc!.start.offset;
+    return (
+      this.node?.leadingComments?.[0]?.loc?.start.offset ??
+      this.node.loc!.start.offset
+    );
   }
 
   getEndOffset() {

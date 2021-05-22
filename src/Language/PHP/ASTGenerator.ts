@@ -1,4 +1,4 @@
-import {Engine} from 'php-parser';
+import { Engine } from 'php-parser';
 import { readFileSync } from 'fs';
 import { ASTGenerator as ASTGeneratorInterface } from '../../Analyzer/Adapter/ASTGenerator';
 import { ASTNode } from './ASTNode';

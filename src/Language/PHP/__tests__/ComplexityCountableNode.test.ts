@@ -1,4 +1,4 @@
-import {Engine} from 'php-parser';
+import { Engine } from 'php-parser';
 import { readFileSync } from 'fs';
 import { ASTNode } from '../ASTNode';
 import { ComplexityCountableNode } from '../ComplexityCountableNode';

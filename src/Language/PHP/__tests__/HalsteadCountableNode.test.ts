@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import {Engine} from 'php-parser';
+import { Engine } from 'php-parser';
 import { ASTNode } from '../ASTNode';
 import { HalsteadCountableNode } from '../HalsteadCountableNode';
 
