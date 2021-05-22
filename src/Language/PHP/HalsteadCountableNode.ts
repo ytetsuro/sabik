@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import Engine from 'php-parser';
+import * as PHPParser from 'php-parser';
 import { HalsteadCountableNode as HalsteadCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/Halstead/Adapter/HalsteadCountableNode';
 import { ASTNode } from './ASTNode';
 
@@ -169,7 +169,7 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
   }
 
   private getTokens(astNode: ASTNode) {
-    const engine = new Engine({
+    const engine = new PHPParser.Engine({
       parser: {
         extractDoc: true,
       },
@@ -188,11 +188,16 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
       .filter(
         (row) =>
           Array.isArray(row) ||
-          HalsteadCountableNode.operatorStrings.includes(row)
+          HalsteadCountableNode.operatorStrings.includes(String(row))
       )
       .map((row) => ({
-        token: typeof row === 'string' ? 'X_OPERATOR_STRING' : String(row[0]),
-        source: typeof row === 'string' ? row : String(row[1]),
+        token:
+        // https://github.com/glayzzle/php-parser/pull/737
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          typeof row === 'string' ? 'X_OPERATOR_STRING' : String((<any>row)[0]),
+        // https://github.com/glayzzle/php-parser/pull/737
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        source: typeof row === 'string' ? row : String((<any>row)[1]),
       }));
 
     return astNode.isMethod() ? tokens.slice(5) : tokens;

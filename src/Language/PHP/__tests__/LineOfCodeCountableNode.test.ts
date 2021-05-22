@@ -1,4 +1,4 @@
-import Engine from 'php-parser';
+import { Engine } from 'php-parser';
 import { ASTNode } from '../ASTNode';
 import { LineOfCodeCountableNode } from '../LineOfCodeCountableNode';
 
@@ -37,7 +37,7 @@ describe('LineOfCodeCountableNode', () => {
         return $hearDocument;
       }
     }`;
-  const parent = engine.parseCode(source);
+  const parent = engine.parseCode(source, '');
 
   describe('getText()', () => {
     it('should get full text.', () => {

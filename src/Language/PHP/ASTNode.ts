@@ -18,7 +18,7 @@ type AssignNode = PHPParser.Node & { left: NameExtractableNode };
 export class ASTNode implements ASTNodeInterface {
   constructor(
     public readonly node: Node,
-    public readonly sourceFile: Node,
+    public readonly sourceFile: PHPParser.Program,
     public readonly parentNode?: ASTNode
   ) {
     if (sourceFile.kind !== ASTKind.PROGRAM) {
@@ -34,9 +34,11 @@ export class ASTNode implements ASTNodeInterface {
     const startOffset = this.getStartOffset();
     const endOffset = this.getEndOffset();
 
-    return this.sourceFile.loc.source.substr(
-      startOffset,
-      endOffset - startOffset
+    return (
+      this.sourceFile.loc?.source?.substr(
+        startOffset,
+        endOffset - startOffset
+      ) ?? ''
     );
   }
 
@@ -46,7 +48,7 @@ export class ASTNode implements ASTNodeInterface {
     const sourceArray = this.source.split('');
     const commentPositions =
       (<{ comments?: Node[] }>this.sourceFile).comments
-        ?.map((row) => row.loc)
+        ?.map((row) => row.loc!)
         .filter(
           ({ start, end }) =>
             start.offset >= startOffset && endOffset >= end.offset
@@ -144,11 +146,13 @@ export class ASTNode implements ASTNodeInterface {
         <ASTKind>node?.kind
       )
     ) {
-      return node?.loc.source
-        .split('=', 2)[0]
-        .replace(/[\n|\r|\s|\t]+/g, '')
-        .replace(/(->|::)/g, '.')
-        .replace(/^\$/, '');
+      return (
+        node?.loc?.source
+          ?.split('=', 2)[0]
+          .replace(/[\n|\r|\s|\t]+/g, '')
+          .replace(/(->|::)/g, '.')
+          .replace(/^\$/, '') ?? ''
+      );
     }
 
     return null;
@@ -165,24 +169,22 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   getStartLineNumber(): number {
-    return <number>this.node.loc.start.line - 1;
+    return <number>this.node.loc?.start.line - 1;
   }
 
-  getEndLineNumber() {
-    return <number>this.node.loc.end.line - 1;
+  getEndLineNumber(): number {
+    return <number>this.node.loc?.end.line - 1;
   }
 
   getStartOffset() {
     return (
-      <number>(
-        (<{ leadingComments?: Node[] }>this.node)?.leadingComments?.[0]?.loc
-          .start.offset
-      ) ?? this.node.loc.start.offset
+      this.node?.leadingComments?.[0]?.loc?.start.offset ??
+      this.node.loc!.start.offset
     );
   }
 
   getEndOffset() {
-    return <number>this.node.loc.end.offset;
+    return this.node!.loc!.end.offset;
   }
 
   getChildren() {

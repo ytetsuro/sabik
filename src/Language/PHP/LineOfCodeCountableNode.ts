@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import Engine from 'php-parser';
+import { Engine } from 'php-parser';
 import { LineOfCodeCountableNode as LineOfCodeCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/LineOfCode/Adapter/LineOfCodeCountableNode';
 import { ASTNode } from './ASTNode';
 
@@ -22,7 +22,11 @@ export class LineOfCodeCountableNode
       },
     });
     const source = this.node.commentStripSource.replace(/\r\n?/g, '\n');
-    const tokens = engine.tokenGetAll(`<?php ${source}`);
+    // https://github.com/glayzzle/php-parser/pull/737
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const tokens: Array<string | string[]> = <any>(
+      engine.tokenGetAll(`<?php ${source}`)
+    );
 
     const removeTargetLineNumbers = tokens
       .filter((row) => row[0] === 'T_WHITESPACE')
