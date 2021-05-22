@@ -22,6 +22,8 @@ export class LineOfCodeCountableNode
       },
     });
     const source = this.node.commentStripSource.replace(/\r\n?/g, '\n');
+    // https://github.com/glayzzle/php-parser/pull/737
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const tokens: Array<string | string[]> = <any>(
       engine.tokenGetAll(`<?php ${source}`)
     );

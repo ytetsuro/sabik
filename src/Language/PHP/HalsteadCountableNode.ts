@@ -192,7 +192,11 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
       )
       .map((row) => ({
         token:
+        // https://github.com/glayzzle/php-parser/pull/737
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
           typeof row === 'string' ? 'X_OPERATOR_STRING' : String((<any>row)[0]),
+        // https://github.com/glayzzle/php-parser/pull/737
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         source: typeof row === 'string' ? row : String((<any>row)[1]),
       }));
 

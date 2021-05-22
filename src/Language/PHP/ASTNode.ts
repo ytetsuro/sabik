@@ -169,10 +169,10 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   getStartLineNumber(): number {
-    return this.node.loc?.start.line! - 1;
+    return <number>this.node.loc?.start.line - 1;
   }
 
-  getEndLineNumber() {
+  getEndLineNumber(): number {
     return <number>this.node.loc?.end.line - 1;
   }
 
