@@ -62,10 +62,12 @@ describe('Analyzer class.', () => {
       expect(actual[0].toJSON().metricsList).toStrictEqual([
         {
           type: Number(MetricsType.HalsteadVolume),
+          typeLabel: MetricsType.HalsteadVolume.label,
           value: 1,
         },
         {
           type: Number(MetricsType.LogicalLineOfCode),
+          typeLabel: MetricsType.LogicalLineOfCode.label,
           value: 1,
         },
       ]);

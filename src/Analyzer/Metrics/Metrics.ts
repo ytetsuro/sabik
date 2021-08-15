@@ -8,8 +8,8 @@ type MetricsValueConstructor<T extends MetricsValue> = new (..._: any) => T;
 export class Metrics {
   constructor(
     public readonly file: File,
-    public readonly codePoints: CodePoint[],
-    private readonly metricsValues: MetricsValue[]
+    public readonly codePoints: ReadonlyArray<CodePoint>,
+    public readonly metricsValues: ReadonlyArray<MetricsValue>
   ) {}
 
   hasMetricsValue(...values: MetricsValueConstructor<MetricsValue>[]): boolean {
@@ -43,8 +43,9 @@ export class Metrics {
     );
   }
 
-  private getName() {
+  getName() {
     return this.codePoints
+      .slice()
       .sort((a, b) => Number(a.type) - Number(b.type))
       .map(({ name }) => name)
       .join('.');
@@ -61,6 +62,7 @@ export class Metrics {
       endLineNumber: minimalCodePoint.endLineNumber,
       metricsList: this.metricsValues.map((metrics) => ({
         type: Number(metrics.type),
+        typeLabel: metrics.type.label,
         value: Number(metrics),
       })),
     };
