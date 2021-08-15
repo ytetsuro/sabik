@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { Container } from 'inversify';
 import { FileFinder } from './FileFinder/FileFinder';
 import { Reporter as HTMLReporter } from '../Reporter/HTML/Reporter';
+import { Reporter as JSONReporter } from '../Reporter/JSON/Reporter';
 import { Types } from '../types/Types';
 import { ScriptBuilder } from '../Reporter/HTML/ScriptBuilder';
 import { FileBuilder } from '../Reporter/HTML/FileBuilder/FileBuilder';
@@ -50,7 +51,14 @@ container.bind<FileBuilder>(Types.outputFileBuilder).to(CSS);
 container.bind<FileBuilder>(Types.outputFileBuilder).to(HTML);
 container.bind<FileBuilder>(Types.outputFileBuilder).to(Event);
 container.bind<FileBuilder>(Types.outputFileBuilder).to(EntryPoint);
-container.bind<Reporter>(Types.reporter).to(HTMLReporter);
+container
+  .bind<Reporter>(Types.reporter)
+  .to(HTMLReporter)
+  .whenAnyAncestorNamed('HTML');
+container
+  .bind<Reporter>(Types.reporter)
+  .to(JSONReporter)
+  .whenAnyAncestorNamed('JSON');
 container.bind<Sabik>(Sabik).toSelf();
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(PHP);
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(TypeScript);
