@@ -22,13 +22,13 @@ export class Maintainability implements MetricsValue {
       Decimal.log(Number(this.logicalLineOfCode))
     );
 
-    const maintainability = new Decimal(171)
+    const maintainability = (new Decimal(171))
       .minus(halstead)
       .minus(complexity)
       .minus(logicalLineOfCode)
       .mul(100)
       .div(171);
 
-    return Math.max(0, Number(maintainability));
+    return Math.min(Math.max(0, Number(maintainability)), 100);
   }
 }
