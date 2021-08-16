@@ -1,7 +1,7 @@
 import { inject, injectable, multiInject } from 'inversify';
-import { Types } from '../../types/Types';
-import { FileBuilder } from './FileBuilder/FileBuilder';
-import { Metrics } from '../../Analyzer/Metrics/Metrics';
+import { Types } from '../types/Types';
+import { FileBuilder } from './HTML/FileBuilder/FileBuilder';
+import { Metrics } from '../Analyzer/Metrics/Metrics';
 import { statSync } from 'fs';
 import { existsSync } from 'fs';
 

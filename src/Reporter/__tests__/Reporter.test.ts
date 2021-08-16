@@ -4,7 +4,7 @@ describe('Reporter', () => {
   describe('.output()', () => {
     it('should output html report.', async () => {
       const builderMock = { build: jest.fn((_) => Promise.resolve()) };
-      const reporter = new Reporter([builderMock], '');
+      const reporter = new Reporter([builderMock], './');
 
       await reporter.output([]);
 

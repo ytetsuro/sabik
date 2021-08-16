@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import { FileFinder } from './FileFinder/FileFinder';
-import { Reporter as HTMLReporter } from '../Reporter/HTML/Reporter';
+import { Reporter as HTMLReporter } from '../Reporter/Reporter';
 import { Reporter as JSONReporter } from '../Reporter/JSON/Reporter';
 import { Types } from '../types/Types';
 import { ScriptBuilder } from '../Reporter/HTML/ScriptBuilder';
