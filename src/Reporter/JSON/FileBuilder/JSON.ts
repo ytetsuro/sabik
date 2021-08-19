@@ -1,13 +1,14 @@
 import { createWriteStream, existsSync, statSync } from 'fs';
 import { inject, injectable, optional } from 'inversify';
 import { Readable, Writable } from 'stream';
-import { Metrics } from '../../Analyzer/Metrics/Metrics';
-import { Types } from '../../types/Types';
-import { MetricsList } from './Converter/MetricsList';
-import { Summaries } from './Converter/Summaries';
+import { Metrics } from '../../../Analyzer/Metrics/Metrics';
+import { Types } from '../../../types/Types';
+import { FileBuilder } from '../../FileBuilder';
+import { MetricsList } from '../Converter/MetricsList';
+import { Summaries } from '../Converter/Summaries';
 
 @injectable()
-export class Reporter {
+export class JSON implements FileBuilder {
   private outputStream: Writable;
 
   constructor(
@@ -20,9 +21,9 @@ export class Reporter {
     this.outputStream = outputPath ? createWriteStream(outputPath, 'utf8') : process.stdout ;
   }
 
-  async output(metrics: Metrics[]): Promise<void> {
+  async build(metrics: Metrics[]): Promise<void> {
     return new Promise((resolve) => {
-      const stream = Readable.from([JSON.stringify({
+      const stream = Readable.from([global.JSON.stringify({
         summaries: new Summaries(metrics),
         details: new MetricsList(metrics),
       })]);
