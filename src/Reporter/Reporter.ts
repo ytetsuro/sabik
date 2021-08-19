@@ -17,6 +17,8 @@ export class Reporter {
       <Promise<void>[]>this.builders.map((builder) => builder.build(metrics))
     );
 
-    this.outputPath && console.log(`Generated report. ${this.outputPath}`);
+    if (this.outputPath) {
+      console.log(`Generated report. ${this.outputPath}`);
+    } 
   }
 }
