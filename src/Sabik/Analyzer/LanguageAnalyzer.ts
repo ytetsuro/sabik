@@ -9,9 +9,7 @@ export abstract class LanguageAnalyzer {
   constructor(private readonly analyzer: Analyzer) {}
 
   analyze(files: File[]) {
-    const analyzableFiles = files.filter((file) =>
-      this.extensions.includes(file.extension)
-    );
+    const analyzableFiles = files.filter((file) => this.extensions.includes(file.extension));
 
     return this.analyzer.analyze(analyzableFiles);
   }

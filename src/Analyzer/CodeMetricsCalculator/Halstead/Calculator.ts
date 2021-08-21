@@ -29,14 +29,7 @@ export class Calculator {
         ...other,
         countableNode: this.converter.convert(astNode),
       }))
-      .map(
-        (row) =>
-          new Metrics(
-            row.file,
-            row.codePoints,
-            this.calculate(row.countableNode)
-          )
-      );
+      .map((row) => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
   }
 
   calculate(node: HalsteadCountableNode) {
@@ -56,15 +49,7 @@ export class Calculator {
     const effort = new HalsteadEffort(volume, difficulty);
     const time = new HalsteadTime(effort);
 
-    return [
-      length,
-      vocabulary,
-      difficulty,
-      volume,
-      bugsDelivered,
-      effort,
-      time,
-    ];
+    return [length, vocabulary, difficulty, volume, bugsDelivered, effort, time];
   }
 
   private extractOperandsAndOperators(node: HalsteadCountableNode) {
@@ -73,18 +58,12 @@ export class Calculator {
       result.push(node);
     }
 
-    result = result.concat(
-      ...node.getChildren().map((row) => this.extractOperandsAndOperators(row))
-    );
+    result = result.concat(...node.getChildren().map((row) => this.extractOperandsAndOperators(row)));
 
     return result;
   }
 
-  private add(
-    node: HalsteadCountableNode,
-    operands: Map<string, number>,
-    operators: Map<string, number>
-  ) {
+  private add(node: HalsteadCountableNode, operands: Map<string, number>, operators: Map<string, number>) {
     let map = operands;
     if (node.isOperator()) {
       map = operators;

@@ -9,8 +9,7 @@ type Param<T extends string> = {
   onSelect: (value: T) => void;
 };
 
-export class FileMetricsTable<T extends string>
-  implements m.Component<Param<T>> {
+export class FileMetricsTable<T extends string> implements m.Component<Param<T>> {
   view(vnode: m.Vnode<Param<T>>) {
     return [
       m('.columns', [

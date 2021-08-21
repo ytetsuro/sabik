@@ -48,9 +48,7 @@ describe('Maintainability Calculator Class', () => {
         ),
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(Maintainability))).toBe(
-        91.45659057778633
-      );
+      expect(Number(actual[0].getMetricsByMetricsValue(Maintainability))).toBe(91.45659057778633);
     });
   });
 });

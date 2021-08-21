@@ -18,15 +18,10 @@ describe('Metrics', () => {
       const metrics = new Metrics(
         new File('/unit/test/path', './test/path'),
         [new CodePoint(CodePointType.Method, 'WhoAmI', 0, 1)],
-        [
-          metricsValue,
-          { type: MetricsType.CognitiveComplexity, valueOf: () => 2 },
-        ]
+        [metricsValue, { type: MetricsType.CognitiveComplexity, valueOf: () => 2 }]
       );
 
-      expect(
-        metrics.getMetricsByMetricsValue(DummyMetricsValue)
-      ).toBeInstanceOf(DummyMetricsValue);
+      expect(metrics.getMetricsByMetricsValue(DummyMetricsValue)).toBeInstanceOf(DummyMetricsValue);
     });
 
     it('should getMetricsByMetricsValue returns null when has not type.', () => {

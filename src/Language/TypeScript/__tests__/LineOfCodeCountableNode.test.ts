@@ -14,9 +14,7 @@ describe('LineOfCodeCountableNode', () => {
   describe('getText()', () => {
     it('should get full text.', () => {
       const actual = new LineOfCodeCountableNode(new ASTNode(parent, parent));
-      const expected = readFileSync(
-        `${__dirname}/fixtures/example.ts`
-      ).toString();
+      const expected = readFileSync(`${__dirname}/fixtures/example.ts`).toString();
 
       expect(actual.getText()).toBe(expected);
     });
@@ -24,12 +22,9 @@ describe('LineOfCodeCountableNode', () => {
 
   describe('getRemovedCommentAndEmptyLineText()', () => {
     it('should get strip empty line text.', () => {
-      const actual = new LineOfCodeCountableNode(
-        new ASTNode(parent.statements[1], parent)
-      );
+      const actual = new LineOfCodeCountableNode(new ASTNode(parent.statements[1], parent));
 
-      expect(actual.getRemovedCommentAndEmptyLineText())
-        .toBe(`const FauxClass = () => {
+      expect(actual.getRemovedCommentAndEmptyLineText()).toBe(`const FauxClass = () => {
     return {
         method1: () => { },
         method2: () => { },

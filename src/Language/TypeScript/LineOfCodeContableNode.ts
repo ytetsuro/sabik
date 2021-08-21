@@ -4,8 +4,7 @@ import { LineOfCodeCountableNode as LineOfCodeCountableNodeInterface } from '../
 import { ASTNode } from './ASTNode';
 
 @injectable()
-export class LineOfCodeCountableNode
-  implements LineOfCodeCountableNodeInterface {
+export class LineOfCodeCountableNode implements LineOfCodeCountableNodeInterface {
   private readonly pureNode: ts.Node;
 
   constructor(node: ASTNode) {

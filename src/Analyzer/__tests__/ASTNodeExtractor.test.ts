@@ -71,15 +71,11 @@ describe('ASTNodeExtractor class', () => {
       expect(actual).toStrictEqual([
         {
           astNode: new ASTNode('F:dummyFunction1:0:5', {}),
-          codePoints: [
-            new CodePoint(CodePointType.Method, 'dummyFunction1', 0, 5),
-          ],
+          codePoints: [new CodePoint(CodePointType.Method, 'dummyFunction1', 0, 5)],
         },
         {
           astNode: new ASTNode('F:dummyFunction2:6:8', {}),
-          codePoints: [
-            new CodePoint(CodePointType.Method, 'dummyFunction2', 6, 8),
-          ],
+          codePoints: [new CodePoint(CodePointType.Method, 'dummyFunction2', 6, 8)],
         },
       ]);
     });

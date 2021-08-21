@@ -17,22 +17,22 @@ class Sabik extends Command {
       char: 't',
       options: ['HTML', 'JSON'],
       description: 'output report format. HTML or JSON. default: HTML',
-      default: 'HTML'
+      default: 'HTML',
     }),
     outputReportPath: flags.string({
       char: 'o',
       description: `output report path.
       For HTML, specify the directory, and for JSON, specify the file.`,
-      default: ({flags: {outputFormat}}: any) => (outputFormat === 'HTML' ? `./sabik_report` : '' ),
+      default: ({ flags: { outputFormat } }: { flags: { [key: string]: string } }) =>
+        outputFormat === 'HTML' ? `./sabik_report` : '',
     }),
     excludes: flags.string({
-      description:
-        'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$',
+      description: 'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$',
       default: '$^',
     }),
     matches: flags.string({
       description: 'match patterns. example: .ts$',
-      default: '.*'
+      default: '.*',
     }),
   };
 
@@ -43,21 +43,17 @@ class Sabik extends Command {
 
     const outputPath = flags.outputReportPath !== '' ? resolve(flags.outputReportPath) : null;
     const analyzedTarget = resolve(args.target);
-    const excludes = (<string>(flags.excludes))
-      .split(',')
-      .map((row) => new RegExp(row));
+    const excludes = (<string>flags.excludes).split(',').map((row) => new RegExp(row));
     const matches = new RegExp(flags.matches);
 
     if (!fs.existsSync(analyzedTarget)) {
       return this.error(`${analyzedTarget}: No such file or directory.`);
     }
 
-    const rootPath = fs.statSync(analyzedTarget).isDirectory()
-      ? analyzedTarget
-      : dirname(analyzedTarget);
+    const rootPath = fs.statSync(analyzedTarget).isDirectory() ? analyzedTarget : dirname(analyzedTarget);
 
     container.bind<string>(Types.rootPath).toConstantValue(rootPath);
-    container.bind<string|null>(Types.outputPath).toConstantValue(outputPath);
+    container.bind<string | null>(Types.outputPath).toConstantValue(outputPath);
     container.bind<RegExp>(Types.fileMatches).toConstantValue(matches);
     container.bind<RegExp[]>(Types.fileExcludes).toConstantValue(excludes);
 

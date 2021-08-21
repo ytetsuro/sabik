@@ -35,17 +35,13 @@ export class Analyzer {
   }
 
   private metricsAnalyze(metricsList: Metrics[]) {
-    const analyzedMetricsList = this.calculatorForMetrics.flatMap((analyzer) =>
-      analyzer.analyze(metricsList)
-    );
+    const analyzedMetricsList = this.calculatorForMetrics.flatMap((analyzer) => analyzer.analyze(metricsList));
 
     this.setMetricsList(analyzedMetricsList);
   }
 
   private astAnalyze(fileAndMetricsList: { file: File; astNode: ASTNode }[]) {
-    const metricsList = this.calculatorForAST.flatMap((analyzer) =>
-      analyzer.analyze(fileAndMetricsList)
-    );
+    const metricsList = this.calculatorForAST.flatMap((analyzer) => analyzer.analyze(fileAndMetricsList));
 
     this.setMetricsList(metricsList);
   }
@@ -53,9 +49,7 @@ export class Analyzer {
   private setMetricsList(metricsList: Metrics[]) {
     metricsList.forEach((metrics) => {
       const minimalCodePoint = metrics.getMinimalCodePoint();
-      const currentMetrics =
-        this.metricsMap.get(minimalCodePoint) ??
-        new Metrics(metrics.file, metrics.codePoints, []);
+      const currentMetrics = this.metricsMap.get(minimalCodePoint) ?? new Metrics(metrics.file, metrics.codePoints, []);
 
       this.metricsMap.set(minimalCodePoint, currentMetrics.merge(metrics));
     });

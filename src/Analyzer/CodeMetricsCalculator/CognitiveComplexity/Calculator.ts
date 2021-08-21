@@ -24,14 +24,7 @@ export class Calculator implements CalculatorForAST {
         ...other,
         countableNode: this.converter.convert(astNode),
       }))
-      .map(
-        (row) =>
-          new Metrics(
-            row.file,
-            row.codePoints,
-            this.calculate(row.countableNode)
-          )
-      );
+      .map((row) => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
   }
 
   calculate(node: ComplexityCountableNode): CognitiveComplexity[] {
@@ -40,10 +33,7 @@ export class Calculator implements CalculatorForAST {
     return [new CognitiveComplexity(complexities)];
   }
 
-  private extractComplexity(
-    node: ComplexityCountableNode,
-    nest: number
-  ): ComplexityIncrement[] {
+  private extractComplexity(node: ComplexityCountableNode, nest: number): ComplexityIncrement[] {
     const result: ComplexityIncrement[] = [];
 
     if (node.isIncrement()) {
@@ -60,8 +50,6 @@ export class Calculator implements CalculatorForAST {
       );
     }
 
-    return result.concat(
-      ...node.getChildren().map((row) => this.extractComplexity(row, nest))
-    );
+    return result.concat(...node.getChildren().map((row) => this.extractComplexity(row, nest)));
   }
 }

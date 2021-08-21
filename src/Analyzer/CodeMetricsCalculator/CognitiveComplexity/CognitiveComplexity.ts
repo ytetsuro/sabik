@@ -8,9 +8,6 @@ export class CognitiveComplexity implements MetricsValue {
   constructor(private readonly complexities: ComplexityIncrement[]) {}
 
   valueOf(): number {
-    return this.complexities.reduce(
-      (prev, next) => Number(prev) + Number(next),
-      0
-    );
+    return this.complexities.reduce((prev, next) => Number(prev) + Number(next), 0);
   }
 }

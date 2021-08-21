@@ -5,10 +5,7 @@ import { Event } from './Event';
 
 type SortKey = 'Complexity' | 'BugsDelivered' | 'Maintainability';
 
-export class GetDashboard extends Event<
-  SortKey,
-  { summary: Summary; list: FileMetrics[] }
-> {
+export class GetDashboard extends Event<SortKey, { summary: Summary; list: FileMetrics[] }> {
   constructor(private readonly repository: Analyzed) {
     super();
   }

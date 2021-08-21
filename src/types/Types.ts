@@ -13,7 +13,5 @@ export const Types = {
   cognitiveComplexityConverter: Symbol.for('CognitiveComplexityConverter'),
   halsteadConverter: Symbol.for('HalsteadConverter'),
   codeMetricsCalculatorForAST: Symbol.for('CodeMetricsCalculatorForAST'),
-  codeMetricsCalculatorForMetrics: Symbol.for(
-    'CodeMetricsCalculatorForMetrics'
-  ),
+  codeMetricsCalculatorForMetrics: Symbol.for('CodeMetricsCalculatorForMetrics'),
 };

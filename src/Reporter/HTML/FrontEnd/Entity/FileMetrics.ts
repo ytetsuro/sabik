@@ -22,9 +22,7 @@ export class FileMetrics {
   }
 
   getMetrics() {
-    return this.childrenMetrics
-      .slice()
-      .sort((a, b) => a.getStartLineNumber() - b.getStartLineNumber());
+    return this.childrenMetrics.slice().sort((a, b) => a.getStartLineNumber() - b.getStartLineNumber());
   }
 
   getLength() {

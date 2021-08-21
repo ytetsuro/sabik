@@ -1,10 +1,7 @@
 import { MetricsType } from './MetricsType';
 
 export class MetricsValue {
-  constructor(
-    public readonly type: MetricsType,
-    private readonly value: number | null
-  ) {}
+  constructor(public readonly type: MetricsType, private readonly value: number | null) {}
 
   isEmpty() {
     return this.value === null;
@@ -15,9 +12,7 @@ export class MetricsValue {
   }
 
   valueOf() {
-    return this.isEmpty()
-      ? 0
-      : Math.round(<number>this.value * Math.pow(10, 2)) / Math.pow(10, 2);
+    return this.isEmpty() ? 0 : Math.round(<number>this.value * Math.pow(10, 2)) / Math.pow(10, 2);
   }
 
   toString() {

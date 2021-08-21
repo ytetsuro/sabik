@@ -18,10 +18,7 @@ export class ASTGenerator implements ASTGeneratorInterface {
   });
 
   generate(file: File) {
-    const node = this.engine.parseCode(
-      readFileSync(file.fullPath).toString(),
-      file.fullPath
-    );
+    const node = this.engine.parseCode(readFileSync(file.fullPath).toString(), file.fullPath);
 
     return new ASTNode(node, node);
   }

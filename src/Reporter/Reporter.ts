@@ -9,16 +9,13 @@ export class Reporter {
     @multiInject(Types.outputFileBuilder)
     private readonly builders: FileBuilder[],
     @inject(Types.outputPath) @optional() private readonly outputPath?: string
-  ) { 
-  }
+  ) {}
 
   async output(metrics: Metrics[]) {
-    await Promise.all(
-      <Promise<void>[]>this.builders.map((builder) => builder.build(metrics))
-    );
+    await Promise.all(<Promise<void>[]>this.builders.map((builder) => builder.build(metrics)));
 
     if (this.outputPath) {
       console.log(`Generated report. ${this.outputPath}`);
-    } 
+    }
   }
 }

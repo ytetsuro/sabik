@@ -51,31 +51,18 @@ container.bind<FileBuilder>(Types.outputFileBuilder).to(CSS).whenAnyAncestorName
 container.bind<FileBuilder>(Types.outputFileBuilder).to(HTML).whenAnyAncestorNamed('HTML');
 container.bind<FileBuilder>(Types.outputFileBuilder).to(Event).whenAnyAncestorNamed('HTML');
 container.bind<FileBuilder>(Types.outputFileBuilder).to(EntryPoint).whenAnyAncestorNamed('HTML');
-container
-  .bind<FileBuilder>(Types.outputFileBuilder)
-  .to(JSON)
-  .whenAnyAncestorNamed('JSON');
-container
-  .bind<Reporter>(Types.reporter)
-  .to(ReporterImp);
+container.bind<FileBuilder>(Types.outputFileBuilder).to(JSON).whenAnyAncestorNamed('JSON');
+container.bind<Reporter>(Types.reporter).to(ReporterImp);
 container.bind<Sabik>(Sabik).toSelf();
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(PHP);
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(TypeScript);
 container.bind<Analyzer>(Analyzer).toSelf();
 container.bind<ASTNodeExtractor>(ASTNodeExtractor).toSelf().inSingletonScope();
 container.bind<MetricsAnalyzer>(MetricsAnalyzer).toSelf();
-container
-  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
-  .to(CognitiveComplexityCalculator);
-container
-  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
-  .to(HalsteadCalculator);
-container
-  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
-  .to(LineOfCodeCalculator);
-container
-  .bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics)
-  .to(MaintainabilityCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(CognitiveComplexityCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(HalsteadCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(LineOfCodeCalculator);
+container.bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics).to(MaintainabilityCalculator);
 container.bind<MethodAnalyzer>(MethodAnalyzer).toSelf();
 container.bind<ASTNodeAnalyzer>(Types.analyzer).to(MethodAnalyzer);
 container.bind<ASTNodeAnalyzer>(Types.analyzer).to(FileAnalyzer);
@@ -91,10 +78,7 @@ container
   .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
   .to(HalsteadConverterForPHP)
   .whenAnyAncestorNamed('PHP');
-container
-  .bind<ASTGenerator>(Types.astNodeGenerator)
-  .to(ASTGeneratorForPHP)
-  .whenAnyAncestorNamed('PHP');
+container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForPHP).whenAnyAncestorNamed('PHP');
 container
   .bind<Converter<LineOfCodeCountableNode>>(Types.lineOfCodeConverter)
   .to(LineOfCodeConverterForTypeScript)
@@ -107,9 +91,6 @@ container
   .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
   .to(HalsteadConverterForTypeScript)
   .whenAnyAncestorNamed('TypeScript');
-container
-  .bind<ASTGenerator>(Types.astNodeGenerator)
-  .to(ASTGeneratorForTypeScript)
-  .whenAnyAncestorNamed('TypeScript');
+container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForTypeScript).whenAnyAncestorNamed('TypeScript');
 
 export { container };

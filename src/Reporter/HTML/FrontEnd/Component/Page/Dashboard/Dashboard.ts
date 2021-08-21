@@ -9,17 +9,8 @@ type Param = { list: FileMetrics[]; summary: SummaryEntity };
 export class Dashboard implements m.Component<Param> {
   view(vnode: m.Vnode<Param>) {
     return m('div', [
-      m(
-        'section.section',
-        m('.container.is-fullhd', m(Summary, { summary: vnode.attrs.summary }))
-      ),
-      m(
-        'section.section',
-        m(
-          'div.container.is-fullhd',
-          m(FileMetricsTable, { list: vnode.attrs.list })
-        )
-      ),
+      m('section.section', m('.container.is-fullhd', m(Summary, { summary: vnode.attrs.summary }))),
+      m('section.section', m('div.container.is-fullhd', m(FileMetricsTable, { list: vnode.attrs.list }))),
     ]);
   }
 }

@@ -23,14 +23,7 @@ export class Calculator {
         ...row,
         countableNode: this.converter.convert(row.astNode),
       }))
-      .map(
-        (row) =>
-          new Metrics(
-            row.file,
-            row.codePoints,
-            this.calculate(row.countableNode)
-          )
-      );
+      .map((row) => new Metrics(row.file, row.codePoints, this.calculate(row.countableNode)));
   }
 
   public calculate(node: LineOfCodeCountableNode) {

@@ -11,13 +11,9 @@ describe('Cognitive Complexity Calculator', () => {
       DSL: ast.getName(),
       children: ast.getChildren().map((ast) => createCountableNodeSeed(ast)),
     });
-    const calculator = new Calculator(
-      new MethodAnalyzer(new ASTNodeExtractor()),
-      {
-        convert: (ast: ASTNode) =>
-          new ComplexityCountableNode(createCountableNodeSeed(ast)),
-      }
-    );
+    const calculator = new Calculator(new MethodAnalyzer(new ASTNodeExtractor()), {
+      convert: (ast: ASTNode) => new ComplexityCountableNode(createCountableNodeSeed(ast)),
+    });
 
     it('should returns 1 when incrementable node.', () => {
       const actual = calculator.analyze([
@@ -35,9 +31,7 @@ describe('Cognitive Complexity Calculator', () => {
         },
       ]);
 
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))
-      ).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))).toBe(1);
     });
 
     it('should returns 1 when childNode is incrementable node.', () => {
@@ -58,9 +52,7 @@ describe('Cognitive Complexity Calculator', () => {
         },
       ]);
 
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))
-      ).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))).toBe(1);
     });
 
     it('should return 1 when incrementable node in nest level up node.', () => {
@@ -81,9 +73,7 @@ describe('Cognitive Complexity Calculator', () => {
         },
       ]);
 
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))
-      ).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))).toBe(1);
     });
 
     it('should return 2 when net incrementable node in nest level up node.', () => {
@@ -104,9 +94,7 @@ describe('Cognitive Complexity Calculator', () => {
         },
       ]);
 
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))
-      ).toBe(2);
+      expect(Number(actual[0].getMetricsByMetricsValue(CognitiveComplexity))).toBe(2);
     });
   });
 });

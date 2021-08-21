@@ -9,11 +9,7 @@ type SortableMetrics = 'Complexity' | 'BugsDelivered' | 'Maintainability';
 
 export class FileMetricsTable implements m.Component<Param> {
   private currentSelect: SortableMetrics = 'Complexity';
-  private selectableMetrics: SortableMetrics[] = [
-    'Complexity',
-    'BugsDelivered',
-    'Maintainability',
-  ];
+  private selectableMetrics: SortableMetrics[] = ['Complexity', 'BugsDelivered', 'Maintainability'];
 
   oninit() {
     EventStore.get(GetDashboard).dispatch(this.currentSelect);

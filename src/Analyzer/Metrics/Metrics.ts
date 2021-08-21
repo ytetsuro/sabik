@@ -10,34 +10,19 @@ export class Metrics {
   ) {}
 
   hasMetricsValue(...values: MetricsValueConstructor[]): boolean {
-    return values.every(
-      (constructor) => this.getMetricsByMetricsValue(constructor) !== null
-    );
+    return values.every((constructor) => this.getMetricsByMetricsValue(constructor) !== null);
   }
 
-  getMetricsByMetricsValue<T extends MetricsValue>(
-    constructor: MetricsValueConstructor<T>
-  ): T | null {
-    return (
-      <T | null>(
-        this.metricsValues.find(
-          (metricsValue) => metricsValue instanceof constructor
-        )
-      ) ?? null
-    );
+  getMetricsByMetricsValue<T extends MetricsValue>(constructor: MetricsValueConstructor<T>): T | null {
+    return <T | null>this.metricsValues.find((metricsValue) => metricsValue instanceof constructor) ?? null;
   }
 
   merge(metrics: Metrics) {
-    return new Metrics(this.file, this.codePoints, [
-      ...metrics.metricsValues,
-      ...this.metricsValues,
-    ]);
+    return new Metrics(this.file, this.codePoints, [...metrics.metricsValues, ...this.metricsValues]);
   }
 
   getMinimalCodePoint() {
-    return this.codePoints.reduce((current, row) =>
-      current?.type?.isMoreDetail?.(row.type) ?? false ? row : current
-    );
+    return this.codePoints.reduce((current, row) => (current?.type?.isMoreDetail?.(row.type) ?? false ? row : current));
   }
 
   getName() {

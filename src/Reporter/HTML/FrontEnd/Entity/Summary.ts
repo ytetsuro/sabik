@@ -6,9 +6,7 @@ export class Summary {
   private readonly metricsCalculator: MetricsCalculator;
 
   constructor(private readonly fileSummaries: FileMetrics[]) {
-    this.metricsCalculator = new MetricsCalculator(
-      fileSummaries.flatMap((fileSummary) => fileSummary.childrenMetrics)
-    );
+    this.metricsCalculator = new MetricsCalculator(fileSummaries.flatMap((fileSummary) => fileSummary.childrenMetrics));
   }
 
   getAverageComplexity() {

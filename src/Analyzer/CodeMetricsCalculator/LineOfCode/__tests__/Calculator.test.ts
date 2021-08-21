@@ -43,11 +43,7 @@ describe('Line of code Calculator Class.', () => {
       },
     ]);
 
-    expect(Number(actual[0].getMetricsByMetricsValue(LogicalLineOfCode))).toBe(
-      4
-    );
-    expect(Number(actual[0].getMetricsByMetricsValue(PhysicalLineOfCode))).toBe(
-      6
-    );
+    expect(Number(actual[0].getMetricsByMetricsValue(LogicalLineOfCode))).toBe(4);
+    expect(Number(actual[0].getMetricsByMetricsValue(PhysicalLineOfCode))).toBe(6);
   });
 });

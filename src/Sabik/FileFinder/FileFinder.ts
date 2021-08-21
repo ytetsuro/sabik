@@ -17,9 +17,7 @@ export class FileFinder {
     @inject(Types.fileMatches) findSource: RegExp,
     @inject(Types.fileExcludes) excludes: RegExp[]
   ) {
-    this.currentPath = currentPath.endsWith('/')
-      ? currentPath.substr(0, currentPath.length - 1)
-      : currentPath;
+    this.currentPath = currentPath.endsWith('/') ? currentPath.substr(0, currentPath.length - 1) : currentPath;
     this.findSource = findSource;
     this.excludes = excludes;
   }
@@ -50,11 +48,7 @@ export class FileFinder {
   }
 
   private isTarget(path: string) {
-    return (
-      fs.lstatSync(path).isFile() &&
-      this.findSource.test(path) &&
-      !this.isExcludePath(path)
-    );
+    return fs.lstatSync(path).isFile() && this.findSource.test(path) && !this.isExcludePath(path);
   }
 
   private isExcludePath(path: string) {

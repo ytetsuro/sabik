@@ -15,10 +15,7 @@ type Param = {
 export class Detail implements m.Component<Param> {
   view(vnode: m.Vnode<Param>) {
     return m('div.container.is-fullhd', [
-      m(
-        'section.section',
-        m('.container.is-fullhd', m(Summary, { summary: vnode.attrs.summary }))
-      ),
+      m('section.section', m('.container.is-fullhd', m(Summary, { summary: vnode.attrs.summary }))),
       m('.columns', [
         m(
           '.column.is-one-quarter',

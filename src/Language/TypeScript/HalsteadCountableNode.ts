@@ -24,24 +24,15 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
   }
 
   private isLiteral() {
-    return this.isBetweenKind(
-      ts.SyntaxKind.FirstLiteralToken,
-      ts.SyntaxKind.LastLiteralToken
-    );
+    return this.isBetweenKind(ts.SyntaxKind.FirstLiteralToken, ts.SyntaxKind.LastLiteralToken);
   }
 
   private isToken() {
-    return this.isBetweenKind(
-      ts.SyntaxKind.FirstPunctuation,
-      ts.SyntaxKind.LastPunctuation
-    );
+    return this.isBetweenKind(ts.SyntaxKind.FirstPunctuation, ts.SyntaxKind.LastPunctuation);
   }
 
   private isKeyword() {
-    return this.isBetweenKind(
-      ts.SyntaxKind.FirstKeyword,
-      ts.SyntaxKind.LastKeyword
-    );
+    return this.isBetweenKind(ts.SyntaxKind.FirstKeyword, ts.SyntaxKind.LastKeyword);
   }
 
   private isBetweenKind(before: ts.SyntaxKind, after: ts.SyntaxKind) {

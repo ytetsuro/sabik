@@ -7,9 +7,6 @@ export class HalsteadVocabulary implements MetricsValue {
   constructor(private readonly operandAndOperator: OperandAndOperator) {}
 
   valueOf() {
-    return (
-      this.operandAndOperator.getUniqueOperandCount() +
-      this.operandAndOperator.getUniqueOperatorCount()
-    );
+    return this.operandAndOperator.getUniqueOperandCount() + this.operandAndOperator.getUniqueOperatorCount();
   }
 }

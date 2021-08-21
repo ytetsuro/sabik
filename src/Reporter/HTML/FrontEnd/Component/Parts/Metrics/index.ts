@@ -23,9 +23,7 @@ export class Metrics implements m.Component<Param> {
       metrics: vnode.attrs.metrics,
       selectedMetrics: this.selectedMetrics,
       onSelect: (metrics) => {
-        EventStore.get(SelectMetrics).dispatch(
-          this.selectedMetrics === metrics ? null : metrics
-        );
+        EventStore.get(SelectMetrics).dispatch(this.selectedMetrics === metrics ? null : metrics);
       },
     });
   }

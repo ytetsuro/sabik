@@ -6,10 +6,7 @@ export class MetricsCalculator {
   constructor(private readonly metrics: Metrics[]) {}
 
   sum(findType: MetricsType) {
-    const value = this.findAllByType(findType).reduce(
-      (sum, value) => sum + value.valueOf(),
-      0
-    );
+    const value = this.findAllByType(findType).reduce((sum, value) => sum + value.valueOf(), 0);
 
     return new MetricsValue(findType, value);
   }
@@ -22,10 +19,7 @@ export class MetricsCalculator {
     const length = this.getLength();
     const sum = this.sum(findType);
 
-    return new MetricsValue(
-      findType,
-      sum.valueOf() ? sum.valueOf() / length : 0
-    );
+    return new MetricsValue(findType, sum.valueOf() ? sum.valueOf() / length : 0);
   }
 
   max(findType: MetricsType) {

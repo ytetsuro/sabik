@@ -8,9 +8,7 @@ import { MetricsType } from '../Metrics/MetricsType';
 describe('Analyzer class.', () => {
   describe('should return a list of metrics parsed from the file.', () => {
     it('', () => {
-      const files = [
-        { fullPath: '/dev/null', relativePath: 'null', extension: '' },
-      ];
+      const files = [{ fullPath: '/dev/null', relativePath: 'null', extension: '' }];
       const generator = { generate: () => new ASTNode(':root:0:0', {}) };
       const analyzer = new Analyzer(
         generator,
@@ -56,9 +54,7 @@ describe('Analyzer class.', () => {
         relativePath: 'null',
         extension: '',
       });
-      expect(actual[0].codePoints).toStrictEqual([
-        new CodePoint(CodePointType.Method, 'UnitTest', 1, 2),
-      ]);
+      expect(actual[0].codePoints).toStrictEqual([new CodePoint(CodePointType.Method, 'UnitTest', 1, 2)]);
       expect(actual[0].toJSON().metricsList).toStrictEqual([
         {
           type: Number(MetricsType.HalsteadVolume),
