@@ -4,14 +4,13 @@ import { LogicalLineOfCode } from "../../../Analyzer/CodeMetricsCalculator/LineO
 import { Maintainability } from "../../../Analyzer/CodeMetricsCalculator/Maintainability/Maintainability";
 import { CodePointType } from "../../../Analyzer/Metrics/CodePointType";
 import { Metrics } from "../../../Analyzer/Metrics/Metrics";
-import { MetricsValue } from "../../../Analyzer/Metrics/MetricsValue";
+import { MetricsValue, MetricsValueConstructor } from "../../../Analyzer/Metrics/MetricsValue";
 import { MetricsCalculator } from "../MetricsCalculator";
 
 type DataModel = {
     value: number,
     name?: string,
 };
-type MetricsValueConstructor<T extends MetricsValue> = new (..._: any) => T;
 type CalculateType = 'file'|'method';
 type CalculateOperator = 'sum'|'average'|'min'|'max';
 
@@ -19,7 +18,7 @@ type CalculateOperator = 'sum'|'average'|'min'|'max';
 export class Summaries {
   private readonly methodCalculator: MetricsCalculator;
   private readonly fileCalculator: MetricsCalculator;
-  private readonly summaries = new Map<string, [CalculateType, CalculateOperator, MetricsValueConstructor<MetricsValue>]>([
+  private readonly summaries = new Map<string, [CalculateType, CalculateOperator, MetricsValueConstructor]>([
       ['LogicalLineOfCode(Sum)', ['file', 'sum', LogicalLineOfCode]],
       ['LogicalLineOfCode(Average per file)', ['file', 'average', LogicalLineOfCode]],
       ['LogicalLineOfCode(Average per method)', ['method', 'average', LogicalLineOfCode]],

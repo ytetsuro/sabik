@@ -4,3 +4,5 @@ export interface MetricsValue {
   readonly type: MetricsType;
   valueOf(): number;
 }
+
+export type MetricsValueConstructor<T extends MetricsValue = MetricsValue> = new (..._: any) => T;

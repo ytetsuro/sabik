@@ -1,9 +1,6 @@
 import { CodePoint } from './CodePoint';
-import { MetricsValue } from './MetricsValue';
+import { MetricsValue, MetricsValueConstructor } from './MetricsValue';
 import { File } from '../Adapter/File';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MetricsValueConstructor<T extends MetricsValue> = new (..._: any) => T;
 
 export class Metrics {
   constructor(
@@ -12,7 +9,7 @@ export class Metrics {
     public readonly metricsValues: ReadonlyArray<MetricsValue>
   ) {}
 
-  hasMetricsValue(...values: MetricsValueConstructor<MetricsValue>[]): boolean {
+  hasMetricsValue(...values: MetricsValueConstructor[]): boolean {
     return values.every(
       (constructor) => this.getMetricsByMetricsValue(constructor) !== null
     );
