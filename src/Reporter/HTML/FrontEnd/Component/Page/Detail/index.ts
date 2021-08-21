@@ -19,10 +19,7 @@ export class Detail implements m.Component {
   ) {}
 
   oninit() {
-    EventStore.register(
-      GetDetail,
-      new GetDetail(this.analyzedRepository, this.sourceCodeRepository)
-    );
+    EventStore.register(GetDetail, new GetDetail(this.analyzedRepository, this.sourceCodeRepository));
 
     EventStore.get(GetDetail).listener((ev) => {
       if (!ev.isExists) {

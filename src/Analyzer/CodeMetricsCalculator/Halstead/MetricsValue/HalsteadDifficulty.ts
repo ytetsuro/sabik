@@ -9,19 +9,10 @@ export class HalsteadDifficulty implements MetricsValue {
   constructor(private readonly operandAndOperator: OperandAndOperator) {}
 
   valueOf() {
-    const uniqueOperatorCount = new Decimal(
-      this.operandAndOperator.getUniqueOperatorCount()
-    );
-    const totalOperatorCount = new Decimal(
-      this.operandAndOperator.getTotalOperatorCount()
-    );
-    const uniqueOperandCount = new Decimal(
-      this.operandAndOperator.getUniqueOperandCount()
-    );
+    const uniqueOperatorCount = new Decimal(this.operandAndOperator.getUniqueOperatorCount());
+    const totalOperatorCount = new Decimal(this.operandAndOperator.getTotalOperatorCount());
+    const uniqueOperandCount = new Decimal(this.operandAndOperator.getUniqueOperandCount());
 
-    return uniqueOperatorCount
-      .div(2)
-      .mul(totalOperatorCount.div(uniqueOperandCount))
-      .toNumber();
+    return uniqueOperatorCount.div(2).mul(totalOperatorCount.div(uniqueOperandCount)).toNumber();
   }
 }

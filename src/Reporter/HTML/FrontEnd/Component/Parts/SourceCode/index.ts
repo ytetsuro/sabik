@@ -32,9 +32,7 @@ export class SourceCode implements m.Component<Param> {
 
       // @fixme: dirty hack. I was using the addLineClass method of CodeMirror. However, since it is very slow, I decided to edit the style directly.
       element.textContent = `.CodeMirror-code
-div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${
-        metrics.getEndLineNumber() + 1
-      })
+div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${metrics.getEndLineNumber() + 1})
 .CodeMirror-line {background-color: #ffdd57;}`;
 
       this.editor.scrollIntoView({
@@ -45,26 +43,18 @@ div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${
   }
 
   oncreate(vnode: m.VnodeDOM<Param>) {
-    const { mime } = CodeMirror.findModeByExtension(
-      vnode.attrs.sourceCode.extension
-    );
+    const { mime } = CodeMirror.findModeByExtension(vnode.attrs.sourceCode.extension);
 
-    this.editor = CodeMirror.fromTextArea(
-      vnode.dom.querySelector('textarea')!,
-      {
-        lineNumbers: true,
-        lineWrapping: true,
-        readOnly: true,
-        viewportMargin: Infinity,
-        mode: mime,
-      }
-    );
+    this.editor = CodeMirror.fromTextArea(vnode.dom.querySelector('textarea')!, {
+      lineNumbers: true,
+      lineWrapping: true,
+      readOnly: true,
+      viewportMargin: Infinity,
+      mode: mime,
+    });
   }
 
   view(vnode: m.Vnode<Param>) {
-    return [
-      m(SourceCodePresenter, vnode.attrs),
-      m('style', { id: 'codemirrorStyle' }),
-    ];
+    return [m(SourceCodePresenter, vnode.attrs), m('style', { id: 'codemirrorStyle' })];
   }
 }

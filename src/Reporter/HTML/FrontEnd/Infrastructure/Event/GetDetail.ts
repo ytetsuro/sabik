@@ -13,10 +13,7 @@ type Result = {
 };
 
 export class GetDetail extends Event<string, Result> {
-  constructor(
-    private readonly analyzedRepository: Analyzed,
-    private readonly sourceCodeRepository: SourceCode
-  ) {
+  constructor(private readonly analyzedRepository: Analyzed, private readonly sourceCodeRepository: SourceCode) {
     super();
   }
 

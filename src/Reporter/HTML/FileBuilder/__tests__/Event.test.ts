@@ -22,9 +22,7 @@ describe('Event', () => {
 
       expect(writerMock.write.mock.calls.length).toBe(2);
       expect(writerMock.write.mock.calls[0][0]).toBe('event/analyzed.js');
-      expect(writerMock.write.mock.calls[1][0]).toBe(
-        `event/sourceCode/${basename(__filename)}.js`
-      );
+      expect(writerMock.write.mock.calls[1][0]).toBe(`event/sourceCode/${basename(__filename)}.js`);
     });
   });
 });

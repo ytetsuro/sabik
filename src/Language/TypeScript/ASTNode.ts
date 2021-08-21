@@ -35,16 +35,11 @@ export class ASTNode implements ASTNodeInterface {
   getName() {
     let result = '';
     if (this.isClass()) {
-      result =
-        (<ts.ClassDeclaration>this.node).name?.getText() ?? 'Anynomus Class';
+      result = (<ts.ClassDeclaration>this.node).name?.getText() ?? 'Anynomus Class';
     } else if (this.isMethod()) {
       const methodName =
-        this.node.kind === ts.SyntaxKind.Constructor
-          ? 'constructor'
-          : (<ts.MethodDeclaration>this.node).name.getText();
-      const parameters = (<ts.MethodDeclaration>this.node).parameters
-        .map((row) => row.name.getText())
-        .join(',');
+        this.node.kind === ts.SyntaxKind.Constructor ? 'constructor' : (<ts.MethodDeclaration>this.node).name.getText();
+      const parameters = (<ts.MethodDeclaration>this.node).parameters.map((row) => row.name.getText()).join(',');
       result = `${methodName}(${parameters})`;
     } else if (this.isFunction()) {
       return this.getFunctionName();
@@ -65,28 +60,20 @@ export class ASTNode implements ASTNodeInterface {
     return (
       new ASTNode((<ts.FunctionExpression>this.node).body, this.sourceFile)
         .getChildren()
-        .filter(
-          (row) =>
-            new ComplexityCountableNode(row).isIncrement() && !row.isFunction()
-        ).length === 0
+        .filter((row) => new ComplexityCountableNode(row).isIncrement() && !row.isFunction()).length === 0
     );
   }
 
   getStartLineNumber() {
-    return this.sourceFile.getLineAndCharacterOfPosition(this.node.getStart())
-      .line;
+    return this.sourceFile.getLineAndCharacterOfPosition(this.node.getStart()).line;
   }
 
   getEndLineNumber() {
-    return this.sourceFile.getLineAndCharacterOfPosition(this.node.getEnd())
-      .line;
+    return this.sourceFile.getLineAndCharacterOfPosition(this.node.getEnd()).line;
   }
 
   private isPossibleFauxClass() {
-    if (
-      this.node.kind === ts.SyntaxKind.FunctionDeclaration &&
-      (<ts.FunctionDeclaration>this.node).name
-    ) {
+    if (this.node.kind === ts.SyntaxKind.FunctionDeclaration && (<ts.FunctionDeclaration>this.node).name) {
       return true;
     }
     if (this.node.parent.kind === ts.SyntaxKind.VariableDeclaration) {
@@ -97,10 +84,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   private getFunctionName() {
-    if (
-      this.node.kind === ts.SyntaxKind.FunctionDeclaration &&
-      (<ts.FunctionDeclaration>this.node).name
-    ) {
+    if (this.node.kind === ts.SyntaxKind.FunctionDeclaration && (<ts.FunctionDeclaration>this.node).name) {
       return (<ts.FunctionDeclaration>this.node).name?.getText() ?? '';
     }
 
@@ -111,9 +95,7 @@ export class ASTNode implements ASTNodeInterface {
       case ts.SyntaxKind.BinaryExpression:
         return this.getPropertyName(<ts.BinaryExpression>this.node.parent);
       case ts.SyntaxKind.PropertyAssignment:
-        return this.getPropertyAssignName(
-          <ts.PropertyAssignment>this.node.parent
-        );
+        return this.getPropertyAssignName(<ts.PropertyAssignment>this.node.parent);
     }
 
     return this.isFunction() ? 'Anonymous Function' : '';
@@ -140,9 +122,7 @@ export class ASTNode implements ASTNodeInterface {
 
     switch (parentNode.kind) {
       case ts.SyntaxKind.PropertyAssignment:
-        return result.concat(
-          this.findPropertyAssignName(<ts.PropertyAssignment>parentNode)
-        );
+        return result.concat(this.findPropertyAssignName(<ts.PropertyAssignment>parentNode));
       case ts.SyntaxKind.BinaryExpression:
         return result.concat(
           this.getPropertyName(<ts.BinaryExpression>parentNode)
@@ -151,9 +131,7 @@ export class ASTNode implements ASTNodeInterface {
         );
       case ts.SyntaxKind.VariableDeclaration:
       case ts.SyntaxKind.PropertyDeclaration:
-        return result.concat(
-          this.getVariableName(<ts.VariableDeclaration>parentNode)
-        );
+        return result.concat(this.getVariableName(<ts.VariableDeclaration>parentNode));
     }
 
     return result;

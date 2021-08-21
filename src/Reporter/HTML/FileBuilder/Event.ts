@@ -7,23 +7,14 @@ import { Metrics } from '../../../Analyzer/Metrics/Metrics';
 
 @injectable()
 export class Event {
-  constructor(
-    @inject(Writer) private writer: Writer,
-    @inject(Types.rootPath) private rootPath: string
-  ) {}
+  constructor(@inject(Writer) private writer: Writer, @inject(Types.rootPath) private rootPath: string) {}
 
   async build(metrics: Metrics[]) {
     const events = [];
-    const fileList = metrics.reduce(
-      (fileList, { file }) => fileList.add(file.relativePath),
-      new Set<string>()
-    );
+    const fileList = metrics.reduce((fileList, { file }) => fileList.add(file.relativePath), new Set<string>());
 
     events.push(
-      this.writer.write(
-        'event/analyzed.js',
-        this.createCode('analyzed', this.createZIPByAnalyzedJSON(metrics))
-      )
+      this.writer.write('event/analyzed.js', this.createCode('analyzed', this.createZIPByAnalyzedJSON(metrics)))
     );
     events.push(
       ...[...fileList.values()].map((filePath) =>

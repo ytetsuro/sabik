@@ -6,8 +6,6 @@ export class LineOfCodeCountableNode {
   }
 
   getRemovedCommentAndEmptyLineText() {
-    return this.text
-      .replace(/\/\*[\s\S]*?\*\/|\/\/.*/gm, '')
-      .replace(/^\s*$(?:\r\n?|\n)/gm, '');
+    return this.text.replace(/\/\*[\s\S]*?\*\/|\/\/.*/gm, '').replace(/^\s*$(?:\r\n?|\n)/gm, '');
   }
 }

@@ -12,10 +12,7 @@ describe('HalsteadCountableNode', () => {
   );
   const variableStatement = <ts.VariableStatement>parent.statements[2];
 
-  const findByText = (
-    text: string,
-    statement: ts.Node = variableStatement
-  ): HalsteadCountableNode | null => {
+  const findByText = (text: string, statement: ts.Node = variableStatement): HalsteadCountableNode | null => {
     const node = statement.getChildren().find((row) => row.getText() === text);
 
     if (node) {

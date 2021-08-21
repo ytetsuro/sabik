@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import { FileFinder } from './FileFinder/FileFinder';
-import { Reporter as HTMLReporter } from '../Reporter/HTML/Reporter';
+import { Reporter as ReporterImp } from '../Reporter/Reporter';
+import { JSON } from '../Reporter/JSON/FileBuilder/JSON';
 import { Types } from '../types/Types';
 import { ScriptBuilder } from '../Reporter/HTML/ScriptBuilder';
-import { FileBuilder } from '../Reporter/HTML/FileBuilder/FileBuilder';
+import { FileBuilder } from '../Reporter/FileBuilder';
 import { CSS } from '../Reporter/HTML/FileBuilder/CSS';
 import { HTML } from '../Reporter/HTML/FileBuilder/HTML';
 import { Event } from '../Reporter/HTML/FileBuilder/Event';
@@ -46,29 +47,22 @@ const container = new Container();
 container.bind<FileFinder>(FileFinder).toSelf();
 container.bind<ScriptBuilder>(ScriptBuilder).toSelf();
 container.bind<Writer>(Writer).toSelf();
-container.bind<FileBuilder>(Types.outputFileBuilder).to(CSS);
-container.bind<FileBuilder>(Types.outputFileBuilder).to(HTML);
-container.bind<FileBuilder>(Types.outputFileBuilder).to(Event);
-container.bind<FileBuilder>(Types.outputFileBuilder).to(EntryPoint);
-container.bind<Reporter>(Types.reporter).to(HTMLReporter);
+container.bind<FileBuilder>(Types.outputFileBuilder).to(CSS).whenAnyAncestorNamed('HTML');
+container.bind<FileBuilder>(Types.outputFileBuilder).to(HTML).whenAnyAncestorNamed('HTML');
+container.bind<FileBuilder>(Types.outputFileBuilder).to(Event).whenAnyAncestorNamed('HTML');
+container.bind<FileBuilder>(Types.outputFileBuilder).to(EntryPoint).whenAnyAncestorNamed('HTML');
+container.bind<FileBuilder>(Types.outputFileBuilder).to(JSON).whenAnyAncestorNamed('JSON');
+container.bind<Reporter>(Types.reporter).to(ReporterImp);
 container.bind<Sabik>(Sabik).toSelf();
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(PHP);
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(TypeScript);
 container.bind<Analyzer>(Analyzer).toSelf();
 container.bind<ASTNodeExtractor>(ASTNodeExtractor).toSelf().inSingletonScope();
 container.bind<MetricsAnalyzer>(MetricsAnalyzer).toSelf();
-container
-  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
-  .to(CognitiveComplexityCalculator);
-container
-  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
-  .to(HalsteadCalculator);
-container
-  .bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST)
-  .to(LineOfCodeCalculator);
-container
-  .bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics)
-  .to(MaintainabilityCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(CognitiveComplexityCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(HalsteadCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(LineOfCodeCalculator);
+container.bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics).to(MaintainabilityCalculator);
 container.bind<MethodAnalyzer>(MethodAnalyzer).toSelf();
 container.bind<ASTNodeAnalyzer>(Types.analyzer).to(MethodAnalyzer);
 container.bind<ASTNodeAnalyzer>(Types.analyzer).to(FileAnalyzer);
@@ -84,10 +78,7 @@ container
   .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
   .to(HalsteadConverterForPHP)
   .whenAnyAncestorNamed('PHP');
-container
-  .bind<ASTGenerator>(Types.astNodeGenerator)
-  .to(ASTGeneratorForPHP)
-  .whenAnyAncestorNamed('PHP');
+container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForPHP).whenAnyAncestorNamed('PHP');
 container
   .bind<Converter<LineOfCodeCountableNode>>(Types.lineOfCodeConverter)
   .to(LineOfCodeConverterForTypeScript)
@@ -100,9 +91,6 @@ container
   .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
   .to(HalsteadConverterForTypeScript)
   .whenAnyAncestorNamed('TypeScript');
-container
-  .bind<ASTGenerator>(Types.astNodeGenerator)
-  .to(ASTGeneratorForTypeScript)
-  .whenAnyAncestorNamed('TypeScript');
+container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForTypeScript).whenAnyAncestorNamed('TypeScript');
 
 export { container };

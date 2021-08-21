@@ -10,17 +10,11 @@ export class ResourceLoader {
   async load(type: 'analyzed' | 'sourceCode', filePath: string) {
     const rawSourceCode = new Promise<string>((resolve) => {
       const eventHandler = (event: Event) => {
-        this.document.removeEventListener(
-          `sabik:resourceLoaded:${type}`,
-          eventHandler
-        );
+        this.document.removeEventListener(`sabik:resourceLoaded:${type}`, eventHandler);
         resolve((<CustomEvent<EventData>>event).detail.data);
       };
 
-      this.document.addEventListener(
-        `sabik:resourceLoaded:${type}`,
-        eventHandler
-      );
+      this.document.addEventListener(`sabik:resourceLoaded:${type}`, eventHandler);
       this.injectFile(filePath);
     });
 

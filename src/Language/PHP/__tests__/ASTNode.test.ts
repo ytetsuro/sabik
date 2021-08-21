@@ -20,10 +20,7 @@ describe('ASTNode', () => {
   });
   describe('.isClass()', () => {
     it('should checkable class structure.', () => {
-      const sourceFile = engine.parseCode(
-        '<?php class A {}; function a() {}',
-        ''
-      );
+      const sourceFile = engine.parseCode('<?php class A {}; function a() {}', '');
       const classStructure = new ASTNode(sourceFile.children[0], sourceFile);
       const notClassStructure = new ASTNode(sourceFile.children[1], sourceFile);
 
@@ -34,10 +31,7 @@ describe('ASTNode', () => {
     it('should returns true when trait.', () => {
       const sourceFile = engine.parseEval('trait A {}');
 
-      const fauxClassStructure = new ASTNode(
-        sourceFile.children[0],
-        sourceFile
-      );
+      const fauxClassStructure = new ASTNode(sourceFile.children[0], sourceFile);
 
       expect(fauxClassStructure.isClass()).toBe(true);
     });
@@ -45,9 +39,7 @@ describe('ASTNode', () => {
 
   describe('.isFauxClass()', () => {
     it('should returns false.', () => {
-      const sourceFile = engine.parseEval(
-        'trait A {}; class B{}; function a() {}'
-      );
+      const sourceFile = engine.parseEval('trait A {}; class B{}; function a() {}');
 
       const traitStructure = new ASTNode(sourceFile.children[0], sourceFile);
       const classStructure = new ASTNode(sourceFile.children[1], sourceFile);
@@ -64,10 +56,7 @@ describe('ASTNode', () => {
       const sourceFile = engine.parseEval('trait A {}; function a() {}');
 
       const functionStructure = new ASTNode(sourceFile.children[1], sourceFile);
-      const notFunctionStructure = new ASTNode(
-        sourceFile.children[0],
-        sourceFile
-      );
+      const notFunctionStructure = new ASTNode(sourceFile.children[0], sourceFile);
 
       expect(functionStructure.isFunction()).toBe(true);
       expect(notFunctionStructure.isFunction()).toBe(false);
@@ -76,10 +65,7 @@ describe('ASTNode', () => {
     it('should returns true when arrow functions.', () => {
       const sourceFile = engine.parseEval('$a = fn() => 1;');
 
-      const functionStructure = new ASTNode(
-        (<ExpressionStatement>sourceFile.children[0]).expression.right,
-        sourceFile
-      );
+      const functionStructure = new ASTNode((<ExpressionStatement>sourceFile.children[0]).expression.right, sourceFile);
 
       expect(functionStructure.isFunction()).toBe(true);
     });
@@ -93,18 +79,9 @@ describe('ASTNode', () => {
         function methodA() {}
       }`);
 
-      const notMethodStructure = new ASTNode(
-        sourceFile.children[0],
-        sourceFile
-      );
-      const constructorStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[0],
-        sourceFile
-      );
-      const methodStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[1],
-        sourceFile
-      );
+      const notMethodStructure = new ASTNode(sourceFile.children[0], sourceFile);
+      const constructorStructure = new ASTNode((<ClassStatement>sourceFile.children[0]).body[0], sourceFile);
+      const methodStructure = new ASTNode((<ClassStatement>sourceFile.children[0]).body[1], sourceFile);
 
       expect(notMethodStructure.isMethod()).toBe(false);
       expect(constructorStructure.isMethod()).toBe(true);
@@ -148,14 +125,8 @@ describe('ASTNode', () => {
         function methodA(array $args) {}
       }`);
 
-      const constructorStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[0],
-        sourceFile
-      );
-      const methodStructure = new ASTNode(
-        (<ClassStatement>sourceFile.children[0]).body[1],
-        sourceFile
-      );
+      const constructorStructure = new ASTNode((<ClassStatement>sourceFile.children[0]).body[0], sourceFile);
+      const methodStructure = new ASTNode((<ClassStatement>sourceFile.children[0]).body[1], sourceFile);
 
       expect(constructorStructure.getName()).toBe('__construct($arg)');
       expect(methodStructure.getName()).toBe('methodA($args)');
@@ -176,10 +147,7 @@ describe('ASTNode', () => {
         $a = function () {};
       `);
 
-      const functionStructure = new ASTNode(sourceFile, sourceFile)
-        .getChildren()[0]
-        .getChildren()[0]
-        .getChildren()[1];
+      const functionStructure = new ASTNode(sourceFile, sourceFile).getChildren()[0].getChildren()[0].getChildren()[1];
 
       expect(functionStructure.getName()).toBe('$a');
     });
@@ -206,10 +174,7 @@ describe('ASTNode', () => {
           ::$c = fn() => 1;
       `);
 
-      const functionStructure = new ASTNode(sourceFile, sourceFile)
-        .getChildren()[0]
-        .getChildren()[0]
-        .getChildren()[1];
+      const functionStructure = new ASTNode(sourceFile, sourceFile).getChildren()[0].getChildren()[0].getChildren()[1];
 
       expect(functionStructure.getName()).toBe('$a.c.d.$c');
     });
@@ -236,9 +201,7 @@ describe('ASTNode', () => {
       }`);
 
     it('should returns has comment method source code.', () => {
-      const methodStructure = new ASTNode(sourceFile, sourceFile)
-        .getChildren()[0]
-        .getChildren()[2];
+      const methodStructure = new ASTNode(sourceFile, sourceFile).getChildren()[0].getChildren()[2];
 
       expect(methodStructure.source).toBe(`/**
          * MultiLine Comment.
@@ -251,9 +214,7 @@ describe('ASTNode', () => {
     });
 
     it('should returns has not comment method source code.', () => {
-      const methodStructure = new ASTNode(sourceFile, sourceFile)
-        .getChildren()[0]
-        .getChildren()[3];
+      const methodStructure = new ASTNode(sourceFile, sourceFile).getChildren()[0].getChildren()[3];
 
       expect(methodStructure.source).toBe(`function hasNotCommentMethod() {
           return 2;
@@ -309,9 +270,7 @@ describe('ASTNode', () => {
       }`);
 
     it('should returns striped comment method source code.', () => {
-      const methodStructure = new ASTNode(sourceFile, sourceFile)
-        .getChildren()[0]
-        .getChildren()[2];
+      const methodStructure = new ASTNode(sourceFile, sourceFile).getChildren()[0].getChildren()[2];
 
       expect(methodStructure.commentStripSource).toBe(`
         function hasCommentMethod() {

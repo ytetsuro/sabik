@@ -1,50 +1,33 @@
 import { CodePoint } from './CodePoint';
-import { MetricsValue } from './MetricsValue';
+import { MetricsValue, MetricsValueConstructor } from './MetricsValue';
 import { File } from '../Adapter/File';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MetricsValueConstructor<T extends MetricsValue> = new (..._: any) => T;
 
 export class Metrics {
   constructor(
     public readonly file: File,
-    public readonly codePoints: CodePoint[],
-    private readonly metricsValues: MetricsValue[]
+    public readonly codePoints: ReadonlyArray<CodePoint>,
+    public readonly metricsValues: ReadonlyArray<MetricsValue>
   ) {}
 
-  hasMetricsValue(...values: MetricsValueConstructor<MetricsValue>[]): boolean {
-    return values.every(
-      (constructor) => this.getMetricsByMetricsValue(constructor) !== null
-    );
+  hasMetricsValue(...values: MetricsValueConstructor[]): boolean {
+    return values.every((constructor) => this.getMetricsByMetricsValue(constructor) !== null);
   }
 
-  getMetricsByMetricsValue<T extends MetricsValue>(
-    constructor: MetricsValueConstructor<T>
-  ): T | null {
-    return (
-      <T | null>(
-        this.metricsValues.find(
-          (metricsValue) => metricsValue instanceof constructor
-        )
-      ) ?? null
-    );
+  getMetricsByMetricsValue<T extends MetricsValue>(constructor: MetricsValueConstructor<T>): T | null {
+    return <T | null>this.metricsValues.find((metricsValue) => metricsValue instanceof constructor) ?? null;
   }
 
   merge(metrics: Metrics) {
-    return new Metrics(this.file, this.codePoints, [
-      ...metrics.metricsValues,
-      ...this.metricsValues,
-    ]);
+    return new Metrics(this.file, this.codePoints, [...metrics.metricsValues, ...this.metricsValues]);
   }
 
   getMinimalCodePoint() {
-    return this.codePoints.reduce((current, row) =>
-      current?.type?.isMoreDetail?.(row.type) ?? false ? row : current
-    );
+    return this.codePoints.reduce((current, row) => (current?.type?.isMoreDetail?.(row.type) ?? false ? row : current));
   }
 
-  private getName() {
+  getName() {
     return this.codePoints
+      .slice()
       .sort((a, b) => Number(a.type) - Number(b.type))
       .map(({ name }) => name)
       .join('.');
@@ -61,6 +44,7 @@ export class Metrics {
       endLineNumber: minimalCodePoint.endLineNumber,
       metricsList: this.metricsValues.map((metrics) => ({
         type: Number(metrics.type),
+        typeLabel: metrics.type.label,
         value: Number(metrics),
       })),
     };

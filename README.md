@@ -49,11 +49,18 @@ USAGE
   $ sabik [TARGET]
 
 OPTIONS
-  -h, --help                             show CLI help
-  -o, --outputReportDir=outputReportDir  output report directory path. default: ./sabik_report
-  -v, --version                          show CLI version
-  --excludes=excludes                    exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$
-  --matches=matches                      match patterns. example: .ts$
+  -h, --help                               show CLI help
+
+  -o, --outputReportPath=outputReportPath  output report path.
+                                                 For HTML, specify the directory, and for JSON, specify the file.
+
+  -t, --outputFormat=(HTML|JSON)           [default: HTML] output report format. HTML or JSON. default: HTML
+
+  -v, --version                            show CLI version
+
+  --excludes=excludes                      [default: $^] exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$
+
+  --matches=matches                        [default: .*] match patterns. example: .ts$
 ```
 
 # Support Programming Language

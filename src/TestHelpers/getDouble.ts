@@ -5,10 +5,7 @@ type FilterFlags<Base, Condition extends Function> = {
   [Key in keyof Base]: Base[Key] extends Condition ? Key : never;
 };
 
-type AllowedNames<Base, Condition extends Function> = FilterFlags<
-  Base,
-  Condition
->[keyof Base];
+type AllowedNames<Base, Condition extends Function> = FilterFlags<Base, Condition>[keyof Base];
 
 type MethodPick<T, K extends keyof T> = {
   [P in K]: T[P] extends (...args: any[]) => any
@@ -16,10 +13,7 @@ type MethodPick<T, K extends keyof T> = {
     : never;
 };
 
-type MockableMethod<Base> = MethodPick<
-  Base,
-  AllowedNames<Base, (...args: any[]) => any>
->;
+type MockableMethod<Base> = MethodPick<Base, AllowedNames<Base, (...args: any[]) => any>>;
 
 export const getDouble = <T, Y extends Constructor<T>>(
   classConstructor: Y,
@@ -34,9 +28,7 @@ export const getDouble = <T, Y extends Constructor<T>>(
   const result = new testDouble(...constructorArgs);
 
   const methodKeyNames = <AllowedNames<T, (...args: any[]) => any>[]>(
-    Object.keys(params).filter(
-      (keyName) => typeof result[keyName] === 'function'
-    )
+    Object.keys(params).filter((keyName) => typeof result[keyName] === 'function')
   );
 
   return <T>methodKeyNames.reduce((result, keyName) => {

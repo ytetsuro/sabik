@@ -14,13 +14,9 @@ export class Maintainability implements MetricsValue {
   ) {}
 
   valueOf() {
-    const halstead = new Decimal(5.2).mul(
-      Decimal.log(Number(this.halsteadVolume))
-    );
+    const halstead = new Decimal(5.2).mul(Decimal.log(Number(this.halsteadVolume)));
     const complexity = new Decimal(0.23).mul(Number(this.complexity));
-    const logicalLineOfCode = new Decimal(16.2).mul(
-      Decimal.log(Number(this.logicalLineOfCode))
-    );
+    const logicalLineOfCode = new Decimal(16.2).mul(Decimal.log(Number(this.logicalLineOfCode)));
 
     const maintainability = new Decimal(171)
       .minus(halstead)
@@ -29,6 +25,6 @@ export class Maintainability implements MetricsValue {
       .mul(100)
       .div(171);
 
-    return Math.max(0, Number(maintainability));
+    return Math.min(Math.max(0, Number(maintainability)), 100);
   }
 }

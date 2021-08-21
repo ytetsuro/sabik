@@ -10,10 +10,7 @@ type AnalyzePointNode = {
 
 @injectable()
 export class ASTNodeExtractor {
-  private cache: Map<
-    ASTNode,
-    Map<CodePointType, AnalyzePointNode[]>
-  > = new Map();
+  private cache: Map<ASTNode, Map<CodePointType, AnalyzePointNode[]>> = new Map();
 
   extractMethods(astNode: ASTNode): AnalyzePointNode[] {
     const cache = this.cache.get(astNode) ?? new Map();
@@ -50,9 +47,7 @@ export class ASTNodeExtractor {
   private findMethodAll(astNode: ASTNode) {
     return [...astNode.getChildren()]
       .flatMap((row) => this.extractFunctionAndMethodNode(row))
-      .map((row) =>
-        this.createAnalyzePointNode(row, [this.createCodePoint(astNode)])
-      );
+      .map((row) => this.createAnalyzePointNode(row, [this.createCodePoint(astNode)]));
   }
 
   private createCodePoint(astNode: ASTNode) {
@@ -64,10 +59,7 @@ export class ASTNodeExtractor {
     );
   }
 
-  private createAnalyzePointNode(
-    astNode: ASTNode,
-    codePoints: CodePoint[] = []
-  ): AnalyzePointNode {
+  private createAnalyzePointNode(astNode: ASTNode, codePoints: CodePoint[] = []): AnalyzePointNode {
     return {
       codePoints: codePoints.concat(this.createCodePoint(astNode)),
       astNode,
@@ -84,9 +76,7 @@ export class ASTNodeExtractor {
       return [astNode];
     }
 
-    return result.concat(
-      ...astNode.getChildren().map((row) => this.extractClassNode(row))
-    );
+    return result.concat(...astNode.getChildren().map((row) => this.extractClassNode(row)));
   }
 
   private extractFunctionAndMethodNode(astNode: ASTNode): ASTNode[] {
@@ -99,10 +89,6 @@ export class ASTNodeExtractor {
       return [];
     }
 
-    return result.concat(
-      ...astNode
-        .getChildren()
-        .map((row) => this.extractFunctionAndMethodNode(row))
-    );
+    return result.concat(...astNode.getChildren().map((row) => this.extractFunctionAndMethodNode(row)));
   }
 }

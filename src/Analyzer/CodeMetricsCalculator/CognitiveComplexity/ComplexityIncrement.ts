@@ -5,14 +5,9 @@ export class ComplexityIncrement {
 
   public readonly nestDeepCount: number;
 
-  constructor(
-    complexityCountableNode: ComplexityCountableNode,
-    nestDeepCount: number
-  ) {
+  constructor(complexityCountableNode: ComplexityCountableNode, nestDeepCount: number) {
     this.complexity = complexityCountableNode.isIncrement() ? 1 : 0;
-    this.nestDeepCount = complexityCountableNode.isNestingIncrement()
-      ? nestDeepCount
-      : 0;
+    this.nestDeepCount = complexityCountableNode.isNestingIncrement() ? nestDeepCount : 0;
   }
 
   valueOf() {

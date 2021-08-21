@@ -10,10 +10,7 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         []
@@ -30,19 +27,12 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         [
           new Metrics('test', [expected], { start: 0, end: 1 }),
-          new Metrics(
-            'test2',
-            [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
-            { start: 0, end: 1 }
-          ),
+          new Metrics('test2', [new MetricsValue(MetricsType.CognitiveComplexity, 3)], { start: 0, end: 1 }),
         ]
       );
 
@@ -56,29 +46,16 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         [
-          new Metrics(
-            'test',
-            [new MetricsValue(MetricsType.CognitiveComplexity, 4)],
-            { start: 0, end: 1 }
-          ),
-          new Metrics(
-            'test2',
-            [new MetricsValue(MetricsType.CognitiveComplexity, 3)],
-            { start: 0, end: 1 }
-          ),
+          new Metrics('test', [new MetricsValue(MetricsType.CognitiveComplexity, 4)], { start: 0, end: 1 }),
+          new Metrics('test2', [new MetricsValue(MetricsType.CognitiveComplexity, 3)], { start: 0, end: 1 }),
         ]
       );
 
-      expect(metrics.getAverageComplexity()).toStrictEqual(
-        new MetricsValue(MetricsType.CognitiveComplexity, 3.5)
-      );
+      expect(metrics.getAverageComplexity()).toStrictEqual(new MetricsValue(MetricsType.CognitiveComplexity, 3.5));
     });
   });
 
@@ -89,22 +66,15 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         [
           new Metrics('test', [expected], { start: 0, end: 1 }),
-          new Metrics(
-            'test2',
-            [new MetricsValue(MetricsType.HalsteadBugsDelivered, 3)],
-            {
-              start: 0,
-              end: 1,
-            }
-          ),
+          new Metrics('test2', [new MetricsValue(MetricsType.HalsteadBugsDelivered, 3)], {
+            start: 0,
+            end: 1,
+          }),
         ]
       );
 
@@ -118,35 +88,22 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         [
-          new Metrics(
-            'test',
-            [new MetricsValue(MetricsType.HalsteadBugsDelivered, 4)],
-            {
-              start: 0,
-              end: 1,
-            }
-          ),
-          new Metrics(
-            'test2',
-            [new MetricsValue(MetricsType.HalsteadBugsDelivered, 3)],
-            {
-              start: 0,
-              end: 1,
-            }
-          ),
+          new Metrics('test', [new MetricsValue(MetricsType.HalsteadBugsDelivered, 4)], {
+            start: 0,
+            end: 1,
+          }),
+          new Metrics('test2', [new MetricsValue(MetricsType.HalsteadBugsDelivered, 3)], {
+            start: 0,
+            end: 1,
+          }),
         ]
       );
 
-      expect(metrics.getSumBugsDelivered()).toStrictEqual(
-        new MetricsValue(MetricsType.HalsteadBugsDelivered, 7)
-      );
+      expect(metrics.getSumBugsDelivered()).toStrictEqual(new MetricsValue(MetricsType.HalsteadBugsDelivered, 7));
     });
   });
 
@@ -157,19 +114,12 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         [
           new Metrics('test', [expected], { start: 0, end: 1 }),
-          new Metrics(
-            'test2',
-            [new MetricsValue(MetricsType.Maintainability, 5)],
-            { start: 0, end: 1 }
-          ),
+          new Metrics('test2', [new MetricsValue(MetricsType.Maintainability, 5)], { start: 0, end: 1 }),
         ]
       );
 
@@ -183,29 +133,16 @@ describe('FileMetrics', () => {
         'dummy.ts',
         new Metrics(
           'dummy.ts',
-          [
-            new MetricsValue(MetricsType.LineOfCodeLogical, 1),
-            new MetricsValue(MetricsType.LineOfCodePhysical, 2),
-          ],
+          [new MetricsValue(MetricsType.LineOfCodeLogical, 1), new MetricsValue(MetricsType.LineOfCodePhysical, 2)],
           { start: 0, end: 2 }
         ),
         [
-          new Metrics(
-            'test',
-            [new MetricsValue(MetricsType.Maintainability, 4)],
-            { start: 0, end: 1 }
-          ),
-          new Metrics(
-            'test2',
-            [new MetricsValue(MetricsType.Maintainability, 3)],
-            { start: 0, end: 1 }
-          ),
+          new Metrics('test', [new MetricsValue(MetricsType.Maintainability, 4)], { start: 0, end: 1 }),
+          new Metrics('test2', [new MetricsValue(MetricsType.Maintainability, 3)], { start: 0, end: 1 }),
         ]
       );
 
-      expect(metrics.getAverageMaintainability()).toStrictEqual(
-        new MetricsValue(MetricsType.Maintainability, 3.5)
-      );
+      expect(metrics.getAverageMaintainability()).toStrictEqual(new MetricsValue(MetricsType.Maintainability, 3.5));
     });
   });
 });

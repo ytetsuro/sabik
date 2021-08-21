@@ -15,10 +15,7 @@ export class Analyzed {
     ['Maintainability', this.getDiffMinimumMaintainability],
   ]);
 
-  constructor(
-    private readonly resourceLoader: ResourceLoader,
-    private readonly converter: Converter
-  ) {}
+  constructor(private readonly resourceLoader: ResourceLoader, private readonly converter: Converter) {}
 
   async getByFileName(target: string) {
     return (await this.load()).get(target) ?? null;
@@ -36,26 +33,15 @@ export class Analyzed {
   }
 
   private getDiffBugDelivered(first: FileMetrics, second: FileMetrics) {
-    return (
-      Number(second.getSumBugsDelivered()) - Number(first.getSumBugsDelivered())
-    );
+    return Number(second.getSumBugsDelivered()) - Number(first.getSumBugsDelivered());
   }
 
   private getDiffMaximumComplexity(first: FileMetrics, second: FileMetrics) {
-    return (
-      Number(second.getMaximumComplexity()) -
-      Number(first.getMaximumComplexity())
-    );
+    return Number(second.getMaximumComplexity()) - Number(first.getMaximumComplexity());
   }
 
-  private getDiffMinimumMaintainability(
-    first: FileMetrics,
-    second: FileMetrics
-  ) {
-    return (
-      Number(first.getMinimumMaintainability()) -
-      Number(second.getMinimumMaintainability())
-    );
+  private getDiffMinimumMaintainability(first: FileMetrics, second: FileMetrics) {
+    return Number(first.getMinimumMaintainability()) - Number(second.getMinimumMaintainability());
   }
 
   private async load() {
@@ -70,13 +56,8 @@ export class Analyzed {
             .filter(({ fileName }) => fileName === row.fileName)
             .filter(({ codePointType }) => codePointType !== 0),
         }))
-        .map(({ dataModel, childDataModels }) =>
-          this.converter.to(dataModel, childDataModels)
-        )
-        .reduce(
-          (map, fileMetrics) => map.set(fileMetrics.fileName, fileMetrics),
-          new Map()
-        );
+        .map(({ dataModel, childDataModels }) => this.converter.to(dataModel, childDataModels))
+        .reduce((map, fileMetrics) => map.set(fileMetrics.fileName, fileMetrics), new Map());
 
       this.isLoaded = true;
     }

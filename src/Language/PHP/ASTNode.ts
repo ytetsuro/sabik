@@ -34,12 +34,7 @@ export class ASTNode implements ASTNodeInterface {
     const startOffset = this.getStartOffset();
     const endOffset = this.getEndOffset();
 
-    return (
-      this.sourceFile.loc?.source?.substr(
-        startOffset,
-        endOffset - startOffset
-      ) ?? ''
-    );
+    return this.sourceFile.loc?.source?.substr(startOffset, endOffset - startOffset) ?? '';
   }
 
   get commentStripSource() {
@@ -49,19 +44,14 @@ export class ASTNode implements ASTNodeInterface {
     const commentPositions =
       (<{ comments?: Node[] }>this.sourceFile).comments
         ?.map((row) => row.loc!)
-        .filter(
-          ({ start, end }) =>
-            start.offset >= startOffset && endOffset >= end.offset
-        )
+        .filter(({ start, end }) => start.offset >= startOffset && endOffset >= end.offset)
         .reduce(
           (result, { start, end }, index) =>
             result.concat({
               offset: <number>start.offset - startOffset,
               size: <number>end.offset - <number>start.offset,
               currentTotalSize:
-                (result?.[index - 1]?.currentTotalSize ?? 0) +
-                <number>end.offset -
-                <number>start.offset,
+                (result?.[index - 1]?.currentTotalSize ?? 0) + <number>end.offset - <number>start.offset,
             }),
           <{ offset: number; size: number; currentTotalSize: number }[]>[]
         )
@@ -88,13 +78,9 @@ export class ASTNode implements ASTNodeInterface {
   getName() {
     let result = '';
     if (this.isClass()) {
-      result =
-        this.extractNameString((<StructureNode>this.node).name) ??
-        'Anonymous Class';
+      result = this.extractNameString((<StructureNode>this.node).name) ?? 'Anonymous Class';
     } else if (this.isMethod()) {
-      const methodName =
-        this.extractNameString((<StructureNode>this.node).name) ??
-        'Anonymous Class';
+      const methodName = this.extractNameString((<StructureNode>this.node).name) ?? 'Anonymous Class';
       const params = (<MethodNode>this.node).arguments
         .map((row) => this.extractNameString(row))
         .filter((row) => row)
@@ -118,14 +104,10 @@ export class ASTNode implements ASTNodeInterface {
       case ASTKind.ARRAY:
         break;
       case ASTKind.ENTRY:
-        args.push(
-          this.extractNameString((<EntryNode>currentNode)?.key) ?? '[]'
-        );
+        args.push(this.extractNameString((<EntryNode>currentNode)?.key) ?? '[]');
         break;
       case ASTKind.ASSIGN:
-        args.push(
-          `$${this.extractNameString((<AssignNode>currentNode)?.left) ?? ''}`
-        );
+        args.push(`$${this.extractNameString((<AssignNode>currentNode)?.left) ?? ''}`);
 
         return args.reverse().join('.');
       default:
@@ -141,11 +123,7 @@ export class ASTNode implements ASTNodeInterface {
 
     if (result !== null) {
       return result;
-    } else if (
-      [ASTKind.PROPERTY_LOOKUP, ASTKind.STATIC_LOOKUP].includes(
-        <ASTKind>node?.kind
-      )
-    ) {
+    } else if ([ASTKind.PROPERTY_LOOKUP, ASTKind.STATIC_LOOKUP].includes(<ASTKind>node?.kind)) {
       return (
         node?.loc?.source
           ?.split('=', 2)[0]
@@ -159,9 +137,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   isFunction() {
-    return [ASTKind.FUNCTION, ASTKind.ARROW_FUNCTION, ASTKind.CLOSURE].includes(
-      <ASTKind>this.node.kind
-    );
+    return [ASTKind.FUNCTION, ASTKind.ARROW_FUNCTION, ASTKind.CLOSURE].includes(<ASTKind>this.node.kind);
   }
 
   isFauxClass() {
@@ -177,10 +153,7 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   getStartOffset() {
-    return (
-      this.node?.leadingComments?.[0]?.loc?.start.offset ??
-      this.node.loc!.start.offset
-    );
+    return this.node?.leadingComments?.[0]?.loc?.start.offset ?? this.node.loc!.start.offset;
   }
 
   getEndOffset() {

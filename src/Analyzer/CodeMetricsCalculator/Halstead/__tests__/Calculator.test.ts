@@ -16,13 +16,9 @@ describe('Halstead Calculator', () => {
       children: ast.getChildren().map((ast) => createCountableNodeSeed(ast)),
     };
   };
-  const calculator = new Calculator(
-    new MethodAnalyzer(new ASTNodeExtractor()),
-    {
-      convert: (ast: ASTNode) =>
-        new HalsteadCountableNode(createCountableNodeSeed(ast)),
-    }
-  );
+  const calculator = new Calculator(new MethodAnalyzer(new ASTNodeExtractor()), {
+    convert: (ast: ASTNode) => new HalsteadCountableNode(createCountableNodeSeed(ast)),
+  });
 
   describe('should count operand.', () => {
     it('should length is 1 when operand node.', () => {
@@ -41,9 +37,7 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        1
-      );
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(1);
     });
 
     it('should length is 1 when child node is operand node.', () => {
@@ -64,9 +58,7 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        1
-      );
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(1);
     });
 
     it('should length is 2, and vocabulary is 1 when parent node is `dummy` text operand, child node is `dummy` text operand.', () => {
@@ -87,12 +79,8 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        2
-      );
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(HalsteadVocabulary))
-      ).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(2);
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadVocabulary))).toBe(1);
     });
   });
 
@@ -113,9 +101,7 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        1
-      );
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(1);
     });
 
     it('should length is 1 when child node is operator node.', () => {
@@ -136,9 +122,7 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        1
-      );
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(1);
     });
 
     it('should length is 2, and vocabulary is 1 when parent node is `dummy` text operator, child node is `dummy` text operator.', () => {
@@ -159,12 +143,8 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        2
-      );
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(HalsteadVocabulary))
-      ).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(2);
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadVocabulary))).toBe(1);
     });
   });
 
@@ -191,12 +171,8 @@ describe('Halstead Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(
-        5
-      );
-      expect(
-        Number(actual[0].getMetricsByMetricsValue(HalsteadVocabulary))
-      ).toBe(3);
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadLength))).toBe(5);
+      expect(Number(actual[0].getMetricsByMetricsValue(HalsteadVocabulary))).toBe(3);
     });
   });
 });

@@ -8,9 +8,6 @@ export class HalsteadLength implements MetricsValue {
   constructor(private readonly operandAndOperator: OperandAndOperator) {}
 
   valueOf() {
-    return (
-      this.operandAndOperator.getTotalOperandCount() +
-      this.operandAndOperator.getTotalOperatorCount()
-    );
+    return this.operandAndOperator.getTotalOperandCount() + this.operandAndOperator.getTotalOperatorCount();
   }
 }

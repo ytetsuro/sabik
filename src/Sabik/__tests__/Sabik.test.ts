@@ -12,17 +12,13 @@ describe('Sabik', () => {
     beforeEach(() => {
       reporter = { output: jest.fn((_) => Promise.resolve()) };
       const analyzer = <Analyzer>getDouble(Analyzer, {
-        analyze: (fileList: File[]) =>
-          fileList.map((file) => new Metrics(file, [], [])),
+        analyze: (fileList: File[]) => fileList.map((file) => new Metrics(file, [], [])),
       });
 
       sabik = new Sabik(
         analyzer,
         <any>{
-          find: () => [
-            new File('/tmp/foo.txt', 'foo.txt'),
-            new File('/tmp/bar.md', 'bar.md'),
-          ],
+          find: () => [new File('/tmp/foo.txt', 'foo.txt'), new File('/tmp/bar.md', 'bar.md')],
         },
         reporter
       );
@@ -32,9 +28,10 @@ describe('Sabik', () => {
       await sabik.exec('./');
 
       expect(reporter.output.mock.calls[0][0].length).toBe(2);
-      expect(
-        reporter.output.mock.calls[0][0].map(({ file }) => file.relativePath)
-      ).toStrictEqual(['foo.txt', 'bar.md']);
+      expect(reporter.output.mock.calls[0][0].map(({ file }) => file.relativePath)).toStrictEqual([
+        'foo.txt',
+        'bar.md',
+      ]);
     });
   });
 });

@@ -4,8 +4,7 @@ import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../
 import { ASTNode } from './ASTNode';
 
 @injectable()
-export class ComplexityCountableNode
-  implements ComplexityCountableNodeInterface {
+export class ComplexityCountableNode implements ComplexityCountableNodeInterface {
   private static readonly nestLevelUpKinds = [
     ts.SyntaxKind.IfStatement,
     ts.SyntaxKind.SwitchStatement,
@@ -47,10 +46,7 @@ export class ComplexityCountableNode
   }
 
   isNestLevelUp() {
-    return (
-      !this.isElse() &&
-      ComplexityCountableNode.nestLevelUpKinds.includes(this.pureNode.kind)
-    );
+    return !this.isElse() && ComplexityCountableNode.nestLevelUpKinds.includes(this.pureNode.kind);
   }
 
   isIncrement() {
@@ -70,22 +66,15 @@ export class ComplexityCountableNode
       return false;
     }
 
-    return ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(
-      this.pureNode.kind
-    );
+    return ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.pureNode.kind);
   }
 
   private isElse() {
     const parent = this.pureNode.parent;
-    return (
-      parent.kind === ts.SyntaxKind.IfStatement &&
-      (<ts.IfStatement>parent).elseStatement === this.pureNode
-    );
+    return parent.kind === ts.SyntaxKind.IfStatement && (<ts.IfStatement>parent).elseStatement === this.pureNode;
   }
 
   getChildren() {
-    return this.node
-      .getChildren()
-      .map((node) => new ComplexityCountableNode(node));
+    return this.node.getChildren().map((node) => new ComplexityCountableNode(node));
   }
 }

@@ -35,11 +35,10 @@ describe('Metrics', () => {
         new MetricsValue(MetricsType.CognitiveComplexity, 20),
       ];
 
-      const actual = new Metrics(
-        'dummy.ts',
-        [...overviews, new MetricsValue(MetricsType.HalsteadDifficulty, 20)],
-        { start: 0, end: 2 }
-      );
+      const actual = new Metrics('dummy.ts', [...overviews, new MetricsValue(MetricsType.HalsteadDifficulty, 20)], {
+        start: 0,
+        end: 2,
+      });
 
       expect(actual.getOverview()).toStrictEqual(overviews);
     });
@@ -77,9 +76,7 @@ describe('Metrics', () => {
         { start: 0, end: 2 }
       );
 
-      expect(actual.getByType(MetricsType.HalsteadDifficulty)!.type).toBe(
-        MetricsType.HalsteadDifficulty
-      );
+      expect(actual.getByType(MetricsType.HalsteadDifficulty)!.type).toBe(MetricsType.HalsteadDifficulty);
     });
   });
 });

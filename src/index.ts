@@ -13,15 +13,27 @@ class Sabik extends Command {
   static flags = {
     version: flags.version({ char: 'v' }),
     help: flags.help({ char: 'h' }),
-    outputReportDir: flags.string({
+    outputFormat: flags.enum({
+      char: 't',
+      options: ['HTML', 'JSON'],
+      description: 'output report format. HTML or JSON. default: HTML',
+      default: 'HTML',
+    }),
+    outputReportPath: flags.string({
       char: 'o',
-      description: 'output report directory path. default: ./sabik_report',
+      description: `output report path.
+      For HTML, specify the directory, and for JSON, specify the file.`,
+      default: ({ flags: { outputFormat } }: { flags: { [key: string]: string } }) =>
+        outputFormat === 'HTML' ? `./sabik_report` : '',
     }),
     excludes: flags.string({
-      description:
-        'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$',
+      description: 'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$',
+      default: '$^',
     }),
-    matches: flags.string({ description: 'match patterns. example: .ts$' }),
+    matches: flags.string({
+      description: 'match patterns. example: .ts$',
+      default: '.*',
+    }),
   };
 
   static args = [{ name: 'target' }];
@@ -29,34 +41,23 @@ class Sabik extends Command {
   async run() {
     const { args, flags } = this.parse(Sabik);
 
-    const outputPath = resolve(
-      flags?.outputReportDir ?? `${process.cwd()}/sabik_report`
-    );
-    const analyzedTarget = resolve(args.target ?? process.cwd());
-    const excludes = (<string>(flags.excludes ?? '$^'))
-      .split(',')
-      .map((row) => new RegExp(row));
-    const matches = new RegExp(flags.matches ?? '.*');
+    const outputPath = flags.outputReportPath !== '' ? resolve(flags.outputReportPath) : null;
+    const analyzedTarget = resolve(args.target);
+    const excludes = (<string>flags.excludes).split(',').map((row) => new RegExp(row));
+    const matches = new RegExp(flags.matches);
 
     if (!fs.existsSync(analyzedTarget)) {
       return this.error(`${analyzedTarget}: No such file or directory.`);
-    } else if (
-      fs.existsSync(outputPath) &&
-      !fs.statSync(outputPath).isDirectory()
-    ) {
-      return this.error(`${outputPath} is not directory.`);
     }
 
-    const rootPath = fs.statSync(analyzedTarget).isDirectory()
-      ? analyzedTarget
-      : dirname(analyzedTarget);
+    const rootPath = fs.statSync(analyzedTarget).isDirectory() ? analyzedTarget : dirname(analyzedTarget);
 
     container.bind<string>(Types.rootPath).toConstantValue(rootPath);
-    container.bind<string>(Types.outputPath).toConstantValue(outputPath);
+    container.bind<string | null>(Types.outputPath).toConstantValue(outputPath);
     container.bind<RegExp>(Types.fileMatches).toConstantValue(matches);
     container.bind<RegExp[]>(Types.fileExcludes).toConstantValue(excludes);
 
-    const main = container.get(Main);
+    const main = container.getNamed(Main, flags.outputFormat);
 
     main.exec(analyzedTarget);
   }

@@ -9,10 +9,7 @@ import { SourceCode } from './Infrastructure/Repository/SourceCode';
 import { ResourceLoader } from './Infrastructure/ResourceLoader';
 
 const resourceLoader = new ResourceLoader(document);
-const analyzed = new Analyzed(
-  resourceLoader,
-  new FileMetrics(new Metrics(new MetricsValue()))
-);
+const analyzed = new Analyzed(resourceLoader, new FileMetrics(new Metrics(new MetricsValue())));
 const sourceCode = new SourceCode(resourceLoader);
 
 document.addEventListener('DOMContentLoaded', async () => {

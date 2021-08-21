@@ -6,14 +6,10 @@ import { MetricsSource } from './MetricsSource';
 
 @injectable()
 export class MethodAnalyzer implements Analyzer {
-  constructor(
-    @inject(ASTNodeExtractor) private readonly extractor: ASTNodeExtractor
-  ) {}
+  constructor(@inject(ASTNodeExtractor) private readonly extractor: ASTNodeExtractor) {}
 
   analyze(rootASTNodeList: ASTNodeSource[]): MetricsSource[] {
-    return rootASTNodeList.flatMap((rootASTNode) =>
-      this.analyzeMethod(rootASTNode)
-    );
+    return rootASTNodeList.flatMap((rootASTNode) => this.analyzeMethod(rootASTNode));
   }
 
   private analyzeMethod(rootASTNode: ASTNodeSource): MetricsSource[] {

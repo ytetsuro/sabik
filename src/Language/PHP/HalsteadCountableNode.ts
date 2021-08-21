@@ -117,22 +117,7 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
     'X_OPERATOR_STRING',
   ];
 
-  private static readonly operatorStrings = [
-    '+',
-    '/',
-    '*',
-    '-',
-    '%',
-    '&',
-    '|',
-    '^',
-    '~',
-    '@',
-    '`',
-    '!',
-    '.',
-    ',',
-  ];
+  private static readonly operatorStrings = ['+', '/', '*', '-', '%', '&', '|', '^', '~', '@', '`', '!', '.', ','];
 
   constructor(nodeOrToken: ASTNode | Token) {
     if (!(nodeOrToken instanceof ASTNode)) {
@@ -163,9 +148,7 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
   }
 
   getChildren() {
-    return this.tokenChildren
-      .slice()
-      .map((row) => new HalsteadCountableNode(row));
+    return this.tokenChildren.slice().map((row) => new HalsteadCountableNode(row));
   }
 
   private getTokens(astNode: ASTNode) {
@@ -185,15 +168,11 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
 
     const tokens = engine
       .tokenGetAll(`<?php ${source}`)
-      .filter(
-        (row) =>
-          Array.isArray(row) ||
-          HalsteadCountableNode.operatorStrings.includes(String(row))
-      )
+      .filter((row) => Array.isArray(row) || HalsteadCountableNode.operatorStrings.includes(String(row)))
       .map((row) => ({
         token:
-        // https://github.com/glayzzle/php-parser/pull/737
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // https://github.com/glayzzle/php-parser/pull/737
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           typeof row === 'string' ? 'X_OPERATOR_STRING' : String((<any>row)[0]),
         // https://github.com/glayzzle/php-parser/pull/737
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

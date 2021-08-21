@@ -46,8 +46,6 @@ export class ASTNode {
   }
 
   getChildren() {
-    return Object.keys(this.children).map(
-      (keyName) => new ASTNode(keyName, this.children[keyName])
-    );
+    return Object.keys(this.children).map((keyName) => new ASTNode(keyName, this.children[keyName]));
   }
 }
