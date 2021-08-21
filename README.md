@@ -19,7 +19,8 @@ If you want to see what it looks like, click [here](http://sabik.botch.me/exampl
 <!-- toc -->
 * [Basic Using](#basic-using)
 * [Support Programming Language](#support-programming-language)
-* [Feature Support Programming Language](#feature-support-programming-language)
+* [What analyzable metrics?](#what-analyzable-metrics)
+* [License](#license)
 <!-- tocstop -->
 
 # Basic Using
