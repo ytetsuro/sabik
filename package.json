@@ -1,7 +1,7 @@
 {
   "name": "sabik",
   "description": "Source code metrics tool.",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "author": "iBotchME (@ytetsuro)",
   "bin": {
     "sabik": "./bin/run"
