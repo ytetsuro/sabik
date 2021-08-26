@@ -22,34 +22,35 @@
     "pako": "^1.0.11",
     "php-parser": "^3.0.3",
     "postcss": "^8.3.6",
-    "postcss-import": "^14.0.0",
+    "postcss-import": "^14.0.2",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.14.1",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "@types/atob": "^2.1.2",
     "@types/eslint": "^7.2.0",
-    "@types/jest": "^26.0.9",
-    "@types/jsdom": "^16.2.5",
+    "@types/jest": "^27.0.1",
+    "@types/jsdom": "^16.2.13",
     "@types/mithril": "^2.0.4",
     "@types/node": "^16.6.1",
     "@types/pako": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "@typescript-eslint/typescript-estree": "^4.29.2",
-    "eslint": "^7.13.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-jest": "^24.1.3",
     "husky": "^4.3.0",
-    "jest": "^26.4.2",
-    "jsdom": "^16.4.0",
+    "jest": "^27.0.6",
+    "jsdom": "^16.2.13",
     "lint-staged": "^10.5.1",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.0",
+    "ts-jest": "^27.0.5",
     "ts-node": "^8.10.2"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=10.13.1"
   },
   "files": [
     "/bin",
