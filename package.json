@@ -68,7 +68,7 @@
     "visualize"
   ],
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": "ytetsuro/sabik",
   "scripts": {
     "lint": "eslint ./src --ext .ts --config .eslintrc.yml",
