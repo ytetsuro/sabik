@@ -8,14 +8,11 @@
   },
   "bugs": "https://github.com/ytetsuro/sabik/issues",
   "dependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^2.2.3",
     "@types/codemirror": "0.0.109",
     "autoprefixer": "^10.3.1",
     "bulma": "^0.9.3",
     "codemirror": "^5.62.2",
-    "commander": "^6.2.0",
+    "commander": "^7.2.0",
     "core-js": "^3.16.0",
     "decimal.js": "^10.3.1",
     "esbuild": "^0.12.17",
@@ -31,7 +28,6 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.22.2",
     "@types/eslint": "^7.2.0",
     "@types/jest": "^26.0.9",
     "@types/jsdom": "^16.2.5",
@@ -53,7 +49,7 @@
     "ts-node": "^8.10.2"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "files": [
     "/bin",
@@ -73,16 +69,12 @@
   ],
   "license": "MIT",
   "main": "src/index.js",
-  "oclif": {
-    "bin": "sabik"
-  },
   "repository": "ytetsuro/sabik",
   "scripts": {
     "lint": "eslint ./src --ext .ts --config .eslintrc.yml",
     "lint:fix": "prettier --write ./src",
-    "prepack": "make && oclif-dev readme",
-    "test": "jest",
-    "version": "oclif-dev readme && git add README.md"
+    "prepack": "make",
+    "test": "jest"
   },
   "types": "lib/index.d.ts",
   "husky": {
