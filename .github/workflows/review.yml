@@ -35,7 +35,7 @@ jobs:
           SUMMARY="$(npm test -- --coverage --coverageReporters='text-summary' | tail -2 | head -1)"
           TOKENS=($SUMMARY)
           echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
-          echo "COLOR=$(([[ ${COVERAGE%%.*} -ge 80 ]] && echo "green") || ([[ ${COVERAGE:%%.*} -ge 50 ]] && echo "yellow") || echo "red")" >> $GITHUB_ENV
+          echo "COLOR=$(([[ ${TOKENS[2]%%.*} -ge 80 ]] && echo "green") || ([[ ${TOKENS[2]:%%.*} -ge 50 ]] && echo "yellow") || echo "red")" >> $GITHUB_ENV
           REF=${{ github.ref }}
           echo "github.ref: $REF"
           IFS='/' read -ra PATHS <<< "$REF"
