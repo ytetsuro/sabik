@@ -32,7 +32,7 @@ jobs:
       - if: ${{ matrix.node-version == '16.x' }}
         name: Get Coverage for badge
         run: |
-          SUMMARY="$(npm test -- --coverageReporters='text-summary' | tail -2 | head -1)"
+          SUMMARY="$(npm test -- --coverage --coverageReporters='text-summary' | tail -2 | head -1)"
           TOKENS=($SUMMARY)
           echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
           echo "COLOR=$(([[ ${COVERAGE%%.*} -ge 80 ]] && echo "green") || ([[ ${COVERAGE:%%.*} -ge 50 ]] && echo "yellow") || echo "red")" >> $GITHUB_ENV
