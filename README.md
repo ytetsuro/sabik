@@ -9,7 +9,10 @@ Please feel free to PullRequest and Issue.
 
 ![ci-build](https://github.com/ytetsuro/sabik/workflows/ci-build/badge.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/ytetsuro/sabik/badge.svg)](https://snyk.io/test/github/ytetsuro/sabik)
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ytetsuro/32248b8c823155bb09711c7a5b960d3d/raw/sabik__heads_master.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ytetsuro/32248b8c823155bb09711c7a5b960d3d/raw/sabik_coverage_heads_master.json)
+![LogicalLineOfCode(Average per method)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ytetsuro/32248b8c823155bb09711c7a5b960d3d/raw/sabik_line_of_code_heads_master.json)
+![CognitiveComplexity(Max)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ytetsuro/32248b8c823155bb09711c7a5b960d3d/raw/sabik_cognitive_complexity_heads_master.json)
+![Maintainability(Min)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ytetsuro/32248b8c823155bb09711c7a5b960d3d/raw/sabik_maintainability_heads_master.json)
 
 Visualize source code complexity with Sabik.
 This tool is to find the bad smell code.
