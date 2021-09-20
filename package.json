@@ -13,7 +13,7 @@
     "bulma": "^0.9.3",
     "codemirror": "^5.62.3",
     "commander": "^7.2.0",
-    "core-js": "^3.16.3",
+    "core-js": "^3.16.4",
     "decimal.js": "^10.3.1",
     "esbuild": "^0.12.23",
     "immutable": "^4.0.0-rc.12",
