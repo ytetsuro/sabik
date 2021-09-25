@@ -9,7 +9,7 @@
   "bugs": "https://github.com/ytetsuro/sabik/issues",
   "dependencies": {
     "@types/codemirror": "0.0.109",
-    "autoprefixer": "^10.3.2",
+    "autoprefixer": "^10.3.3",
     "bulma": "^0.9.3",
     "codemirror": "^5.62.3",
     "commander": "^7.2.0",
