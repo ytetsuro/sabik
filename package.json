@@ -15,7 +15,7 @@
     "commander": "^7.2.0",
     "core-js": "^3.19.2",
     "decimal.js": "^10.3.1",
-    "esbuild": "^0.14.0",
+    "esbuild": "^0.14.2",
     "immutable": "^4.0.0",
     "inversify": "^5.1.1",
     "mithril": "^2.0.4",
