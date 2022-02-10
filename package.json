@@ -11,7 +11,7 @@
     "@types/codemirror": "0.0.109",
     "autoprefixer": "^10.4.2",
     "bulma": "^0.9.3",
-    "codemirror": "^5.65.0",
+    "codemirror": "^5.65.1",
     "commander": "^7.2.0",
     "core-js": "^3.20.2",
     "decimal.js": "^10.3.1",
