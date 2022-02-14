@@ -28,6 +28,7 @@
     "typescript": "^4.5.5"
   },
   "devDependencies": {
+    "@swc/core": "^1.2.139",
     "@swc/jest": "^0.2.17",
     "@types/atob": "^2.1.2",
     "@types/eslint": "^7.2.0",
