@@ -1,5 +1,4 @@
 import { ScriptBuilder } from '../ScriptBuilder';
-import { TextEncoder } from 'util';
 
 jest.mock('esbuild', () => ({
   build: () =>

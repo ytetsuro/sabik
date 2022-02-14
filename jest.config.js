@@ -14,7 +14,7 @@ module.exports = {
     'src/Language/TypeScript/__tests__/fixtures',
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': '@swc/jest',
   },
   collectCoverageFrom: [
     'src/**/*.ts',
