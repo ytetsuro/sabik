@@ -16,7 +16,6 @@
     "core-js": "^3.20.3",
     "decimal.js": "^10.3.1",
     "esbuild": "^0.14.13",
-    "immutable": "^4.0.0",
     "inversify": "^5.1.1",
     "mithril": "^2.0.4",
     "pako": "^1.0.11",
