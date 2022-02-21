@@ -1,4 +1,4 @@
-Sabik
+![Sabik](https://sabik.botch.me/images/sabik-visual.png)
 ===
 
 This project is under development.
