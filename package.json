@@ -20,7 +20,7 @@
     "mithril": "^2.0.4",
     "pako": "^1.0.11",
     "php-parser": "^3.0.3",
-    "postcss": "^8.4.5",
+    "postcss": "^8.4.6",
     "postcss-import": "^14.0.2",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.14.1",
