@@ -36,7 +36,7 @@ export class FileFinder {
   }
 
   private findByDirectoryPath(path: string) {
-    return fs.readdirSync(path).map((row) => this.find(`${path}/${row}`));
+    return fs.readdirSync(path).map((row) => this.find(`${path}${sep}${row}`));
   }
 
   private createFindResult(path: string) {
