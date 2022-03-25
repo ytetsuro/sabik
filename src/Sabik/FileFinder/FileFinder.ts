@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { inject, injectable } from 'inversify';
-import { resolve } from 'path';
+import { resolve, sep } from 'path';
 import { Types } from '../../types/Types';
 import { File } from './File';
 
@@ -17,7 +17,7 @@ export class FileFinder {
     @inject(Types.fileMatches) findSource: RegExp,
     @inject(Types.fileExcludes) excludes: RegExp[]
   ) {
-    this.currentPath = currentPath.endsWith('/') ? currentPath.substr(0, currentPath.length - 1) : currentPath;
+    this.currentPath = currentPath.endsWith(sep) ? currentPath.substr(0, currentPath.length - 1) : currentPath;
     this.findSource = findSource;
     this.excludes = excludes;
   }
@@ -44,7 +44,10 @@ export class FileFinder {
   }
 
   private getFullPath(path: string) {
-    return resolve(path.startsWith('/') ? path : `${this.currentPath}/${path}`);
+    const formattedPath = path.endsWith(sep) ? path.substr(0, path.length - 1) : path;
+    const isAbstractPath = resolve(formattedPath) === formattedPath;
+
+    return resolve(isAbstractPath ? formattedPath : `${this.currentPath}${sep}${formattedPath}`);
   }
 
   private isTarget(path: string) {
