@@ -1,0 +1,13 @@
+{
+  "branches": ["master", "feature/add-cd"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    "@semantic-release/git"
+  ],
+  "tagFormat": "${version}",
+  "repositoryUrl":"https://github.com/ytetsuro/sabik.git"
+}
