@@ -23,7 +23,7 @@
     "pako": "^1.0.11",
     "php-parser": "^3.0.3",
     "postcss": "^8.4.7",
-    "postcss-import": "^14.0.2",
+    "postcss-import": "^14.1.0",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.14.1",
     "typescript": "^4.6.2"
