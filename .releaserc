@@ -1,5 +1,5 @@
 {
-  "branches": ["master", "feature/add-cd"],
+  "branches": ["master"],
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
