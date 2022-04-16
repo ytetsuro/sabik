@@ -10,7 +10,7 @@
   "dependencies": {
     "@types/codemirror": "0.0.109",
     "@types/jest": "^27.4.1",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.3",
     "bulma": "^0.9.3",
     "codemirror": "^5.65.2",
     "commander": "^7.2.0",
