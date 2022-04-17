@@ -6,4 +6,4 @@ if (!global.TextEncoder) {
   global.TextEncoder = TextEncoder;
 }
 
-global.atob = (str) => new Buffer(str, 'base64').toString('binary');
+global.atob = (str) => Buffer.from(str, 'base64').toString('binary');
