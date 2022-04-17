@@ -38,7 +38,7 @@ export class CSV implements FileBuilder {
             ),
           }
       )
-      .map((row) => header.map((columnName) => (row[columnName] ?? '').replace('"', '""')));
+      .map((row) => header.map((columnName) => (row[columnName] ?? '').replace(/"/g, '""')));
 
     return [header, ...body];
   }
