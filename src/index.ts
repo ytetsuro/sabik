@@ -9,15 +9,26 @@ import { Command, Option } from 'commander';
 
 const program = new Command();
 program
-  .addOption(new Option('-t, --outputFormat <format>', 'output report format. HTML or JSON. default: HTML').choices(['HTML', 'JSON']).default('HTML'))
-  .requiredOption('--excludes <patterns...>', 'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$', '$^')
+  .addOption(
+    new Option('-t, --outputFormat <format>', 'output report format. default: HTML')
+      .choices(['HTML', 'JSON', 'CSV'])
+      .default('HTML')
+  )
+  .requiredOption(
+    '--excludes <patterns...>',
+    'exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$',
+    '$^'
+  )
   .requiredOption('--matches <pattern>', 'match patterns. example: .ts$', '.*')
-  .option('-o, --outputReportPath <path>', `output report path.
-For HTML, specify the directory, and for JSON, specify the file.`)
+  .option(
+    '-o, --outputReportPath <path>',
+    `output report path.
+For HTML or CSV, specify the directory, and for JSON, specify the file.`
+  )
   .arguments('[targetPath]')
   .description('This is source code metrics tool.')
   .action(async (targetPath?: string, options?) => {
-    const outputReportPath = options.outputReportPath ?? (options.outputFormat === 'HTML') ? './sabik_report' : null;
+    const outputReportPath = options.outputReportPath ?? options.outputFormat === 'JSON' ? null : './sabik_report';
     const outputPath = outputReportPath !== null ? resolve(outputReportPath) : null;
     const analyzedTarget = resolve(targetPath ?? './');
     const excludes = (<string>options.excludes).split(',').map((row) => new RegExp(row));
@@ -40,7 +51,6 @@ For HTML, specify the directory, and for JSON, specify the file.`)
   });
 
 export = {
-  run: (version: string, argv: string[]) => program
-  .version(version, '-v, --version', 'show CLI version.')
-  .parseAsync(argv),
+  run: (version: string, argv: string[]) =>
+    program.version(version, '-v, --version', 'show CLI version.').parseAsync(argv),
 };
