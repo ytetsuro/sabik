@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { Writer } from '../Writer';
+import { Writer } from '../../Writer';
 
 @injectable()
 export class HTML {

@@ -2,7 +2,7 @@ import postcss from 'postcss';
 import atImport from 'postcss-import';
 import autoprefixer from 'autoprefixer';
 import fs from 'fs';
-import { Writer } from '../Writer';
+import { Writer } from '../../Writer';
 import { inject, injectable } from 'inversify';
 
 @injectable()
