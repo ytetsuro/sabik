@@ -1,6 +1,6 @@
 import pako from 'pako';
 import fs from 'fs';
-import { Writer } from '../Writer';
+import { Writer } from '../../Writer';
 import { inject, injectable } from 'inversify';
 import { Types } from '../../../types/Types';
 import { Metrics } from '../../../Analyzer/Metrics/Metrics';
