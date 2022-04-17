@@ -10,7 +10,8 @@ import { CSS } from '../Reporter/HTML/FileBuilder/CSS';
 import { HTML } from '../Reporter/HTML/FileBuilder/HTML';
 import { Event } from '../Reporter/HTML/FileBuilder/Event';
 import { EntryPoint } from '../Reporter/HTML/FileBuilder/EntryPoint';
-import { Writer } from '../Reporter/HTML/Writer';
+import { CSV } from '../Reporter/CSV/FileBuilder/CSV';
+import { Writer } from '../Reporter/Writer';
 import { Sabik } from './Sabik';
 import { Reporter } from './Reporter';
 import { PHP } from './Language/PHP';
@@ -52,6 +53,7 @@ container.bind<FileBuilder>(Types.outputFileBuilder).to(HTML).whenAnyAncestorNam
 container.bind<FileBuilder>(Types.outputFileBuilder).to(Event).whenAnyAncestorNamed('HTML');
 container.bind<FileBuilder>(Types.outputFileBuilder).to(EntryPoint).whenAnyAncestorNamed('HTML');
 container.bind<FileBuilder>(Types.outputFileBuilder).to(JSON).whenAnyAncestorNamed('JSON');
+container.bind<FileBuilder>(Types.outputFileBuilder).to(CSV).whenAnyAncestorNamed('CSV');
 container.bind<Reporter>(Types.reporter).to(ReporterImp);
 container.bind<Sabik>(Sabik).toSelf();
 container.bind<LanguageAnalyzer>(LanguageAnalyzer).to(PHP);

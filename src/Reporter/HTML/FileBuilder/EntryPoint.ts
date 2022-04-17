@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { ScriptBuilder } from '../ScriptBuilder';
-import { Writer } from '../Writer';
+import { Writer } from '../../Writer';
 
 @injectable()
 export class EntryPoint {
