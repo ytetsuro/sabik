@@ -1,3 +1,10 @@
+## [0.1.1](https://github.com/ytetsuro/sabik/compare/0.1.0...0.1.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* upgrade core-js from 3.22.0 to 3.22.1 ([d244e9c](https://github.com/ytetsuro/sabik/commit/d244e9c2e5540ba010545d9c28bd787f36991af0))
+
 # [0.1.0](https://github.com/ytetsuro/sabik/compare/0.0.16...0.1.0) (2022-04-17)
 
 
