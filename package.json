@@ -1,7 +1,7 @@
 {
   "name": "sabik",
   "description": "Source code metrics tool.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "iBotchME (@ytetsuro)",
   "bin": {
     "sabik": "./bin/run"
@@ -12,9 +12,9 @@
     "@types/jest": "^27.4.1",
     "autoprefixer": "^10.4.4",
     "bulma": "^0.9.3",
-    "codemirror": "^5.65.2",
+    "codemirror": "^5.65.3",
     "commander": "^7.2.0",
-    "core-js": "^3.21.1",
+    "core-js": "^3.22.1",
     "decimal.js": "^10.3.1",
     "esbuild": "^0.14.28",
     "inversify": "^5.1.1",
