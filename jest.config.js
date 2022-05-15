@@ -1,6 +1,6 @@
 module.exports = {
   setupFilesAfterEnv: [
-    './TestBootstrap.ts',
+    './src/TestHelpers/TestBootstrap.ts',
   ],
   roots: [
     '<rootDir>/src',
