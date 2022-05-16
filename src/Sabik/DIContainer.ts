@@ -94,5 +94,9 @@ container
   .to(HalsteadConverterForTypeScript)
   .whenAnyAncestorNamed('TypeScript');
 container.bind<ASTGenerator>(Types.astNodeGenerator).to(ASTGeneratorForTypeScript).whenAnyAncestorNamed('TypeScript');
+container.bind<string>(Types.rootPath).toConstantValue(__dirname);
+container.bind<string | null>(Types.outputPath).toConstantValue(__dirname);
+container.bind<RegExp>(Types.fileMatches).toConstantValue(/.*/);
+container.bind<RegExp[]>(Types.fileExcludes).toConstantValue([/$^/]);
 
 export { container };
