@@ -29,22 +29,22 @@ Fo  r HTML or CSV, specify the directory, and for JSON, specify the file.`
     .arguments('[targetPath]')
     .description('This is source code metrics tool.')
     .action(async (targetPath?: string, options?) => {
-    const outputReportPath = options.outputReportPath ?? options.outputFormat === 'JSON' ? null : './sabik_report';
-    const outputPath = outputReportPath !== null ? resolve(outputReportPath) : null;
-    const analyzedTarget = resolve(targetPath ?? './');
+      const outputReportPath = options.outputReportPath ?? (options.outputFormat === 'JSON' ? null : './sabik_report');
+      const outputPath = outputReportPath !== null ? resolve(outputReportPath) : null;
+      const analyzedTarget = resolve(targetPath ?? './');
     const excludes = (<string>options.excludes).split(',').map((row) => new RegExp(row));
-    const matches = new RegExp(options.matches);
+      const matches = new RegExp(options.matches);
 
       if (!fs.existsSync(analyzedTarget)) {
         throw new Error(`${analyzedTarget}: No such file or directory.`);
       }
 
-    const rootPath = fs.statSync(analyzedTarget).isDirectory() ? analyzedTarget : dirname(analyzedTarget);
+      const rootPath = fs.statSync(analyzedTarget).isDirectory() ? analyzedTarget : dirname(analyzedTarget);
+      container.rebind<string>(Types.rootPath).toConstantValue(rootPath);
+      container.rebind<string | null>(Types.outputPath).toConstantValue(outputPath);
+      container.rebind<RegExp>(Types.fileMatches).toConstantValue(matches);
+      container.rebind<RegExp[]>(Types.fileExcludes).toConstantValue(excludes);
 
-    container.bind<string>(Types.rootPath).toConstantValue(rootPath);
-    container.bind<string | null>(Types.outputPath).toConstantValue(outputPath);
-    container.bind<RegExp>(Types.fileMatches).toConstantValue(matches);
-    container.bind<RegExp[]>(Types.fileExcludes).toConstantValue(excludes);
       const main = container.getNamed(Main, options.outputFormat);
 
       await main.exec(analyzedTarget);
