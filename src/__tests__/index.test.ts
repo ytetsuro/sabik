@@ -1,4 +1,5 @@
-import { existsSync, rmdirSync, mkdirSync } from 'fs';
+import { execSync } from 'child_process';
+import { existsSync, mkdirSync } from 'fs';
 import { run } from '../';
 
 describe('Able to analyze source code metrics.', () => {
@@ -15,7 +16,7 @@ describe('Able to analyze source code metrics.', () => {
 
   describe('Target source code can be narrowed down.', () => {
     afterEach(() => {
-      rmdirSync(`${rootDirectory}/output`, { recursive: true, force: true });
+      removeRecursiveSync(`${rootDirectory}/output`);
     });
 
     it('Only not excludeing files will be considered, when using excludes option.', async () => {
@@ -57,7 +58,7 @@ describe('Able to analyze source code metrics.', () => {
     });
 
     afterEach(() => {
-      rmdirSync(`${rootDirectory}/output`, { recursive: true, force: true });
+      removeRecursiveSync(`${rootDirectory}/output`);
     });
 
     it('Should export to HTML.', async () => {
@@ -95,3 +96,11 @@ describe('Able to analyze source code metrics.', () => {
     });
   });
 });
+
+const removeRecursiveSync = (path: string) => {
+  if (process.platform === 'win32') {
+    execSync(`del /f /s ${path}`);
+  }
+
+  execSync(`rm -rf ${path}`);
+};
