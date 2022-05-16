@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/ytetsuro/sabik/compare/0.1.1...0.1.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* upgrade codemirror from 5.65.2 to 5.65.3 ([0c9c135](https://github.com/ytetsuro/sabik/commit/0c9c135cccaf700f18f28bcd5330322b867a923a))
+
 ## [0.1.1](https://github.com/ytetsuro/sabik/compare/0.1.0...0.1.1) (2022-05-11)
 
 
