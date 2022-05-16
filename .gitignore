@@ -9,3 +9,4 @@ node_modules
 /sabik_report
 /coverage
 /package
+/src/__tests__/fixtures/output

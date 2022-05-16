@@ -16,6 +16,6 @@ export class Sabik {
     const files = this.fileFinder.find(findPath);
     const fileMetricsList = this.analyzer.analyze(files);
 
-    this.presenter.output(fileMetricsList);
+    return this.presenter.output(fileMetricsList);
   }
 }
