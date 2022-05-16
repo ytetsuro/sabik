@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: npm ci --ignore-scripts
       - name: Get Coverage for badge
         run: |
           SUMMARY="$(npm test -- --silent --coverage --coverageReporters='text-summary' | tail -4 | head -1)"
