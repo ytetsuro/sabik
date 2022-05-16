@@ -1,3 +1,24 @@
+## [0.1.3](https://github.com/ytetsuro/sabik/compare/0.1.2...0.1.3) (2022-05-16)
+
+
+### Bug Fixes
+
+* not working excludes option. ([89d77e9](https://github.com/ytetsuro/sabik/commit/89d77e9f1ffeebe3bc3c7a22bd5e2b5831af1e58))
+* upgrade autoprefixer from 10.4.4 to 10.4.5 ([7a9d0ad](https://github.com/ytetsuro/sabik/commit/7a9d0ad1ddef6086033c00ecc10925bcab09ae7a))
+* upgrade codemirror from 5.65.2 to 5.65.3 ([506339d](https://github.com/ytetsuro/sabik/commit/506339dcbf47990253686fa5f2b6bf088acb10a8))
+* upgrade codemirror from 5.65.2 to 5.65.3 ([5ee8c21](https://github.com/ytetsuro/sabik/commit/5ee8c21a92fcf9a43737621a76544f53b19da370))
+* upgrade core-js from 3.22.1 to 3.22.2 ([7889fa5](https://github.com/ytetsuro/sabik/commit/7889fa5b88bdecf8eb32cf3530c9a3168820ed9d))
+* upgrade core-js from 3.22.1 to 3.22.2 ([24a8608](https://github.com/ytetsuro/sabik/commit/24a8608d62101212558a26b8312444af5e3fb33c))
+* upgrade esbuild from 0.14.36 to 0.14.37 ([76569de](https://github.com/ytetsuro/sabik/commit/76569dea3270cb699ee382935fd221f6bc4577e4))
+* upgrade esbuild from 0.14.37 to 0.14.38 ([07e68a9](https://github.com/ytetsuro/sabik/commit/07e68a9ccbe1111fe901bf96ccefcf7e92ac9f9f))
+
+## [0.1.2](https://github.com/ytetsuro/sabik/compare/0.1.1...0.1.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* upgrade codemirror from 5.65.2 to 5.65.3 ([0c9c135](https://github.com/ytetsuro/sabik/commit/0c9c135cccaf700f18f28bcd5330322b867a923a))
+
 ## [0.1.1](https://github.com/ytetsuro/sabik/compare/0.1.0...0.1.1) (2022-05-11)
 
 
