@@ -29,7 +29,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --ignore-scripts
       - run: npm run test
-      - if: ${{ matrix.node-version == '18.x' }}
+      - if: ${{ matrix.node-version == '16.x' }}
         name: Get Coverage for badge
         run: |
           SUMMARY="$(npm test -- --silent --coverage --coverageReporters='text-summary' | tail -4 | head -1)"
@@ -51,7 +51,7 @@ jobs:
           echo $BRANCH_NAME
           echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
 
-      - if: ${{ matrix.node-version == '18.x' }}
+      - if: ${{ matrix.node-version == '16.x' }}
         name: Create the Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
@@ -63,7 +63,7 @@ jobs:
           color: ${{ env.COVERAGE_COLOR }}
           namedLogo: jest
 
-      - if: ${{ matrix.node-version == '18.x' }}
+      - if: ${{ matrix.node-version == '16.x' }}
         name: Create the LineOfCode Badge
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
@@ -74,7 +74,7 @@ jobs:
           message: ${{ env.LINE_OF_CODE }}
           color: ${{ env.LINE_OF_CODE_COLOR }}
 
-      - if: ${{ matrix.node-version == '18.x' }}
+      - if: ${{ matrix.node-version == '16.x' }}
         name: Create the CognitiveComplexity Badge
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
@@ -85,7 +85,7 @@ jobs:
           message: ${{ env.COGNITIVE_COMPLEXITY }}
           color: ${{ env.COGNITIVE_COMPLEXITY_COLOR }}
 
-      - if: ${{ matrix.node-version == '18.x' }}
+      - if: ${{ matrix.node-version == '16.x' }}
         name: Create the Maintainability Badge
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
