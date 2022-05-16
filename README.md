@@ -63,7 +63,7 @@ OPTIONS
 
   -v, --version                            show CLI version
 
-  --excludes=excludes                      [default: $^] exclude patterns is separated by a comma. example: .test.ts$,.spec.ts$
+  --excludes=excludes                      [default: $^] exclude patterns. example: .test.ts$ .spec.ts$
 
   --matches=matches                        [default: .*] match patterns. example: .ts$
 ```

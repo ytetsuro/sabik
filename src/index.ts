@@ -15,7 +15,7 @@ const generateCommand = () => {
         .choices(['HTML', 'JSON', 'CSV'])
         .default('HTML')
     )
-    .option('--excludes <patterns...>', 'exclude patterns is separated by a comma. example: .test.ts$ .spec.ts$')
+    .option('--excludes <patterns...>', 'exclude patterns. example: .test.ts$ .spec.ts$')
     .requiredOption('--matches <pattern>', 'match patterns. example: .ts$', '.*')
     .option(
       '-o, --outputReportPath <path>',
