@@ -1,12 +1,12 @@
 name: Publish
 on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+  workflow_run:
+    workflows: [Build]
+    types:
+      - completed
 jobs:
   deploy:
-    name: Build
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
