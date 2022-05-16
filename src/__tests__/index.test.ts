@@ -1,4 +1,4 @@
-import { existsSync, rmSync, mkdirSync } from 'fs';
+import { existsSync, rmdirSync, mkdirSync } from 'fs';
 import { run } from '../';
 
 describe('Able to analyze source code metrics.', () => {
@@ -15,7 +15,7 @@ describe('Able to analyze source code metrics.', () => {
 
   describe('Target source code can be narrowed down.', () => {
     afterEach(() => {
-      rmSync(`${rootDirectory}/output`, { recursive: true, force: true });
+      rmdirSync(`${rootDirectory}/output`, { recursive: true, force: true });
     });
 
     it('Only not excludeing files will be considered, when using excludes option.', async () => {
@@ -57,7 +57,7 @@ describe('Able to analyze source code metrics.', () => {
     });
 
     afterEach(() => {
-      rmSync(`${rootDirectory}/output`, { recursive: true, force: true });
+      rmdirSync(`${rootDirectory}/output`, { recursive: true, force: true });
     });
 
     it('Should export to HTML.', async () => {
