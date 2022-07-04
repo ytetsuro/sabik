@@ -9,14 +9,14 @@
   "bugs": "https://github.com/ytetsuro/sabik/issues",
   "dependencies": {
     "@types/codemirror": "0.0.109",
-    "@types/jest": "^27.5.1",
+    "@types/jest": "^27.5.2",
     "autoprefixer": "^10.4.7",
     "bulma": "^0.9.4",
     "codemirror": "^5.65.5",
     "commander": "^7.2.0",
     "core-js": "^3.22.7",
     "decimal.js": "^10.3.1",
-    "esbuild": "^0.14.41",
+    "esbuild": "^0.14.42",
     "inversify": "^5.1.1",
     "jest": "^27.5.1",
     "mithril": "^2.2.2",
@@ -26,7 +26,7 @@
     "postcss-import": "^14.1.0",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.14.1",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.3"
   },
   "devDependencies": {
     "@swc/core": "^1.2.139",
