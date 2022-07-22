@@ -25,7 +25,8 @@ jobs:
           TOKENS=($SUMMARY)
           echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
           echo "COVERAGE_COLOR=$(([[ ${TOKENS[2]%%.*} -ge 80 ]] && echo "green") || ([[ ${TOKENS[2]%%.*} -ge 50 ]] && echo "yellow") || echo "red")" >> $GITHUB_ENV
-          SUMMARY=$(./bin/run ./src -t JSON | jq -r '.summaries | (."LogicalLineOfCode(Average per method)".value|tostring) + " " + (."CognitiveComplexity(Max)".value|tostring) + " " + (."Maintainability(Min)".value|tostring)')
+          ./bin/run ./src -t JSON | jq -r '.summaries | (."LogicalLineOfCode(Average per method)".value|tostring) + " " + (."CognitiveComplexity(Max)".value|tostring) + " " + (."Maintainability(Min)".value|tostring)' > sabik_result.txt
+          SUMMARY=$(cat ./sabik_result.txt)
           TOKENS=($SUMMARY)
           echo "LINE_OF_CODE=$(printf "%.2f\n" ${TOKENS[0]})" >> $GITHUB_ENV
           echo "LINE_OF_CODE_COLOR=$(([[ ${TOKENS[0]%%.*} -le 15 ]] && echo "green") || ([[ ${TOKENS[0]%%.*} -le 20 ]] && echo "yellow") || echo "red")" >> $GITHUB_ENV
