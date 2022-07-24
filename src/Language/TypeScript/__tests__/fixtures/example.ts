@@ -72,6 +72,14 @@ class Class {
   arrowFunction() {
     return () => {};
   }
+
+  nullishCoalescingOperator(args?: number) {
+    return args ?? 0;
+  }
+
+  optionalChaining(args?: number) {
+    return args?.toString?.();
+  }
 }
 
 /**
