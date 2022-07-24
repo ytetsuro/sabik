@@ -1,9 +1,9 @@
 import { Engine } from 'php-parser';
 import { readFileSync } from 'fs';
 import { ASTNode } from '../ASTNode';
-import { ComplexityCountableNode } from '../ComplexityCountableNode';
+import { CognitiveComplexityCountableNode } from '../CognitiveComplexityCountableNode';
 
-describe('ComplexityCountableNode', () => {
+describe('CognitiveComplexityCountableNode', () => {
   const engine = new Engine({
     parser: {
       extractDoc: true,
@@ -35,14 +35,16 @@ describe('ComplexityCountableNode', () => {
       ['function', map.get('function')!.getChildren()[0].getChildren()[0]],
       ['arrowFunction', map.get('arrowFunction')!.getChildren()[0].getChildren()[0]],
     ])('should %s is nest level up.', (_, astNode) => {
-      const actual = new ComplexityCountableNode(astNode);
+      const actual = new CognitiveComplexityCountableNode(astNode);
 
       expect(actual.isNestLevelUp()).toBe(true);
     });
 
     it('should returns false when elseif or else statement.', () => {
-      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
-      const elseActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]);
+      const elseIfActual = new CognitiveComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
+      const elseActual = new CognitiveComplexityCountableNode(
+        map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]
+      );
 
       expect(elseIfActual.isNestLevelUp()).toBe(false);
       expect(elseActual.isNestLevelUp()).toBe(false);
@@ -57,15 +59,18 @@ describe('ComplexityCountableNode', () => {
       ['while', map.get('while')!.getChildren()[0]],
       ['catch', map.get('try')!.getChildren()[0].getChildren().pop()],
       ['conditional', map.get('conditional')!.getChildren()[0].getChildren()[0]],
+      ['match', map.get('match')!.getChildren()[0].getChildren()[0].getChildren()[1]],
     ])('should %s is nesting increment.', (_, astNode) => {
-      const actual = new ComplexityCountableNode(astNode);
+      const actual = new CognitiveComplexityCountableNode(astNode);
 
       expect(actual.isNestingIncrement()).toBe(true);
     });
 
     it('should returns false when elseif or else statement.', () => {
-      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
-      const elseActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]);
+      const elseIfActual = new CognitiveComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
+      const elseActual = new CognitiveComplexityCountableNode(
+        map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]
+      );
 
       expect(elseIfActual.isNestingIncrement()).toBe(false);
       expect(elseActual.isNestingIncrement()).toBe(false);
@@ -83,15 +88,18 @@ describe('ComplexityCountableNode', () => {
       ['ampersand', map.get('ampersand')!.getChildren()[0].getChildren()[0]],
       ['barbar', map.get('barbar')!.getChildren()[0].getChildren()[0]],
       ['label', map.get('label')!.getChildren()[1]],
+      ['match', map.get('match')!.getChildren()[0].getChildren()[0].getChildren()[1]],
     ])('should %s is increment.', (_, astNode) => {
-      const actual = new ComplexityCountableNode(astNode);
+      const actual = new CognitiveComplexityCountableNode(astNode);
 
       expect(actual.isIncrement()).toBe(true);
     });
 
     it('should returns true when elseif or else statement.', () => {
-      const elseIfActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
-      const elseActual = new ComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]);
+      const elseIfActual = new CognitiveComplexityCountableNode(map.get('if')!.getChildren()[0].getChildren()[2]);
+      const elseActual = new CognitiveComplexityCountableNode(
+        map.get('if')!.getChildren()[0].getChildren()[2].getChildren()[2]
+      );
 
       expect(elseIfActual.isIncrement()).toBe(true);
       expect(elseActual.isIncrement()).toBe(true);

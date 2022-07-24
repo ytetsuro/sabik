@@ -8,7 +8,7 @@ type BinNode = PHPParser.Node & { type: string };
 type IfNode = PHPParser.Node & { alternate: PHPParser.Node };
 
 @injectable()
-export class ComplexityCountableNode implements ComplexityCountableNodeInterface {
+export class CognitiveComplexityCountableNode implements ComplexityCountableNodeInterface {
   private static readonly nestLevelUpKinds = [
     ASTKind.IF,
     ASTKind.CATCH,
@@ -29,6 +29,7 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
     ASTKind.FOR,
     ASTKind.WHILE,
     ASTKind.RETURN_IF,
+    ASTKind.MATCH_ARM,
   ];
 
   private readonly node: ASTNode;
@@ -38,13 +39,13 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
   }
 
   isNestLevelUp() {
-    return !this.isElse() && ComplexityCountableNode.nestLevelUpKinds.includes(this.node.kind);
+    return !this.isElse() && CognitiveComplexityCountableNode.nestLevelUpKinds.includes(this.node.kind);
   }
 
   isIncrement() {
     if (this.isElse()) {
       return true;
-    } else if (ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind)) {
+    } else if (CognitiveComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind)) {
       return true;
     } else if (this.node.kind === ASTKind.LABEL) {
       return true;
@@ -63,7 +64,7 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
       return false;
     }
 
-    return ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind);
+    return CognitiveComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.node.kind);
   }
 
   private isElse() {
@@ -73,6 +74,6 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
   }
 
   getChildren() {
-    return this.node.getChildren().map((node) => new ComplexityCountableNode(node));
+    return this.node.getChildren().map((node) => new CognitiveComplexityCountableNode(node));
   }
 }

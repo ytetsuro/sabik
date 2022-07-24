@@ -36,7 +36,7 @@ import { ComplexityCountableNode } from '../Analyzer/CodeMetricsCalculator/Cogni
 import { HalsteadCountableNode } from '../Analyzer/CodeMetricsCalculator/Halstead/Adapter/HalsteadCountableNode';
 import { LineOfCode as LineOfCodeConverterForTypeScript } from '../Language/TypeScript/Converter/LineOfCode';
 import { Halstead as HalsteadConverterForTypeScript } from '../Language/TypeScript/Converter/Halstead';
-import { Complexity as ComplexityConverterForTypeScript } from '../Language/TypeScript/Converter/Complexity';
+import { Complexity as ComplexityConverterForTypeScript } from '../Language/TypeScript/Converter/CognitiveComplexity';
 import { ASTGenerator as ASTGeneratorForTypeScript } from '../Language/TypeScript/ASTGenerator';
 import { CalculatorForAST } from '../Analyzer/FromASTNode/CalculatorForAST';
 import { CalculatorForMetrics } from '../Analyzer/FromOtherMetrics/CalculatorForMetrics';

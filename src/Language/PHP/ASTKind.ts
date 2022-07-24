@@ -56,4 +56,6 @@ export enum ASTKind {
   USE = 'usegroup',
   YIELD = 'yield',
   YIELD_FROM = 'yieldfrom',
+  MATCH_ARM = 'matcharm',
+  NULL_SAFE_PROPERTY_LOOKUP = 'nullsafepropertylookup',
 }

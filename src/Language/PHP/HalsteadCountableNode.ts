@@ -65,6 +65,7 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
     'T_DEFAULT',
     'T_DO',
     'T_IF',
+    'T_MATCH',
     'T_ELSE',
     'T_ELSEIF',
     'T_FOR',
@@ -115,6 +116,7 @@ export class HalsteadCountableNode implements HalsteadCountableNodeInterface {
     'T_DECLARE',
     'T_DEC',
     'X_OPERATOR_STRING',
+    'T_COALESCE',
   ];
 
   private static readonly operatorStrings = ['+', '/', '*', '-', '%', '&', '|', '^', '~', '@', '`', '!', '.', ','];
