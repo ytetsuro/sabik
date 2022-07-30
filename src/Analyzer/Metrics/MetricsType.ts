@@ -10,6 +10,7 @@ export class MetricsType {
   public static readonly LogicalLineOfCode = new MetricsType(8, 'LogicalLineOfCode');
   public static readonly PhysicalLineOfCode = new MetricsType(9, 'PhysicalLineOfCode');
   public static readonly Maintainability = new MetricsType(10, 'Maintainability');
+  public static readonly CyclomaticComplexity = new MetricsType(11, 'CyclomaticComplexity');
 
   private constructor(private readonly scaler: number, public readonly label: string) {}
 

@@ -3,7 +3,7 @@ import { MetricsValue } from '../../Metrics/MetricsValue';
 import { ComplexityIncrement } from './ComplexityIncrement';
 
 export class CyclomaticComplexity implements MetricsValue {
-  public readonly type = MetricsType.CognitiveComplexity;
+  public readonly type = MetricsType.CyclomaticComplexity;
 
   constructor(private readonly complexities: ComplexityIncrement[]) {}
 

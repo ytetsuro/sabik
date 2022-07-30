@@ -30,7 +30,7 @@ import { Converter } from '../Analyzer/Adapter/Converter';
 import { LineOfCodeCountableNode } from '../Analyzer/CodeMetricsCalculator/LineOfCode/Adapter/LineOfCodeCountableNode';
 import { LineOfCode as LineOfCodeConverterForPHP } from '../Language/PHP/Converter/LineOfCode';
 import { Halstead as HalsteadConverterForPHP } from '../Language/PHP/Converter/Halstead';
-import { Complexity as ComplexityConverterForPHP } from '../Language/PHP/Converter/Complexity';
+import { CognitiveComplexity as ComplexityConverterForPHP } from '../Language/PHP/Converter/CognitiveComplexity';
 import { ASTGenerator as ASTGeneratorForPHP } from '../Language/PHP/ASTGenerator';
 import { ComplexityCountableNode } from '../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
 import { HalsteadCountableNode } from '../Analyzer/CodeMetricsCalculator/Halstead/Adapter/HalsteadCountableNode';
