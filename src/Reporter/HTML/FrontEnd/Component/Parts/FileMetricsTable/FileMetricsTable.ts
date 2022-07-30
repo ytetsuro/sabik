@@ -47,6 +47,7 @@ export class FileMetricsTable<T extends string> implements m.Component<Param<T>>
             m('tr', [
               m('th', 'FilePath'),
               m('th', 'CognitiveComplexity(Max/Avg)'),
+              m('th', 'CyclomaticComplexity(Max/Avg)'),
               m('th', 'BugsDelivered(Sum/Max)'),
               m('th', 'Maintainability(Min/Avg)'),
               m('th', 'LineOfCode'),

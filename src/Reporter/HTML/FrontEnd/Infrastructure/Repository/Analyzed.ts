@@ -3,7 +3,7 @@ import { FileMetrics as Converter } from '../Converter/FileMetrics';
 import { FileMetrics as DataModel } from '../DataModel/FileMetrics';
 import { ResourceLoader } from '../ResourceLoader';
 
-type SortKey = 'Complexity' | 'BugsDelivered' | 'Maintainability';
+type SortKey = 'CyclomaticComplexity' | 'CognitiveComplexity' | 'BugsDelivered' | 'Maintainability';
 
 export class Analyzed {
   private fileMetrics: Map<string, FileMetrics> = new Map();
@@ -11,7 +11,8 @@ export class Analyzed {
 
   private readonly sortLogics = new Map([
     ['BugsDelivered', this.getDiffBugDelivered],
-    ['Complexity', this.getDiffMaximumComplexity],
+    ['CyclomaticComplexity', this.getDiffMaximumCyclomaticComplexity],
+    ['CognitiveComplexity', this.getDiffMaximumCognitiveComplexity],
     ['Maintainability', this.getDiffMinimumMaintainability],
   ]);
 
@@ -36,8 +37,12 @@ export class Analyzed {
     return Number(second.getSumBugsDelivered()) - Number(first.getSumBugsDelivered());
   }
 
-  private getDiffMaximumComplexity(first: FileMetrics, second: FileMetrics) {
-    return Number(second.getMaximumComplexity()) - Number(first.getMaximumComplexity());
+  private getDiffMaximumCognitiveComplexity(first: FileMetrics, second: FileMetrics) {
+    return Number(second.getMaximumCognitiveComplexity()) - Number(first.getMaximumCognitiveComplexity());
+  }
+
+  private getDiffMaximumCyclomaticComplexity(first: FileMetrics, second: FileMetrics) {
+    return Number(second.getMaximumCyclomaticComplexity()) - Number(first.getMaximumCyclomaticComplexity());
   }
 
   private getDiffMinimumMaintainability(first: FileMetrics, second: FileMetrics) {

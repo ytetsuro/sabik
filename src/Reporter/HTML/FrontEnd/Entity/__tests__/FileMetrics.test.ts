@@ -36,7 +36,7 @@ describe('FileMetrics', () => {
         ]
       );
 
-      expect(metrics.getMaximumComplexity()).toStrictEqual(expected);
+      expect(metrics.getMaximumCognitiveComplexity()).toStrictEqual(expected);
     });
   });
 
@@ -55,7 +55,9 @@ describe('FileMetrics', () => {
         ]
       );
 
-      expect(metrics.getAverageComplexity()).toStrictEqual(new MetricsValue(MetricsType.CognitiveComplexity, 3.5));
+      expect(metrics.getAverageCognitiveComplexity()).toStrictEqual(
+        new MetricsValue(MetricsType.CognitiveComplexity, 3.5)
+      );
     });
   });
 

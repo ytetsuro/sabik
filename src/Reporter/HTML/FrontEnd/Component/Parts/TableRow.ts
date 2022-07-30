@@ -17,7 +17,8 @@ export class TableRow implements m.Component<Param> {
           vnode.attrs.fileName
         )
       ),
-      m('td', `${vnode.attrs.getMaximumComplexity()}/${vnode.attrs.getAverageComplexity()}`),
+      m('td', `${vnode.attrs.getMaximumCognitiveComplexity()}/${vnode.attrs.getAverageCognitiveComplexity()}`),
+      m('td', `${vnode.attrs.getMaximumCyclomaticComplexity()}/${vnode.attrs.getAverageCyclomaticComplexity()}`),
       m('td', `${vnode.attrs.getSumBugsDelivered()}/${vnode.attrs.getMaximumBugsDelivered()}`),
       m('td', `${vnode.attrs.getMinimumMaintainability()}/${vnode.attrs.getAverageMaintainability()}`),
       m('td', vnode.attrs.logicalLineOfCode),
