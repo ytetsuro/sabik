@@ -3,7 +3,7 @@ import { ASTNode } from '../ASTNode';
 import { CognitiveComplexityCountableNode } from '../CognitiveComplexityCountableNode';
 
 @injectable()
-export class Complexity {
+export class CognitiveComplexity {
   convert(astNode: ASTNode) {
     return new CognitiveComplexityCountableNode(astNode);
   }
