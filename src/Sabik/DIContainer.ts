@@ -20,6 +20,7 @@ import { Analyzer } from './Analyzer/Analyzer';
 import { ASTNodeExtractor } from '../Analyzer/ASTNodeExtractor';
 import { Analyzer as MetricsAnalyzer } from '../Analyzer/Analyzer';
 import { Calculator as CognitiveComplexityCalculator } from '../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Calculator';
+import { Calculator as CyclomaticComplexityCalculator } from '../Analyzer/CodeMetricsCalculator/CyclomaticComplexity/Calculator';
 import { Calculator as HalsteadCalculator } from '../Analyzer/CodeMetricsCalculator/Halstead/Calculator';
 import { Calculator as LineOfCodeCalculator } from '../Analyzer/CodeMetricsCalculator/LineOfCode/Calculator';
 import { Calculator as MaintainabilityCalculator } from '../Analyzer/CodeMetricsCalculator/Maintainability/Calculator';
@@ -30,13 +31,16 @@ import { Converter } from '../Analyzer/Adapter/Converter';
 import { LineOfCodeCountableNode } from '../Analyzer/CodeMetricsCalculator/LineOfCode/Adapter/LineOfCodeCountableNode';
 import { LineOfCode as LineOfCodeConverterForPHP } from '../Language/PHP/Converter/LineOfCode';
 import { Halstead as HalsteadConverterForPHP } from '../Language/PHP/Converter/Halstead';
-import { CognitiveComplexity as ComplexityConverterForPHP } from '../Language/PHP/Converter/CognitiveComplexity';
+import { CognitiveComplexity as CognitiveComplexityConverterForPHP } from '../Language/PHP/Converter/CognitiveComplexity';
+import { CyclomaticComplexity as CyclomaticComplexityConverterForPHP } from '../Language/PHP/Converter/CyclomaticComplexity';
 import { ASTGenerator as ASTGeneratorForPHP } from '../Language/PHP/ASTGenerator';
-import { ComplexityCountableNode } from '../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
+import { ComplexityCountableNode as CognitiveComplexityCountableNode } from '../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
+import { ComplexityCountableNode as CyclomaticComplexityCountableNode } from '../Analyzer/CodeMetricsCalculator/CyclomaticComplexity/Adapter/ComplexityCountableNode';
 import { HalsteadCountableNode } from '../Analyzer/CodeMetricsCalculator/Halstead/Adapter/HalsteadCountableNode';
 import { LineOfCode as LineOfCodeConverterForTypeScript } from '../Language/TypeScript/Converter/LineOfCode';
 import { Halstead as HalsteadConverterForTypeScript } from '../Language/TypeScript/Converter/Halstead';
-import { Complexity as ComplexityConverterForTypeScript } from '../Language/TypeScript/Converter/CognitiveComplexity';
+import { Complexity as CognitiveComplexityConverterForTypeScript } from '../Language/TypeScript/Converter/CognitiveComplexity';
+import { Complexity as CyclomaticComplexityConverterForTypeScript } from '../Language/TypeScript/Converter/CyclomaticComplexity';
 import { ASTGenerator as ASTGeneratorForTypeScript } from '../Language/TypeScript/ASTGenerator';
 import { CalculatorForAST } from '../Analyzer/FromASTNode/CalculatorForAST';
 import { CalculatorForMetrics } from '../Analyzer/FromOtherMetrics/CalculatorForMetrics';
@@ -62,6 +66,7 @@ container.bind<Analyzer>(Analyzer).toSelf();
 container.bind<ASTNodeExtractor>(ASTNodeExtractor).toSelf().inSingletonScope();
 container.bind<MetricsAnalyzer>(MetricsAnalyzer).toSelf();
 container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(CognitiveComplexityCalculator);
+container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(CyclomaticComplexityCalculator);
 container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(HalsteadCalculator);
 container.bind<CalculatorForAST>(Types.codeMetricsCalculatorForAST).to(LineOfCodeCalculator);
 container.bind<CalculatorForMetrics>(Types.codeMetricsCalculatorForMetrics).to(MaintainabilityCalculator);
@@ -73,8 +78,12 @@ container
   .to(LineOfCodeConverterForPHP)
   .whenAnyAncestorNamed('PHP');
 container
-  .bind<Converter<ComplexityCountableNode>>(Types.cognitiveComplexityConverter)
-  .to(ComplexityConverterForPHP)
+  .bind<Converter<CognitiveComplexityCountableNode>>(Types.cognitiveComplexityConverter)
+  .to(CognitiveComplexityConverterForPHP)
+  .whenAnyAncestorNamed('PHP');
+container
+  .bind<Converter<CyclomaticComplexityCountableNode>>(Types.cyclomaticComplexityConverter)
+  .to(CyclomaticComplexityConverterForPHP)
   .whenAnyAncestorNamed('PHP');
 container
   .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)
@@ -86,8 +95,12 @@ container
   .to(LineOfCodeConverterForTypeScript)
   .whenAnyAncestorNamed('TypeScript');
 container
-  .bind<Converter<ComplexityCountableNode>>(Types.cognitiveComplexityConverter)
-  .to(ComplexityConverterForTypeScript)
+  .bind<Converter<CognitiveComplexityCountableNode>>(Types.cognitiveComplexityConverter)
+  .to(CognitiveComplexityConverterForTypeScript)
+  .whenAnyAncestorNamed('TypeScript');
+container
+  .bind<Converter<CyclomaticComplexityCountableNode>>(Types.cyclomaticComplexityConverter)
+  .to(CyclomaticComplexityConverterForTypeScript)
   .whenAnyAncestorNamed('TypeScript');
 container
   .bind<Converter<HalsteadCountableNode>>(Types.halsteadConverter)

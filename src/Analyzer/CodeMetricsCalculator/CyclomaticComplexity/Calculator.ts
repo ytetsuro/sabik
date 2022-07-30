@@ -13,7 +13,7 @@ import { Converter } from '../../Adapter/Converter';
 export class Calculator implements CalculatorForAST {
   constructor(
     @inject(MethodAnalyzer) private readonly analyzer: MethodAnalyzer,
-    @inject(Types.cognitiveComplexityConverter)
+    @inject(Types.cyclomaticComplexityConverter)
     private readonly converter: Converter<ComplexityCountableNode>
   ) {}
 
