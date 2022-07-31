@@ -15,7 +15,7 @@ describe('Cyclomatic Complexity Calculator', () => {
       convert: (ast: ASTNode) => new ComplexityCountableNode(createCountableNodeSeed(ast)),
     });
 
-    it('should returns 1 when incrementable node.', () => {
+    it('should returns 2 when incrementable node.', () => {
       const actual = calculator.analyze([
         {
           astNode: new ASTNode(':root:0:0', {
@@ -31,10 +31,10 @@ describe('Cyclomatic Complexity Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(CyclomaticComplexity))).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(CyclomaticComplexity))).toBe(2);
     });
 
-    it('should returns 1 when childNode is incrementable node.', () => {
+    it('should returns 2 when childNode is incrementable node.', () => {
       const actual = calculator.analyze([
         {
           astNode: new ASTNode(':root:0:0', {
@@ -52,10 +52,10 @@ describe('Cyclomatic Complexity Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(CyclomaticComplexity))).toBe(1);
+      expect(Number(actual[0].getMetricsByMetricsValue(CyclomaticComplexity))).toBe(2);
     });
 
-    it('should return 2 when has tow incrementable node.', () => {
+    it('should return 3 when has tow incrementable node.', () => {
       const actual = calculator.analyze([
         {
           astNode: new ASTNode(':root:0:0', {
@@ -74,7 +74,7 @@ describe('Cyclomatic Complexity Calculator', () => {
         },
       ]);
 
-      expect(Number(actual[0].getMetricsByMetricsValue(CyclomaticComplexity))).toBe(2);
+      expect(Number(actual[0].getMetricsByMetricsValue(CyclomaticComplexity))).toBe(3);
     });
   });
 });

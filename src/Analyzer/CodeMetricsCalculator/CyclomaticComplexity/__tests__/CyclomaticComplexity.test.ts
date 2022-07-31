@@ -9,7 +9,7 @@ describe('Complexity Store Class', () => {
         new ComplexityIncrement(createDummyNode('I')),
       ]);
 
-      expect(complexityStore.valueOf()).toStrictEqual(2);
+      expect(complexityStore.valueOf()).toStrictEqual(3);
     });
   });
 });
