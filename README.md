@@ -72,7 +72,7 @@ OPTIONS
 
 * TypeScript
 * JavaScript
-* PHP < 8.0
+* PHP
 
 For now.
 
