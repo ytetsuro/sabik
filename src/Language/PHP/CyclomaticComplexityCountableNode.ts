@@ -17,7 +17,6 @@ export class CyclomaticComplexityCountableNode implements ComplexityCountableNod
     ASTKind.WHILE,
     ASTKind.RETURN_IF,
     ASTKind.MATCH_ARM,
-    ASTKind.NULL_SAFE_PROPERTY_LOOKUP,
   ];
 
   private readonly node: ASTNode;

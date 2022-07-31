@@ -38,7 +38,6 @@ describe('CyclomaticComplexityCountableNode', () => {
       ['label', map.get('label')!.getChildren()[1]],
       ['match', map.get('match')!.getChildren()[0].getChildren()[0].getChildren()[1]],
       ['nullishCoalescingOperator', map.get('nullishCoalescingOperator')!.getChildren()[0].getChildren()[0]],
-      ['optionalChaining', map.get('optionalChaining')!.getChildren()[1].getChildren()[0]],
     ])('should %s is increment.', (_, astNode) => {
       const actual = new CyclomaticComplexityCountableNode(astNode);
 

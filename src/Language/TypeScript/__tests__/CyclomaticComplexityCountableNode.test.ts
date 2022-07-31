@@ -36,11 +36,6 @@ describe('CyclomaticComplexityCountableNode', () => {
         (<ts.BinaryExpression>(<ts.ReturnStatement>map.get('nullishCoalescingOperator')!.statements[0]).expression!)
           .operatorToken,
       ],
-      [
-        'optionalChaining',
-        (<ts.CallExpression>(<ts.ReturnStatement>map.get('optionalChaining')!.statements[0]).expression!)
-          .questionDotToken,
-      ],
     ])('should %s is increment.', (_, statement) => {
       const astNode = new ASTNode(statement, parent);
       const actual = new CyclomaticComplexityCountableNode(astNode);

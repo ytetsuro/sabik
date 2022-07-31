@@ -18,7 +18,6 @@ export class CyclomaticComplexityCountableNode implements ComplexityCountableNod
     ts.SyntaxKind.BarBarToken,
     ts.SyntaxKind.LabeledStatement,
     ts.SyntaxKind.QuestionQuestionToken,
-    ts.SyntaxKind.QuestionDotToken,
   ];
 
   private readonly node: ASTNode;
