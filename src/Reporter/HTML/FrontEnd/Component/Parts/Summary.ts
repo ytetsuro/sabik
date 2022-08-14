@@ -3,7 +3,8 @@ import { MetricsValue } from '../../Entity/MetricsValue';
 import { SummaryColumn } from './SummaryColumn';
 
 interface SummarySource {
-  getAverageComplexity(): MetricsValue;
+  getAverageCognitiveComplexity(): MetricsValue;
+  getAverageCyclomaticComplexity(): MetricsValue;
   getAverageMaintainability(): MetricsValue;
   getSumBugsDelivered(): MetricsValue;
   getTotalLineOfCode(): number;
@@ -14,7 +15,11 @@ export class Summary implements m.Component<{ summary: SummarySource }> {
     return m('.level', [
       m(SummaryColumn, {
         title: 'Cognitive Complexity',
-        metrics: vnode.attrs.summary.getAverageComplexity(),
+        metrics: vnode.attrs.summary.getAverageCognitiveComplexity(),
+      }),
+      m(SummaryColumn, {
+        title: 'Cyclomatic Complexity',
+        metrics: vnode.attrs.summary.getAverageCyclomaticComplexity(),
       }),
       m(SummaryColumn, {
         title: 'Maintainability',

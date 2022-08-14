@@ -9,8 +9,12 @@ export class Summary {
     this.metricsCalculator = new MetricsCalculator(fileSummaries.flatMap((fileSummary) => fileSummary.childrenMetrics));
   }
 
-  getAverageComplexity() {
+  getAverageCognitiveComplexity() {
     return this.metricsCalculator.average(MetricsType.CognitiveComplexity);
+  }
+
+  getAverageCyclomaticComplexity() {
+    return this.metricsCalculator.average(MetricsType.CyclomaticComplexity);
   }
 
   getAverageMaintainability() {

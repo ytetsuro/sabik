@@ -11,6 +11,7 @@ export const Types = {
   analyzer: Symbol.for('Analyzer'),
   lineOfCodeConverter: Symbol.for('LineOfCodeConverter'),
   cognitiveComplexityConverter: Symbol.for('CognitiveComplexityConverter'),
+  cyclomaticComplexityConverter: Symbol.for('CyclomaticComplexityConverter'),
   halsteadConverter: Symbol.for('HalsteadConverter'),
   codeMetricsCalculatorForAST: Symbol.for('CodeMetricsCalculatorForAST'),
   codeMetricsCalculatorForMetrics: Symbol.for('CodeMetricsCalculatorForMetrics'),

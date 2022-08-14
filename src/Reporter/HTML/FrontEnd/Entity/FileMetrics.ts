@@ -29,12 +29,20 @@ export class FileMetrics {
     return this.metricsCalculator.getLength();
   }
 
-  getMaximumComplexity() {
+  getMaximumCognitiveComplexity() {
     return this.metricsCalculator.max(MetricsType.CognitiveComplexity);
   }
 
-  getAverageComplexity() {
+  getAverageCognitiveComplexity() {
     return this.metricsCalculator.average(MetricsType.CognitiveComplexity);
+  }
+
+  getMaximumCyclomaticComplexity() {
+    return this.metricsCalculator.max(MetricsType.CyclomaticComplexity);
+  }
+
+  getAverageCyclomaticComplexity() {
+    return this.metricsCalculator.average(MetricsType.CyclomaticComplexity);
   }
 
   getMaximumBugsDelivered() {

@@ -1,17 +1,17 @@
 import { Maintainability } from './Maintainability';
 import { HalsteadVolume } from '../Halstead/MetricsValue/HalsteadVolume';
-import { CognitiveComplexity } from '../CognitiveComplexity/CognitiveComplexity';
 import { LogicalLineOfCode } from '../LineOfCode/MetricsValue/LogicalLineOfCode';
 import { MetricsValue } from '../../Metrics/MetricsValue';
 import { Metrics } from '../../Metrics/Metrics';
 import { CodePointType } from '../../Metrics/CodePointType';
 import { injectable } from 'inversify';
+import { CyclomaticComplexity } from '../CyclomaticComplexity/CyclomaticComplexity';
 
-type TargetMetrics = HalsteadVolume | LogicalLineOfCode | CognitiveComplexity;
+type TargetMetrics = HalsteadVolume | LogicalLineOfCode | CyclomaticComplexity;
 
 @injectable()
 export class Calculator {
-  readonly targetMetrics = [HalsteadVolume, LogicalLineOfCode, CognitiveComplexity];
+  readonly targetMetrics = [HalsteadVolume, LogicalLineOfCode, CyclomaticComplexity];
 
   analyze(metricsList: Metrics[]): Metrics[] {
     return metricsList
@@ -28,8 +28,8 @@ export class Calculator {
   calculate(metricsList: MetricsValue[]): MetricsValue[] {
     const halsteadVolume = <HalsteadVolume>metricsList.find((row) => row instanceof HalsteadVolume)!;
     const logicalLineOfCode = <LogicalLineOfCode>metricsList.find((row) => row instanceof LogicalLineOfCode)!;
-    const cognitiveComplexity = <CognitiveComplexity>metricsList.find((row) => row instanceof CognitiveComplexity)!;
+    const cyclomaticComplexity = <CyclomaticComplexity>metricsList.find((row) => row instanceof CyclomaticComplexity)!;
 
-    return [new Maintainability(halsteadVolume, cognitiveComplexity, logicalLineOfCode)];
+    return [new Maintainability(halsteadVolume, cyclomaticComplexity, logicalLineOfCode)];
   }
 }

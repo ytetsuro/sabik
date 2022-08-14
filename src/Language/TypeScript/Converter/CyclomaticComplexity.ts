@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
 import { ASTNode } from '../ASTNode';
-import { ComplexityCountableNode } from '../ComplexityCountableNode';
+import { CyclomaticComplexityCountableNode } from '../CyclomaticComplexityCountableNode';
 
 @injectable()
 export class Complexity {
   convert(astNode: ASTNode) {
-    return new ComplexityCountableNode(astNode);
+    return new CyclomaticComplexityCountableNode(astNode);
   }
 }
