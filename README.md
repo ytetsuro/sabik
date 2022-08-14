@@ -90,11 +90,11 @@ For now.
 
 ## Cyclomatic Complexity
 
-Cognitive Complexity is metrics for linearly independent paths count.
-Made SonarSource inc.
+Cyclomatic Complexity is metrics for linearly independent paths count.
+Made Thomas McCabe.
 High is bad, low is good metrics.
 Higher when your code has a deep nest.
-It’s very tiresome add test  when over 8 scores. (In my experience)
+It’s very tiresome add test when over 8 scores. (In my experience)
 
 If you want to know more about the detail, please see the following.
 
