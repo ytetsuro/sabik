@@ -2,14 +2,14 @@ import { Decimal } from 'decimal.js';
 import { MetricsType } from '../../Metrics/MetricsType';
 import { MetricsValue } from '../../Metrics/MetricsValue';
 import { HalsteadVolume } from '../Halstead/MetricsValue/HalsteadVolume';
-import { CognitiveComplexity } from '../CognitiveComplexity/CognitiveComplexity';
 import { LogicalLineOfCode } from '../LineOfCode/MetricsValue/LogicalLineOfCode';
+import { CyclomaticComplexity } from '../CyclomaticComplexity/CyclomaticComplexity';
 
 export class Maintainability implements MetricsValue {
   public readonly type = MetricsType.Maintainability;
   constructor(
     private readonly halsteadVolume: HalsteadVolume,
-    private readonly complexity: CognitiveComplexity,
+    private readonly complexity: CyclomaticComplexity,
     private readonly logicalLineOfCode: LogicalLineOfCode
   ) {}
 

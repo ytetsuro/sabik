@@ -31,7 +31,9 @@ describe('Summary', () => {
         ),
       ]);
 
-      expect(summary.getAverageComplexity()).toStrictEqual(new MetricsValue(MetricsType.CognitiveComplexity, 4));
+      expect(summary.getAverageCognitiveComplexity()).toStrictEqual(
+        new MetricsValue(MetricsType.CognitiveComplexity, 4)
+      );
     });
   });
 

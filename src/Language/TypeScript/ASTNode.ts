@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { ComplexityCountableNode } from './ComplexityCountableNode';
+import { CognitiveComplexityCountableNode } from './CognitiveComplexityCountableNode';
 import { ASTNode as ASTNodeInterface } from '../../Analyzer/Adapter/ASTNode';
 import { injectable } from 'inversify';
 
@@ -60,7 +60,7 @@ export class ASTNode implements ASTNodeInterface {
     return (
       new ASTNode((<ts.FunctionExpression>this.node).body, this.sourceFile)
         .getChildren()
-        .filter((row) => new ComplexityCountableNode(row).isIncrement() && !row.isFunction()).length === 0
+        .filter((row) => new CognitiveComplexityCountableNode(row).isIncrement() && !row.isFunction()).length === 0
     );
   }
 

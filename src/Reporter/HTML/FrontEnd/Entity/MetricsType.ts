@@ -31,6 +31,7 @@ export class MetricsType {
       [60, 0],
     ])
   );
+  public static readonly CyclomaticComplexity = new MetricsType(11, 'CyclomaticComplexity', new Map([[8, 2]]));
 
   private constructor(
     private readonly scaler: number,

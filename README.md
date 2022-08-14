@@ -72,7 +72,7 @@ OPTIONS
 
 * TypeScript
 * JavaScript
-* PHP < 8.0
+* PHP
 
 For now.
 
@@ -80,12 +80,26 @@ For now.
 
 Sabik analyzable metrics are following.
 
+* Cyclomatic Complexity
 * Cognitive Complexity
 * Halstead complexity measures
 * Line of Code(Logical, Physical)
 * Maintainability
 
 For now.
+
+## Cyclomatic Complexity
+
+Cyclomatic Complexity is metrics for linearly independent paths count.
+Made Thomas McCabe.
+High is bad, low is good metrics.
+Higher when your code has a deep nest.
+It’s very tiresome add test when over 8 scores. (In my experience)
+
+If you want to know more about the detail, please see the following.
+
+[CyclomaticComplexity](https://en.wikipedia.org/wiki/Cyclomatic_complexity)
+
 
 ## Cognitive Complexity
 
@@ -124,17 +138,6 @@ Made Microsoft inc.
 Low is bad, High is good metrics.
 This metric ranges from 0 ~ 100.
 It’s maintenance hard when under 60 scores. (In my experience)
-This metrics is normally using the following, calculate.
-
-* Line of Code
-* Halstead metrics
-* Cyclomatic Complexity
-
-But in Sabik using following.
-
-* Line of Code
-* Halstead metrics
-* Cognitive Complexity
 
 If you want to know more about the detail, please see the following.
 

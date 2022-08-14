@@ -73,6 +73,23 @@ class MyClass {
   function arrowFunction() {
     return fn() => 1;
   }
+
+  function nullishCoalescingOperator() {
+    return null ?? 0;
+  }
+
+  function optionalChaining() {
+    $obj = new stdClass();
+    return $obj?->b;
+  }
+
+  function match() {
+    return  match('a') {
+      'apple' => 'This food is an apple',
+      'bar' => 'This food is a bar',
+      'cake' => 'This food is a cake',
+    };
+  }
 }
 
 trait MyTrait {

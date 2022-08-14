@@ -4,7 +4,7 @@ import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../
 import { ASTNode } from './ASTNode';
 
 @injectable()
-export class ComplexityCountableNode implements ComplexityCountableNodeInterface {
+export class CognitiveComplexityCountableNode implements ComplexityCountableNodeInterface {
   private static readonly nestLevelUpKinds = [
     ts.SyntaxKind.IfStatement,
     ts.SyntaxKind.SwitchStatement,
@@ -46,7 +46,7 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
   }
 
   isNestLevelUp() {
-    return !this.isElse() && ComplexityCountableNode.nestLevelUpKinds.includes(this.pureNode.kind);
+    return !this.isElse() && CognitiveComplexityCountableNode.nestLevelUpKinds.includes(this.pureNode.kind);
   }
 
   isIncrement() {
@@ -54,8 +54,8 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
       return true;
     }
 
-    const allIncrementSyntaxKinds = ComplexityCountableNode.incrementSyntaxKinds.concat(
-      ...ComplexityCountableNode.nestingIncrementSyntaxKinds
+    const allIncrementSyntaxKinds = CognitiveComplexityCountableNode.incrementSyntaxKinds.concat(
+      ...CognitiveComplexityCountableNode.nestingIncrementSyntaxKinds
     );
 
     return allIncrementSyntaxKinds.includes(this.pureNode.kind);
@@ -66,7 +66,7 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
       return false;
     }
 
-    return ComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.pureNode.kind);
+    return CognitiveComplexityCountableNode.nestingIncrementSyntaxKinds.includes(this.pureNode.kind);
   }
 
   private isElse() {
@@ -75,6 +75,6 @@ export class ComplexityCountableNode implements ComplexityCountableNodeInterface
   }
 
   getChildren() {
-    return this.node.getChildren().map((node) => new ComplexityCountableNode(node));
+    return this.node.getChildren().map((node) => new CognitiveComplexityCountableNode(node));
   }
 }

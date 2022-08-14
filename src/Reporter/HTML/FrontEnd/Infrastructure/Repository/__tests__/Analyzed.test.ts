@@ -47,7 +47,7 @@ describe('Analyzed', () => {
 
   describe('.getSortedList()', () => {
     it('should get complexity sorted list.', async () => {
-      const list = await repository.getSortedList('Complexity');
+      const list = await repository.getSortedList('CognitiveComplexity');
 
       expect(list.map((row) => row.fileName)).toStrictEqual([
         'maxComplexity.ts',

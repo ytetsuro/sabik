@@ -1,9 +1,9 @@
 import { readFileSync } from 'fs';
 import ts from 'typescript';
 import { ASTNode } from '../ASTNode';
-import { ComplexityCountableNode } from '../ComplexityCountableNode';
+import { CognitiveComplexityCountableNode } from '../CognitiveComplexityCountableNode';
 
-describe('ComplexityCountableNode', () => {
+describe('CognitiveComplexityCountableNode', () => {
   const parent = ts.createSourceFile(
     `${__dirname}/fixtures/example.ts`,
     readFileSync(`${__dirname}/fixtures/example.ts`).toString(),
@@ -27,7 +27,7 @@ describe('ComplexityCountableNode', () => {
       ['arrowFunction', (<ts.ReturnStatement>map.get('arrowFunction')!.statements[0]).expression!],
     ])('should %s is nest level up.', (_, statement) => {
       const astNode = new ASTNode(statement, parent);
-      const actual = new ComplexityCountableNode(astNode);
+      const actual = new CognitiveComplexityCountableNode(astNode);
 
       expect(actual.isNestLevelUp()).toBe(true);
     });
@@ -45,7 +45,7 @@ describe('ComplexityCountableNode', () => {
       ['conditional', (<ts.ReturnStatement>map.get('conditional')!.statements[0]).expression!],
     ])('should %s is nesting increment.', (_, statement) => {
       const astNode = new ASTNode(statement, parent);
-      const actual = new ComplexityCountableNode(astNode);
+      const actual = new CognitiveComplexityCountableNode(astNode);
 
       expect(actual.isNestingIncrement()).toBe(true);
     });
@@ -72,7 +72,7 @@ describe('ComplexityCountableNode', () => {
       ['label', map.get('label')!.statements[0]],
     ])('should %s is increment.', (_, statement) => {
       const astNode = new ASTNode(statement, parent);
-      const actual = new ComplexityCountableNode(astNode);
+      const actual = new CognitiveComplexityCountableNode(astNode);
 
       expect(actual.isIncrement()).toBe(true);
     });
