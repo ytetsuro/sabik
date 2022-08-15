@@ -4,6 +4,7 @@ on:
     workflows: [Build]
     types:
       - completed
+    branches: [master]
 jobs:
   deploy:
     name: Release
@@ -17,7 +18,6 @@ jobs:
           node-version: '16'
       - run: npm ci
       - run: npm test
-      - run: git rev-parse --abbrev-ref HEAD
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         with:
