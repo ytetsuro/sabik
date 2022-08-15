@@ -14,7 +14,7 @@
     "bulma": "^0.9.4",
     "codemirror": "^5.65.7",
     "commander": "^7.2.0",
-    "core-js": "^3.23.4",
+    "core-js": "^3.24.0",
     "decimal.js": "^10.3.1",
     "esbuild": "^0.14.49",
     "inversify": "^5.1.1",
