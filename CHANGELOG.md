@@ -1,3 +1,62 @@
+# [0.2.0](https://github.com/ytetsuro/sabik/compare/0.1.3...0.2.0) (2022-08-15)
+
+
+### Bug Fixes
+
+* change maintinability calculate source, CognitiveComplexity to CyclomaticComplexity. Because strict define using CyclomaticComplexity. ([3104f84](https://github.com/ytetsuro/sabik/commit/3104f84c563d2e0c63388fa5cdb158857d2b47e1))
+* create CyclomaticComplexity converter ([21bfa15](https://github.com/ytetsuro/sabik/commit/21bfa159615c51a2ada25f0b1c0eb1e5da14a5d3))
+* function has one independent paths when defined. ([24494d2](https://github.com/ytetsuro/sabik/commit/24494d2dfc2330b5b96a6eef10943fd4d3e4680a))
+* optionalChaining is not add independent paths. ([a6d46e6](https://github.com/ytetsuro/sabik/commit/a6d46e6bf1318e33fdbaf3a8c54e2461b2b8161c))
+* upgrade @types/jest from 27.4.1 to 27.5.0 ([3f10ef1](https://github.com/ytetsuro/sabik/commit/3f10ef1fb9e2a2b48a93b32d749f45a3e0982017))
+* upgrade @types/jest from 27.5.0 to 27.5.1 ([fa8d9ec](https://github.com/ytetsuro/sabik/commit/fa8d9ecea1c7e42185215471076b02393ef8209b))
+* upgrade @types/jest from 27.5.1 to 27.5.2 ([f0d33a5](https://github.com/ytetsuro/sabik/commit/f0d33a5a4f6e4f531b1b75ad94897c06cbd0c4df))
+* upgrade autoprefixer from 10.4.5 to 10.4.6 ([7869d2a](https://github.com/ytetsuro/sabik/commit/7869d2a0537e014d21f5c07f44af045f20d740ec))
+* upgrade autoprefixer from 10.4.6 to 10.4.7 ([c2429a7](https://github.com/ytetsuro/sabik/commit/c2429a7ff2bfdf9c7df17f3ba7bddad7134cfd42))
+* upgrade bulma from 0.9.3 to 0.9.4 ([dbf594a](https://github.com/ytetsuro/sabik/commit/dbf594a7422349265e901f4503984c3e197d5163))
+* upgrade bulma from 0.9.3 to 0.9.4 ([e80d63f](https://github.com/ytetsuro/sabik/commit/e80d63f69085fd2d27d4d65502efd85aabefe833))
+* upgrade codemirror from 5.65.3 to 5.65.4 ([f5b450c](https://github.com/ytetsuro/sabik/commit/f5b450c7976fe07a8a056812caebdad55c6e11f5))
+* upgrade codemirror from 5.65.4 to 5.65.5 ([0dd9930](https://github.com/ytetsuro/sabik/commit/0dd9930ccc44d415528693c2aa12e40079902225))
+* upgrade codemirror from 5.65.5 to 5.65.6 ([212d6e4](https://github.com/ytetsuro/sabik/commit/212d6e496714a3d5f103f8fbdec65f252556285f))
+* upgrade codemirror from 5.65.6 to 5.65.7 ([77ca412](https://github.com/ytetsuro/sabik/commit/77ca412887f0bd7b6ad627c19c42fec4b7644e08))
+* upgrade core-js from 3.22.2 to 3.22.3 ([412692a](https://github.com/ytetsuro/sabik/commit/412692ab97de0550046a5469d780b52f3ac8af4f))
+* upgrade core-js from 3.22.3 to 3.22.4 ([f61f941](https://github.com/ytetsuro/sabik/commit/f61f941c690f64a04ab268f10c987875d1cfbc9c))
+* upgrade core-js from 3.22.3 to 3.22.5 ([89f1032](https://github.com/ytetsuro/sabik/commit/89f1032d13761979e8b2e9609d8ef7a2aa98f76c))
+* upgrade core-js from 3.22.4 to 3.22.5 ([0963d70](https://github.com/ytetsuro/sabik/commit/0963d7088e51cf0b807935cdc5feb3a18dadeeb2))
+* upgrade core-js from 3.22.5 to 3.22.6 ([92f9756](https://github.com/ytetsuro/sabik/commit/92f9756d8ef5ceb4ca8a3f433aa315bff60c241e))
+* upgrade core-js from 3.22.6 to 3.22.7 ([6cd77e4](https://github.com/ytetsuro/sabik/commit/6cd77e4e7b7e4135433ac9ce47e117fa1e889da3))
+* upgrade core-js from 3.23.1 to 3.23.2 ([cbf8f20](https://github.com/ytetsuro/sabik/commit/cbf8f20e31aa59df8692897674f9cb696ed9f1c4))
+* upgrade core-js from 3.23.2 to 3.23.3 ([1a56ec5](https://github.com/ytetsuro/sabik/commit/1a56ec53094c30d1f85c4b3f0ba0e22b4f4bd41f))
+* upgrade core-js from 3.23.2 to 3.23.3 ([3ff597d](https://github.com/ytetsuro/sabik/commit/3ff597d8e6d124c79c1c9fe12422696d16efebce))
+* upgrade core-js from 3.23.3 to 3.23.4 ([b7544e3](https://github.com/ytetsuro/sabik/commit/b7544e34e01e3c972c607aa33dfd7c87041c4c11))
+* upgrade esbuild from 0.14.38 to 0.14.39 ([9310f1d](https://github.com/ytetsuro/sabik/commit/9310f1d44a6499b0364573644fb31fdb63a5445c))
+* upgrade esbuild from 0.14.38 to 0.14.39 ([e77a6cf](https://github.com/ytetsuro/sabik/commit/e77a6cf819ebfde323ee55536166e351f5d45145))
+* upgrade esbuild from 0.14.39 to 0.14.41 ([1352f49](https://github.com/ytetsuro/sabik/commit/1352f492b6dac0d950bb246077dfc3197b86f09c))
+* upgrade esbuild from 0.14.41 to 0.14.42 ([6fb4533](https://github.com/ytetsuro/sabik/commit/6fb453393724bbd49908786d089b6735de6ad6f7))
+* upgrade esbuild from 0.14.42 to 0.14.43 ([dc5511d](https://github.com/ytetsuro/sabik/commit/dc5511dfc576b6fbcfc6741c268b44835abddbc6))
+* upgrade esbuild from 0.14.43 to 0.14.48 ([5cdb826](https://github.com/ytetsuro/sabik/commit/5cdb826b4a197c0d203aa7aa7775b67f8e90af13))
+* upgrade esbuild from 0.14.43 to 0.14.48 ([7d3e8c7](https://github.com/ytetsuro/sabik/commit/7d3e8c753f9ed0af74ff16a211e107d871dcdae8))
+* upgrade esbuild from 0.14.48 to 0.14.49 ([7ad8a31](https://github.com/ytetsuro/sabik/commit/7ad8a31bf7c50aed1c84f900a576f003c3b3ba12))
+* upgrade mithril from 2.0.4 to 2.2.0 ([eadb24b](https://github.com/ytetsuro/sabik/commit/eadb24b93939b83679cba3a24250c49eeaa8699b))
+* upgrade mithril from 2.0.4 to 2.2.0 ([aaabf80](https://github.com/ytetsuro/sabik/commit/aaabf80bcc85d80b1d96d1a99d1cd0da5265fd6a))
+* upgrade mithril from 2.2.0 to 2.2.2 ([58a8727](https://github.com/ytetsuro/sabik/commit/58a87271aea44d05c7512ae75916b8cfe16b85cf))
+* upgrade postcss from 8.4.12 to 8.4.13 ([8bfed17](https://github.com/ytetsuro/sabik/commit/8bfed170fa8536c79bc72ba4a62a682e2206e8de))
+* upgrade postcss from 8.4.13 to 8.4.14 ([8dfdc34](https://github.com/ytetsuro/sabik/commit/8dfdc3453f309d01ab38707ac3908cdf93ab0207))
+* upgrade typescript from 4.6.3 to 4.6.4 ([f595a2f](https://github.com/ytetsuro/sabik/commit/f595a2f0a5c4af46e49cab9bcfe54dc498fd805f))
+* upgrade typescript from 4.6.3 to 4.6.4 ([5fdd4b9](https://github.com/ytetsuro/sabik/commit/5fdd4b9414b7b7143bf1f2e73f9f5889dcc85974))
+* upgrade typescript from 4.6.4 to 4.7.2 ([3c96eb6](https://github.com/ytetsuro/sabik/commit/3c96eb6c39bac48fdb84e4e2ccdda37b9ec05dd9))
+* upgrade typescript from 4.7.2 to 4.7.3 ([294b0c8](https://github.com/ytetsuro/sabik/commit/294b0c8df5714f32e450be2f07b3fe02876bb357))
+* upgrade typescript from 4.7.3 to 4.7.4 ([1d7899d](https://github.com/ytetsuro/sabik/commit/1d7899dfd68f6c0b68f3ea8bc1ca104d04ff8b11))
+
+
+### Features
+
+* add CyclomaticComplexity Analyzer. ([d473edd](https://github.com/ytetsuro/sabik/commit/d473edd4af343978c8c13c524d89bb4c79941aea))
+* add CyclomaticComplexity MetricsType. ([c71035c](https://github.com/ytetsuro/sabik/commit/c71035cc0bb52231657cfc50b8b8bacf8458cda9))
+* add CyclomaticComplexityCountableNode for TypeScript. ([3d2cb07](https://github.com/ytetsuro/sabik/commit/3d2cb079ee62e840791ca3532256861b419f2790))
+* added CyclomaticComplexityCountableNode. ([99de01f](https://github.com/ytetsuro/sabik/commit/99de01f7fc2659dbaa44ed42862848dabf7bae1f))
+* can show CyclomaticComplexity for HTML. ([d2619a0](https://github.com/ytetsuro/sabik/commit/d2619a0b20878d40062acf80a2a6397fd8761542))
+* support php8 for CognitiveComplexityCountableNode. ([285e14f](https://github.com/ytetsuro/sabik/commit/285e14fb4a0de66359bafcd1b435ba54cf16e124))
+
 ## [0.1.3](https://github.com/ytetsuro/sabik/compare/0.1.2...0.1.3) (2022-05-16)
 
 
