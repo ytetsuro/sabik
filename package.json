@@ -12,6 +12,7 @@
     "@types/jest": "^27.5.2",
     "autoprefixer": "^10.4.8",
     "bulma": "^0.9.4",
+    "caniuse-lite": "^1.0.30001474",
     "codemirror": "^5.65.8",
     "commander": "^7.2.0",
     "core-js": "^3.24.1",
@@ -26,7 +27,7 @@
     "postcss-import": "^14.1.0",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.14.1",
-    "typescript": "^4.7.4"
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@swc/core": "^1.2.139",
