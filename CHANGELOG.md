@@ -1,3 +1,24 @@
+## [0.2.1](https://github.com/ytetsuro/sabik/compare/0.2.0...0.2.1) (2023-04-07)
+
+
+### Bug Fixes
+
+* circular dependency. ([aa25e25](https://github.com/ytetsuro/sabik/commit/aa25e251bc02f5f44ac56716f873ffe6f1af1657))
+* not jump bug. ([94f8ca8](https://github.com/ytetsuro/sabik/commit/94f8ca889d2a1492e3bda84066d46305135c9759))
+* upgrade autoprefixer from 10.4.7 to 10.4.8 ([dcfd8a1](https://github.com/ytetsuro/sabik/commit/dcfd8a19b54af27730cbc49a5b7c93b5b48e1832))
+* upgrade autoprefixer from 10.4.7 to 10.4.8 ([5f2f3df](https://github.com/ytetsuro/sabik/commit/5f2f3df9e3c8793830b0944f2e228ba304d00a51))
+* upgrade codemirror from 5.65.7 to 5.65.8 ([62ed865](https://github.com/ytetsuro/sabik/commit/62ed8658164bc03d3006e4b39fa9babb4587e7a3))
+* upgrade core-js from 3.23.4 to 3.23.5 ([6571518](https://github.com/ytetsuro/sabik/commit/6571518a9e245a72d972db605ed6cae1a15fc7fd))
+* upgrade core-js from 3.23.4 to 3.24.0 ([3c282d8](https://github.com/ytetsuro/sabik/commit/3c282d83c7a9a23862edb2ef3941a9160587cfec))
+* upgrade core-js from 3.23.5 to 3.24.1 ([852fcc3](https://github.com/ytetsuro/sabik/commit/852fcc3742f4ee5b1e08f7208dad8b6635e8945d))
+* upgrade core-js from 3.24.0 to 3.24.1 ([2590b26](https://github.com/ytetsuro/sabik/commit/2590b26cc761fc90008bf9ee02f220f266d7c9ed))
+* upgrade decimal.js from 10.3.1 to 10.4.0 ([d2aee64](https://github.com/ytetsuro/sabik/commit/d2aee644b1b00c0f3eddea924b40aeec241f383d))
+* upgrade esbuild from 0.14.49 to 0.14.50 ([8fbb9b2](https://github.com/ytetsuro/sabik/commit/8fbb9b2f9aca72a358eecda36a1ba55ad92f088f))
+* upgrade esbuild from 0.14.49 to 0.15.5 ([d38a714](https://github.com/ytetsuro/sabik/commit/d38a714ac35792e2a8e4c5185500e0addc4c1da2))
+* upgrade esbuild from 0.14.50 to 0.15.3 ([d98ad37](https://github.com/ytetsuro/sabik/commit/d98ad37f6213f67fdf2a6f6297310c19d62527fc))
+* upgrade postcss from 8.4.14 to 8.4.16 ([61bfc93](https://github.com/ytetsuro/sabik/commit/61bfc93f8672467bdf506c9cf6391d2c0d3c5dec))
+* upgrade postcss from 8.4.14 to 8.4.16 ([351d9c7](https://github.com/ytetsuro/sabik/commit/351d9c7f9437d6cea87e731ffe7517a49bf41788))
+
 # [0.2.0](https://github.com/ytetsuro/sabik/compare/0.1.3...0.2.0) (2022-08-15)
 
 
