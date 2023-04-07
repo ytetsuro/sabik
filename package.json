@@ -35,7 +35,7 @@
     "@types/jest": "^29.5.0",
     "@types/jsdom": "^16.2.13",
     "@types/mithril": "^2.0.4",
-    "@types/node": "^16.6.1",
+    "@types/node": "^18.15.11",
     "@types/pako": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
