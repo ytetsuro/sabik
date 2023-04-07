@@ -30,7 +30,7 @@
     "typescript": "^4.9.5"
   },
   "devDependencies": {
-    "@swc/core": "^1.2.139",
+    "@swc/core": "^1.2.249",
     "@swc/jest": "^0.2.17",
     "@types/atob": "^2.1.2",
     "@types/eslint": "^7.2.0",
