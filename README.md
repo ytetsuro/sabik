@@ -27,7 +27,12 @@ If you want to see what it looks like, click [here](http://sabik.botch.me/exampl
 * [License](#license)
 <!-- tocstop -->
 
+
 # Basic Using
+
+Please use Node.js >= 14.
+
+If you use Node.js 14 or less, please use version 0.2.0.
 
 ```sh-session
 $ npx sabik /target/path

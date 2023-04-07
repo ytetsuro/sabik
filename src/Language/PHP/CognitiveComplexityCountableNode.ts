@@ -1,6 +1,6 @@
 import * as PHPParser from 'php-parser';
 import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
-import { ASTNode } from './ASTNode';
+import { type ASTNode } from './ASTNode';
 import { ASTKind } from './ASTKind';
 import { injectable } from 'inversify';
 

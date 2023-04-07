@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import * as ts from 'typescript';
 import { HalsteadCountableNode as HalsteadCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/Halstead/Adapter/HalsteadCountableNode';
-import { ASTNode } from './ASTNode';
+import { type ASTNode } from './ASTNode';
 
 @injectable()
 export class HalsteadCountableNode implements HalsteadCountableNodeInterface {

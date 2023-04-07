@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import * as ts from 'typescript';
 import { LineOfCodeCountableNode as LineOfCodeCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/LineOfCode/Adapter/LineOfCodeCountableNode';
-import { ASTNode } from './ASTNode';
+import { type ASTNode } from './ASTNode';
 
 @injectable()
 export class LineOfCodeCountableNode implements LineOfCodeCountableNodeInterface {

@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import * as ts from 'typescript';
 import { ComplexityCountableNode as ComplexityCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/CognitiveComplexity/Adapter/ComplexityCountableNode';
-import { ASTNode } from './ASTNode';
+import { type ASTNode } from './ASTNode';
 
 @injectable()
 export class CognitiveComplexityCountableNode implements ComplexityCountableNodeInterface {
