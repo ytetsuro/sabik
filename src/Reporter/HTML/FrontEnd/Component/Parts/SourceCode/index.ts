@@ -42,6 +42,10 @@ div:nth-child(n+${metrics.getStartLineNumber()}) ~ div:nth-child(-n+${metrics.ge
     });
   }
 
+  onremove() {
+    this.editor = null;
+  }
+
   oncreate(vnode: m.VnodeDOM<Param>) {
     const { mime } = CodeMirror.findModeByExtension(vnode.attrs.sourceCode.extension);
 
