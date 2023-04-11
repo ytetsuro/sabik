@@ -15,7 +15,7 @@
     "codemirror": "^5.65.8",
     "commander": "^7.2.0",
     "core-js": "^3.24.1",
-    "decimal.js": "^10.4.0",
+    "decimal.js": "^10.4.3",
     "esbuild": "^0.15.5",
     "inversify": "^6.0.1",
     "mithril": "^2.2.2",
