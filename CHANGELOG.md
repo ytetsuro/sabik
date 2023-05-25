@@ -1,3 +1,11 @@
+## [0.2.2](https://github.com/ytetsuro/sabik/compare/0.2.1...0.2.2) (2023-05-25)
+
+
+### Bug Fixes
+
+* fail path resolve for windows. ([45b1b95](https://github.com/ytetsuro/sabik/commit/45b1b95318e8987b2c5a8a47e60dbed7be34e60e))
+* upgrade core-js from 3.24.1 to 3.29.1 ([aafe7fe](https://github.com/ytetsuro/sabik/commit/aafe7fe1f6f53055303cab71b96a148c97a414fc))
+
 ## [0.2.1](https://github.com/ytetsuro/sabik/compare/0.2.0...0.2.1) (2023-04-07)
 
 
