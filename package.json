@@ -14,9 +14,9 @@
     "caniuse-lite": "^1.0.0",
     "codemirror": "^5.65.0",
     "commander": "^7.2.0",
-    "core-js": "^3.24.0",
+    "core-js": "^3.29.1",
     "decimal.js": "^10.4.0",
-    "esbuild": "^0.15.0",
+    "esbuild": "^0.17.19",
     "inversify": "^6.0.0",
     "mithril": "^2.2.0",
     "pako": "^1.0.0",
@@ -28,7 +28,7 @@
     "typescript": "^4.9.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.0",
+    "@swc/core": "^1.3.60",
     "@swc/jest": "^0.2.0",
     "@types/atob": "^2.1.0",
     "@types/eslint": "^7.2.0",
