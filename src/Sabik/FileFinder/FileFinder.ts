@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { inject, injectable } from 'inversify';
-import { resolve, sep } from 'path';
+import { resolve, sep, isAbsolute } from 'path';
 import { Types } from '../../types/Types';
 import { File } from './File';
 
@@ -45,9 +45,8 @@ export class FileFinder {
 
   private getFullPath(path: string) {
     const formattedPath = path.endsWith(sep) ? path.substr(0, path.length - 1) : path;
-    const isAbstractPath = resolve(formattedPath) === formattedPath;
 
-    return resolve(isAbstractPath ? formattedPath : `${this.currentPath}${sep}${formattedPath}`);
+    return resolve(isAbsolute(path) ? formattedPath : `${this.currentPath}${sep}${formattedPath}`);
   }
 
   private isTarget(path: string) {
