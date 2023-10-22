@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/ytetsuro/sabik/compare/0.2.2...0.2.3) (2023-10-22)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([2457e3c](https://github.com/ytetsuro/sabik/commit/2457e3c3abefbee7c33ec22b6cdddd9745c3aee7))
+
 ## [0.2.2](https://github.com/ytetsuro/sabik/compare/0.2.1...0.2.2) (2023-05-25)
 
 
