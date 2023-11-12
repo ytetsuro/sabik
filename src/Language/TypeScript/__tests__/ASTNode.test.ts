@@ -14,7 +14,7 @@ describe('ASTNode', () => {
     });
   });
 
-  describe('.isFauxFunction()', () => {
+  describe('.isFauxClass()', () => {
     it('should checkable FauxClass structure', () => {
       const sourceFile = ts.createSourceFile(
         'dummy.ts',
@@ -27,6 +27,24 @@ describe('ASTNode', () => {
       const notFauxClassStructure = new ASTNode(sourceFile.statements[1], sourceFile);
 
       expect(fauxClassStructure.isFauxClass()).toBe(true);
+      expect(notFauxClassStructure.isFauxClass()).toBe(false);
+    });
+
+    it('should returns false when arrow function.', () => {
+      const sourceFile = ts.createSourceFile(
+        'dummy.ts',
+        'const main = () => {return {hoge: () => {}}}; class A {}',
+        ts.ScriptTarget.ES2016,
+        true
+      );
+
+      const fauxClassStructure = new ASTNode(
+        (<ts.VariableStatement>sourceFile.statements[0]).declarationList.declarations[0].initializer!,
+        sourceFile
+      );
+      const notFauxClassStructure = new ASTNode(sourceFile.statements[1], sourceFile);
+
+      expect(fauxClassStructure.isFauxClass()).toBe(false);
       expect(notFauxClassStructure.isFauxClass()).toBe(false);
     });
   });

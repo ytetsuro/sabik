@@ -73,6 +73,9 @@ export class ASTNode implements ASTNodeInterface {
   }
 
   private isPossibleFauxClass() {
+    if (this.node.kind === ts.SyntaxKind.ArrowFunction) {
+      return false;
+    }
     if (this.node.kind === ts.SyntaxKind.FunctionDeclaration && (<ts.FunctionDeclaration>this.node).name) {
       return true;
     }
