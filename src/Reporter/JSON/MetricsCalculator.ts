@@ -33,28 +33,32 @@ export class MetricsCalculator {
       .toNumber();
   }
 
-  max<T extends MetricsValue>(identity: MetricsValueConstructor<T>): Metrics {
+  max<T extends MetricsValue>(identity: MetricsValueConstructor<T>): Metrics | null {
     return (
       this.metrics
         .filter((metrics) => metrics.hasMetricsValue(identity))
-        .reduce((max, metrics) =>
-          Number(max?.getMetricsByMetricsValue(identity) ?? -Infinity) >
-          Number(metrics.getMetricsByMetricsValue(identity))
-            ? max
-            : metrics
+        .reduce(
+          (max, metrics) =>
+            Number(max?.getMetricsByMetricsValue(identity) ?? -Infinity) >
+            Number(metrics.getMetricsByMetricsValue(identity))
+              ? max
+              : metrics,
+          <Metrics | null>null
         ) ?? null
     );
   }
 
-  min<T extends MetricsValue>(identity: MetricsValueConstructor<T>): Metrics {
+  min<T extends MetricsValue>(identity: MetricsValueConstructor<T>): Metrics | null {
     return (
       this.metrics
         .filter((metrics) => metrics.hasMetricsValue(identity))
-        .reduce((min, metrics) =>
-          Number(min?.getMetricsByMetricsValue(identity) ?? Infinity) <
-          Number(metrics.getMetricsByMetricsValue(identity))
-            ? min
-            : metrics
+        .reduce(
+          (min, metrics) =>
+            Number(min?.getMetricsByMetricsValue(identity) ?? Infinity) <
+            Number(metrics.getMetricsByMetricsValue(identity))
+              ? min
+              : metrics,
+          <Metrics | null>null
         ) ?? null
     );
   }
