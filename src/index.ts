@@ -37,7 +37,7 @@ Fo  r HTML or CSV, specify the directory, and for JSON, specify the file.`
 
       const rootPath = fs.statSync(analyzedTarget).isDirectory() ? analyzedTarget : dirname(analyzedTarget);
       container.rebind<string>(Types.rootPath).toConstantValue(rootPath);
-      container.rebind<string | null>(Types.outputPath).toConstantValue(outputPath);
+      container.rebind<string | null>(Types.outputPath).toConstantValue(outputPath ?? '');
       container.rebind<RegExp>(Types.fileMatches).toConstantValue(matches);
       container.rebind<RegExp[]>(Types.fileExcludes).toConstantValue(excludes);
 

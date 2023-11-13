@@ -11,7 +11,7 @@
     "@types/codemirror": "0.0.109",
     "autoprefixer": "^10.4.0",
     "bulma": "^0.9.0",
-    "caniuse-lite": "^1.0.0",
+    "caniuse-lite": "^1.0.30001482",
     "codemirror": "^5.65.0",
     "commander": "^7.2.0",
     "core-js": "^3.29.1",
