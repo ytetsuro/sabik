@@ -1,3 +1,13 @@
+## [0.2.4](https://github.com/ytetsuro/sabik/compare/0.2.3...0.2.4) (2023-11-13)
+
+
+### Bug Fixes
+
+* fail new when arrow function. ([25c5e84](https://github.com/ytetsuro/sabik/commit/25c5e8424316ca43da1eda4eac18aec4194418f5))
+* fail resolve DIContainer when the value is null. ([1cab566](https://github.com/ytetsuro/sabik/commit/1cab5665b2f5bdc2b989cc2de0a5dff2e32bb897))
+* package.json & package-lock.json to reduce vulnerabilities ([b4eed77](https://github.com/ytetsuro/sabik/commit/b4eed7767fac03ab581c94fa25ae1dfe98082665))
+* upgrade caniuse-lite from 1.0.30001474 to 1.0.30001482 ([628d38c](https://github.com/ytetsuro/sabik/commit/628d38cf8bde2f8270e975a03da4278f7ecb9b44))
+
 ## [0.2.3](https://github.com/ytetsuro/sabik/compare/0.2.2...0.2.3) (2023-10-22)
 
 
