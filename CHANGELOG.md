@@ -1,3 +1,28 @@
+## [0.2.4](https://github.com/ytetsuro/sabik/compare/0.2.3...0.2.4) (2023-11-13)
+
+
+### Bug Fixes
+
+* fail new when arrow function. ([25c5e84](https://github.com/ytetsuro/sabik/commit/25c5e8424316ca43da1eda4eac18aec4194418f5))
+* fail resolve DIContainer when the value is null. ([1cab566](https://github.com/ytetsuro/sabik/commit/1cab5665b2f5bdc2b989cc2de0a5dff2e32bb897))
+* package.json & package-lock.json to reduce vulnerabilities ([b4eed77](https://github.com/ytetsuro/sabik/commit/b4eed7767fac03ab581c94fa25ae1dfe98082665))
+* upgrade caniuse-lite from 1.0.30001474 to 1.0.30001482 ([628d38c](https://github.com/ytetsuro/sabik/commit/628d38cf8bde2f8270e975a03da4278f7ecb9b44))
+
+## [0.2.3](https://github.com/ytetsuro/sabik/compare/0.2.2...0.2.3) (2023-10-22)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([2457e3c](https://github.com/ytetsuro/sabik/commit/2457e3c3abefbee7c33ec22b6cdddd9745c3aee7))
+
+## [0.2.2](https://github.com/ytetsuro/sabik/compare/0.2.1...0.2.2) (2023-05-25)
+
+
+### Bug Fixes
+
+* fail path resolve for windows. ([45b1b95](https://github.com/ytetsuro/sabik/commit/45b1b95318e8987b2c5a8a47e60dbed7be34e60e))
+* upgrade core-js from 3.24.1 to 3.29.1 ([aafe7fe](https://github.com/ytetsuro/sabik/commit/aafe7fe1f6f53055303cab71b96a148c97a414fc))
+
 ## [0.2.1](https://github.com/ytetsuro/sabik/compare/0.2.0...0.2.1) (2023-04-07)
 
 
