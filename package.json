@@ -18,7 +18,7 @@
     "decimal.js": "^10.4.0",
     "esbuild": "^0.17.19",
     "inversify": "^6.0.0",
-    "mithril": "^2.2.0",
+    "mithril": "^2.2.3",
     "pako": "^1.0.0",
     "php-parser": "^3.1.0",
     "postcss": "^8.4.31",
