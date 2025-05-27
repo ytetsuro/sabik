@@ -3,19 +3,18 @@ import * as ts from 'typescript';
 import { LineOfCodeCountableNode as LineOfCodeCountableNodeInterface } from '../../Analyzer/CodeMetricsCalculator/LineOfCode/Adapter/LineOfCodeCountableNode';
 import { type ASTNode as TypeScriptASTNodeWrapper } from './ASTNode'; // Renamed for clarity
 
-// Define the set of SyntaxKind values that represent statements
+// Updated STATEMENT_KINDS
 const STATEMENT_KINDS = new Set<ts.SyntaxKind>([
-  ts.SyntaxKind.Block, // Counted if it's not part of another statement (e.g. function body) or if it's an empty block statement.
-                       // The statements *within* a block are counted individually.
+  // ts.SyntaxKind.Block, // Removed, handled by _handleBlock for empty ones
   ts.SyntaxKind.BreakStatement,
   ts.SyntaxKind.ContinueStatement,
   ts.SyntaxKind.DebuggerStatement,
   ts.SyntaxKind.DoStatement,
-  ts.SyntaxKind.EmptyStatement,
+  ts.SyntaxKind.EmptyStatement, // Explicit empty statement ";"
   ts.SyntaxKind.ExpressionStatement,
-  ts.SyntaxKind.ForInStatement, // The statement itself
-  ts.SyntaxKind.ForOfStatement, // The statement itself
-  ts.SyntaxKind.ForStatement,   // The statement itself
+  ts.SyntaxKind.ForInStatement,
+  ts.SyntaxKind.ForOfStatement,
+  ts.SyntaxKind.ForStatement,
   ts.SyntaxKind.IfStatement,
   ts.SyntaxKind.LabeledStatement,
   ts.SyntaxKind.ReturnStatement,
@@ -31,137 +30,231 @@ const STATEMENT_KINDS = new Set<ts.SyntaxKind>([
   ts.SyntaxKind.ClassDeclaration,
   ts.SyntaxKind.FunctionDeclaration,
   ts.SyntaxKind.EnumDeclaration,
-  ts.SyntaxKind.InterfaceDeclaration, // Counted as per broader definition of 'logical statement'
-  ts.SyntaxKind.TypeAliasDeclaration, // Counted
+  ts.SyntaxKind.InterfaceDeclaration,
+  ts.SyntaxKind.TypeAliasDeclaration,
+  ts.SyntaxKind.CaseClause,      // Added
+  ts.SyntaxKind.DefaultClause,   // Added
+  // ts.SyntaxKind.CatchClause? Usually the block inside is what matters.
 ]);
 
 @injectable()
 export class LineOfCodeCountableNode implements LineOfCodeCountableNodeInterface {
   private readonly pureNode: ts.Node;
+  private statementCount = 0; // Added class property
 
   constructor(private readonly wrapperNode: TypeScriptASTNodeWrapper) {
     this.pureNode = wrapperNode.node; // Assuming 'node' property holds the actual ts.Node
   }
 
   getText() {
-    // It's generally better to get text from the source file via the node's pos and end properties
-    // getFullText() might include leading/trailing trivia not part of the node itself in some contexts.
-    // However, for LLOC, full text of the statement is usually implied.
-    // const sourceFileText = this.pureNode.getSourceFile().getFullText();
-    // return sourceFileText.substring(this.pureNode.getStart(), this.pureNode.getEnd());
-    return this.pureNode.getFullText(); // Keeping original logic for now
+    return this.pureNode.getFullText();
   }
 
   getRemovedCommentAndEmptyLineText() {
-    // This method's current implementation re-parses the node's text.
-    // This is okay for LLOC calculation if it accurately strips comments for that specific node's text.
     const nodeText = this.pureNode.getFullText();
     const sourceFile = ts.createSourceFile(
       'dummy.ts',
-      nodeText, // Use only the current node's text
-      ts.ScriptTarget.ESLatest, // Use a modern target
-      /*setParentNodes*/ false // Not strictly needed for printing
+      nodeText,
+      ts.ScriptTarget.ESLatest,
+      false
     );
-
-    // Create a printer to remove comments
     const printer = ts.createPrinter({ removeComments: true });
-    let printedText = printer.printNode(ts.EmitHint.Unspecified, sourceFile.statements[0] || this.pureNode, sourceFile);
-
-    // The printer might add a trailing newline; LLOC usually doesn't count the final newline of a file.
-    // However, this function is about removing comments and empty lines within the text.
-    // The original code used printFile, which might be more robust if the node is a whole file.
-    // If pureNode is guaranteed to be a statement or declaration, printNode is fine.
-    // Let's refine to be closer to original if pureNode could be a SourceFile itself.
     if (this.pureNode.kind === ts.SyntaxKind.SourceFile) {
-        printedText = printer.printFile(this.pureNode as ts.SourceFile);
-    } else {
-        // For arbitrary nodes, getting just its text without comments is tricky.
-        // The original approach of printing the first statement of a dummy file made from node text
-        // is a bit of a hack. A more robust way would be to traverse and reconstruct.
-        // For now, this is a placeholder for "get text of node without comments".
-        // The LLOC logic will use countStatements, so this method's accuracy is secondary for LLOC.
+        return printer.printFile(this.pureNode as ts.SourceFile);
     }
-    // Fallback to original logic if specific node printing is problematic
-    return ts.createPrinter({ removeComments: true }).printFile(ts.createSourceFile(
-      'dummy.ts', this.pureNode.getFullText(), ts.ScriptTarget.ES2016, true
-    ));
+    // Fallback for other node types, attempting to print the first statement or the node itself
+    // This part might need more robust handling for arbitrary node types if precise comment removal is critical.
+    const firstStatement = sourceFile.statements.length > 0 ? sourceFile.statements[0] : this.pureNode;
+    let printedText = printer.printNode(ts.EmitHint.Unspecified, firstStatement, sourceFile);
+
+    // Remove empty lines from the comment-stripped text
+    return printedText.split('\n').filter(line => line.trim() !== '').join('\n');
   }
 
-  countStatements(): number {
-    let count = 0;
+  // Rewritten countStatements public method
+  public countStatements(): number {
+    this.statementCount = 0;
+    this._traverseAndCount(this.pureNode, 0); // Initial depth is 0
+    return this.statementCount;
+  }
 
-    const countRecursive = (currentNode: ts.Node) => {
-      if (!currentNode) {
+  // Core private recursive method _traverseAndCount
+  private _traverseAndCount(currentNode: ts.Node | undefined, currentDepth: number): void {
+    if (!currentNode) {
+      return;
+    }
+
+    // Handle specific container-like structures first
+    switch (currentNode.kind) {
+      case ts.SyntaxKind.Block:
+        this._handleBlock(currentNode as ts.Block, currentDepth);
         return;
+      case ts.SyntaxKind.ForStatement:
+        this._handleForStatement(currentNode as ts.ForStatement, currentDepth);
+        return;
+      case ts.SyntaxKind.ForInStatement:
+        this._handleForInStatement(currentNode as ts.ForInStatement, currentDepth);
+        return;
+      case ts.SyntaxKind.ForOfStatement:
+        this._handleForOfStatement(currentNode as ts.ForOfStatement, currentDepth);
+        return;
+      case ts.SyntaxKind.IfStatement:
+        this._handleIfStatement(currentNode as ts.IfStatement, currentDepth);
+        return;
+      case ts.SyntaxKind.SwitchStatement:
+        this._handleSwitchStatement(currentNode as ts.SwitchStatement, currentDepth);
+        return;
+      case ts.SyntaxKind.TryStatement:
+        this._handleTryStatement(currentNode as ts.TryStatement, currentDepth);
+        return;
+    }
+
+    if (this._isCountableStatement(currentNode, currentDepth)) {
+      this.statementCount++;
+    }
+
+    ts.forEachChild(currentNode, (child) => this._traverseAndCount(child, currentDepth));
+  }
+
+  // Private helper method _isCountableStatement
+  private _isCountableStatement(node: ts.Node, currentStatementDepth: number): boolean {
+    if (currentStatementDepth > 2) { // Max depth is 2
+      return false;
+    }
+    if (node.kind === ts.SyntaxKind.Block) {
+      // Blocks themselves are not counted by this generic check.
+      // _handleBlock decides if an empty block is counted.
+      return false;
+    }
+    return STATEMENT_KINDS.has(node.kind);
+  }
+
+  // Private helper method _handleBlock
+  private _handleBlock(blockNode: ts.Block, currentBlockDepth: number): void {
+    if (
+      blockNode.statements.length === 0 &&
+      currentBlockDepth <= 2 && 
+      !ts.isFunctionLike(blockNode.parent) &&
+      !ts.isIfStatement(blockNode.parent) &&
+      !ts.isForStatement(blockNode.parent) &&
+      !ts.isForInStatement(blockNode.parent) &&
+      !ts.isForOfStatement(blockNode.parent) &&
+      !ts.isWhileStatement(blockNode.parent) &&
+      !ts.isDoStatement(blockNode.parent) &&
+      !ts.isTryStatement(blockNode.parent) &&
+      !ts.isCatchClause(blockNode.parent) &&
+      !ts.isSwitchStatement(blockNode.parent)
+    ) {
+      this.statementCount++;
+    }
+
+    const statementsDepth = currentBlockDepth + 1;
+    blockNode.statements.forEach(statement => {
+      this._traverseAndCount(statement, statementsDepth);
+    });
+  }
+
+  // Private helper method _handleForStatement
+  private _handleForStatement(forNode: ts.ForStatement, currentContextDepth: number): void {
+    const statementDepthForParts = currentContextDepth + 1;
+
+    if (forNode.initializer) {
+      if (this._isCountableStatement(forNode.initializer, statementDepthForParts)) {
+          this.statementCount++;
+      } else if (ts.isVariableDeclarationList(forNode.initializer)) {
+          if (statementDepthForParts <= 2) this.statementCount++;
       }
+    }
+    if (forNode.condition) {
+      if (statementDepthForParts <= 2) this.statementCount++;
+    }
+    if (forNode.incrementor) {
+      if (statementDepthForParts <= 2) this.statementCount++;
+    }
+    // The body of the for loop. If it's a block, _handleBlock will manage depth.
+    // If not a block, it's a single statement evaluated at currentContextDepth + 1 effectively.
+    // However, _traverseAndCount on a non-block statement uses currentContextDepth for _isCountableStatement,
+    // and _handleBlock for a block body will use currentContextDepth + 1 for its internal statements.
+    // The for loop's body should be considered at currentContextDepth + 1.
+    // So, if forNode.statement is NOT a block, its depth should be statementDepthForParts.
+    // If it IS a block, _handleBlock will take currentContextDepth and then use currentContextDepth + 1 for its children.
+    // This seems a bit tricky. Let's pass currentContextDepth for the body, and let _handleBlock manage its own children's depth.
+    // For a single statement body, it should be treated as if it's in a block of depth currentContextDepth + 1.
+    // So, its direct count check depth should be currentContextDepth + 1.
+    this._traverseAndCount(forNode.statement, currentContextDepth + 1);
+  }
 
-      let isStatement = STATEMENT_KINDS.has(currentNode.kind);
+  // Private helper method _handleForInStatement
+  private _handleForInStatement(forInNode: ts.ForInStatement, currentContextDepth: number): void {
+    // The ForInStatement itself is the primary statement.
+    if (this._isCountableStatement(forInNode, currentContextDepth)) {
+      this.statementCount++;
+    }
+    // The initializer (e.g., const key) is part of the ForInStatement, not usually a separate LLOC.
+    // ProjectCodeMeter counts `for (x in y)` as 1.
+    // Traversing the body.
+    this._traverseAndCount(forInNode.statement, currentContextDepth + 1);
+  }
 
-      if (isStatement) {
-        // Special handling for ForStatement as per ProjectCodeMeter
-        if (currentNode.kind === ts.SyntaxKind.ForStatement) {
-          const forStatement = currentNode as ts.ForStatement;
-          // Count initializer (if it's an expression or var declaration)
-          if (forStatement.initializer) {
-            if (ts.isVariableDeclarationList(forStatement.initializer)) {
-              // Each declaration in VariableDeclarationList is a statement part
-              // count += forStatement.initializer.declarations.length; // or just 1 for the whole list?
-              // ProjectCodeMeter: "for (i=0; i < 5; i++;)" is 3 LLOC.
-              // `let i = 0` is one VariableStatement.
-              count++; // Count VariableStatement as one.
-            } else { // It's an Expression
-              count++; // Count initializer expression.
-            }
-          }
-          // Count condition (if it exists)
-          if (forStatement.condition) {
-            count++;
-          }
-          // Count incrementor (if it exists)
-          if (forStatement.incrementor) {
-            count++;
-          }
-          // The ForStatement node itself is NOT counted additionally here,
-          // as its parts are counted.
-          // Now, recurse into the statement body of the for loop.
-          countRecursive(forStatement.statement);
-          return; // Avoid double counting or incorrect further processing of the ForStatement itself.
-        } else if (currentNode.kind === ts.SyntaxKind.ForInStatement) {
-            const forInStatement = currentNode as ts.ForInStatement;
-            if (forInStatement.initializer) count++; // e.g. `const key`
-            if (forInStatement.expression) count++;  // e.g. `in object`
-            // Recurse into body
-            countRecursive(forInStatement.statement);
-            return;
-        } else if (currentNode.kind === ts.SyntaxKind.ForOfStatement) {
-            const forOfStatement = currentNode as ts.ForOfStatement;
-            if (forOfStatement.initializer) count++; // e.g. `const item`
-            if (forOfStatement.expression) count++;   // e.g. `of array`
-            // Recurse into body
-            countRecursive(forOfStatement.statement);
-            return;
-        } else if (currentNode.kind === ts.SyntaxKind.Block && ts.isFunctionLike(currentNode.parent)) {
-            // Do not count a Block if it's the body of a function/method, the FunctionDeclaration/MethodDeclaration itself is the statement.
-            // However, an empty block used as a statement: {} should be counted.
-            // If the block is part of an if/else, while, etc., it's also not counted itself, but its children are.
-            if (currentNode.statements.length === 0 && !ts.isFunctionLike(currentNode.parent) && !ts.isIfStatement(currentNode.parent) && !ts.isTryStatement(currentNode.parent) && !ts.isCatchClause(currentNode.parent) && !ts.isWhileStatement(currentNode.parent) && !ts.isDoStatement(currentNode.parent) && !ts.isForStatement(currentNode.parent) && !ts.isForInStatement(currentNode.parent) && !ts.isForOfStatement(currentNode.parent)) {
-                // This is an empty block acting as a statement.
-                count++;
-            }
-            // Always recurse into block statements
-            ts.forEachChild(currentNode, countRecursive);
-            return; // Handled block, stop further processing of the block itself as a statement.
-        } else {
-            // Regular statement found
-            count++;
-        }
+  // Private helper method _handleForOfStatement
+  private _handleForOfStatement(forOfNode: ts.ForOfStatement, currentContextDepth: number): void {
+    // The ForOfStatement itself is the primary statement.
+    if (this._isCountableStatement(forOfNode, currentContextDepth)) {
+      this.statementCount++;
+    }
+    // The initializer (e.g., const item) is part of the ForOfStatement.
+    // Traversing the body.
+    this._traverseAndCount(forOfNode.statement, currentContextDepth + 1);
+  }
+  
+  // Private helper method _handleIfStatement
+  private _handleIfStatement(ifNode: ts.IfStatement, currentContextDepth: number): void {
+    if (this._isCountableStatement(ifNode, currentContextDepth)) {
+      this.statementCount++;
+    }
+    // 'then' statement/block. Children are at an increased depth.
+    this._traverseAndCount(ifNode.thenStatement, currentContextDepth + 1);
+    if (ifNode.elseStatement) {
+      // 'else' statement/block. Children are at an increased depth.
+      this._traverseAndCount(ifNode.elseStatement, currentContextDepth + 1);
+    }
+  }
+
+  // Private helper method _handleSwitchStatement
+  private _handleSwitchStatement(switchNode: ts.SwitchStatement, currentContextDepth: number): void {
+    if (this._isCountableStatement(switchNode, currentContextDepth)) {
+      this.statementCount++;
+    }
+    // CaseBlock clauses are at the next depth level.
+    const clauseDepth = currentContextDepth + 1;
+    switchNode.caseBlock.clauses.forEach(clause => {
+      // Each CaseClause / DefaultClause is a statement.
+      if (this._isCountableStatement(clause, clauseDepth)) {
+        this.statementCount++;
       }
+      // Statements within the clause are at the same depth as the clause.
+      clause.statements.forEach(statement => {
+          this._traverseAndCount(statement, clauseDepth);
+      });
+    });
+  }
 
-      // Always recurse into children, unless handled by specific logic above (like ForStatement body)
-      ts.forEachChild(currentNode, countRecursive);
-    };
-
-    countRecursive(this.pureNode);
-    return count;
+  // Private helper method _handleTryStatement
+  private _handleTryStatement(tryNode: ts.TryStatement, currentContextDepth: number): void {
+    if (this._isCountableStatement(tryNode, currentContextDepth)) {
+      this.statementCount++;
+    }
+    // tryBlock, catchClause.block, and finallyBlock are themselves Blocks.
+    // _traverseAndCount will delegate to _handleBlock, which then increments depth for statements inside.
+    // So, pass currentContextDepth + 1 to ensure the blocks themselves are considered at the next level.
+    const blockContentDepth = currentContextDepth + 1;
+    this._traverseAndCount(tryNode.tryBlock, blockContentDepth); 
+    if (tryNode.catchClause) {
+      // The CatchClause itself is not in STATEMENT_KINDS. Its block's content is what matters.
+      this._traverseAndCount(tryNode.catchClause.block, blockContentDepth);
+    }
+    if (tryNode.finallyBlock) {
+      this._traverseAndCount(tryNode.finallyBlock, blockContentDepth);
+    }
   }
 }

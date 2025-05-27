@@ -1,5 +1,5 @@
-import { Engine as PhpParserEngine, Program, Node } from 'php-parser';
-import { ASTGenerator as PHPASTGenerator } from '../ASTGenerator'; // Though might not be used directly if parsing strings
+import { Engine as PhpParserEngine, Program } from 'php-parser'; // Removed unused 'Node'
+// import { ASTGenerator as PHPASTGenerator } from '../ASTGenerator'; // Not used
 import { ASTNode as PHPASTNodeWrapper } from '../ASTNode';
 import { LineOfCodeCountableNode as PHPLineOfCodeCountableNode } from '../LineOfCodeCountableNode';
 
@@ -23,9 +23,6 @@ describe('PHPLineOfCodeCountableNode', () => {
   const countStatementsInPhpCode = (code: string): number => {
     const programNode = parsePhpCode(code);
 
-    // Wrap the Program node with our PHPASTNodeWrapper.
-    // The PHPASTNodeWrapper constructor takes (node: Node, sourceFile: Program, parentNode?: ASTNode)
-    // For the whole program, the node itself is the sourceFile.
     const wrapperNode = new PHPASTNodeWrapper(programNode, programNode);
     const countableNode = new PHPLineOfCodeCountableNode(wrapperNode);
 
@@ -34,56 +31,45 @@ describe('PHPLineOfCodeCountableNode', () => {
 
   it('should count a simple assignment', () => {
     const code = '$a = 1;';
-    expect(countStatementsInPhpCode(code)).toBe(1); // Assign
+    expect(countStatementsInPhpCode(code)).toBe(1);
   });
 
   it('should count basic if and return statements', () => {
     const code = `
-      if (true) {
-          return 1;
+      if (true) { // If @ D0 (+1)
+          return 1; // Return @ D1 (+1)
       }`;
-    // If (1) + Return (1) = 2
     expect(countStatementsInPhpCode(code)).toBe(2);
   });
 
   it('should count a for loop correctly (initializer, condition, incrementor, body statement)', () => {
     const code = `
-      for ($i = 0; $i < 1; $i++) {
-        echo $i;
+      for ($i = 0; $i < 1; $i++) { // For parts @ D1 (+3)
+        echo $i;                   // Echo @ D1 (+1)
       }
     `;
-    // For loop parts: Assign ($i = 0) (1) + Binary ($i < 1) (1) + PostInc ($i++) (1)
-    // Body: Echo (echo $i) (1)
-    // Total = 4
     expect(countStatementsInPhpCode(code)).toBe(4);
   });
 
-  it('should count an empty block statement (though PHP usually doesnt have standalone empty blocks as statements)', () => {
-    // PHP doesn't really have a standalone "empty block statement" like JS {}.
-    // An empty block in PHP is usually part of a control structure.
-    // If we parse just "{}", it might be a syntax error or an empty program.
-    // Let's test an empty if block.
+  it('should count an empty if block', () => {
     const code = 'if (true) {}'; 
-    // If (1). The empty block itself isn't usually counted as a separate statement.
-    // The countStatements logic for PHP should handle this by counting the `If` and then finding 0 statements in its body.
+    // If @ D0 (+1). Empty block does not add.
     expect(countStatementsInPhpCode(code)).toBe(1); 
   });
 
   it('should count function and class declarations', () => {
     const code = `
-      function foo() {}
-      class Bar {}
+      function foo() {} // FuncDecl @ D0 (+1)
+      class Bar {}       // ClassDecl @ D0 (+1)
     `;
-    // Function (1) + Class (1) = 2
     expect(countStatementsInPhpCode(code)).toBe(2);
   });
 
   it('should count interface and trait declarations', () => {
     const code = `
-      interface Foo {}
-      trait Bar {}
+      interface Foo {} // InterfaceDecl @ D0 (+1)
+      trait Bar {}     // TraitDecl @ D0 (+1)
     `;
-    // Interface (1) + Trait (1) = 2
     expect(countStatementsInPhpCode(code)).toBe(2);
   });
 
@@ -93,83 +79,160 @@ describe('PHPLineOfCodeCountableNode', () => {
   });
 
   it('should handle empty PHP code (only <?php ?>)', () => {
-    const code = ' '; // Effectively an empty program once <?php is added
+    const code = ' '; 
     expect(countStatementsInPhpCode(code)).toBe(0);
   });
 
   it('should count multiple statements on separate lines', () => {
     const code = `
-      $a = 1;
-      $b = 2;
+      $a = 1; // Assign @ D0 (+1)
+      $b = 2; // Assign @ D0 (+1)
     `;
-    // Assign (1) + Assign (1) = 2
     expect(countStatementsInPhpCode(code)).toBe(2);
   });
 
   it('should count multiple statements on the same line', () => {
     const code = '$a = 1; $b = 2;';
-    // Assign (1) + Assign (1) = 2
+    // Assign @ D0 (+1), Assign @ D0 (+1)
     expect(countStatementsInPhpCode(code)).toBe(2);
   });
 
   it('should not count the block in an if statement itself, but its content', () => {
     const code = `
-      if (true) {
-        $a = 1;
-        $b = 2;
+      if (true) { // If @ D0 (+1)
+        $a = 1;   // Assign @ D1 (+1)
+        $b = 2;   // Assign @ D1 (+1)
       }
     `;
-    // If (1) + Assign (1) + Assign (1) = 3
     expect(countStatementsInPhpCode(code)).toBe(3);
   });
 
   it('should count a foreach loop and its body', () => {
     const code = `
-      $arr = [1, 2];
-      foreach ($arr as $item) {
-        echo $item;
+      $arr = [1, 2];           // Assign @ D0 (+1)
+      foreach ($arr as $item) { // Foreach @ D0 (+1)
+        echo $item;             // Echo @ D1 (+1)
       }
     `;
-    // Assign ($arr) (1)
-    // Foreach (1) - (php-parser AST for foreach usually counts the structure itself as one, not its parts like JS for)
-    // Body: Echo (1)
-    // Total = 1 + 1 + 1 = 3.
-    // This needs to be verified against how the PHP `countStatements` for `ASTKind.FOR` (which is generic) vs a specific Foreach ASTKind would work.
-    // The current PHP `countStatements` has specific logic for `ASTKind.FOR` to count its parts.
-    // `php-parser` has a distinct `Foreach` kind. If `STATEMENT_KINDS` includes `Foreach`, and it's not `ASTKind.FOR`, it would be 1 + body.
-    // Let's assume `Foreach` is a statement kind and its parts are not separately counted like `For`.
-    // If `STATEMENT_KINDS` has `ASTKind.FOREACH` (assuming it exists in ASTKind.ts or is mapped), then:
-    // Assign (1) + Foreach (1) + Echo (1) = 3
-    // The ASTKind.ts provided does not list FOREACH. This test might fail or need adjustment based on how foreach is parsed and counted.
-    // For now, let's assume a generic 'loop' statement counts as 1 plus its body.
-    // If `foreach` is parsed as a generic `For` node by the current setup, it would be more.
-    // Given the current `countStatements` for PHP, it looks for `ASTKind.FOR`. `php-parser` does have `foreach` as a distinct kind.
-    // The `STATEMENT_KINDS` in `PHPLineOfCodeCountableNode` needs to include `ASTKind.FOREACH` if it exists.
-    // If it doesn't, this test will be revealing.
-    // For now, expecting 3: $arr=1 (1), foreach structure (1), echo (1).
+    // PHP's foreach is counted as 1 for the structure, plus body.
     expect(countStatementsInPhpCode(code)).toBe(3);
   });
 
-    it('should count a try-catch-finally statement', () => {
-        const code = `
-            try {
-                doSomething();
-            } catch (Exception $e) {
-                handleError();
-            } finally {
-                cleanup();
+  it('should count a try-catch-finally statement', () => {
+    const code = `
+        try {                 // Try @ D0 (+1)
+            doSomething();    // Call (exprstmt) @ D1 (+1)
+        } catch (Exception $e) { // Catch @ D1 (+1)
+            handleError();    // Call (exprstmt) @ D2 (+1)
+        } finally {           // Finally @ D1 (+1) (This assumes 'finally' itself is a counted statement type)
+            cleanup();        // Call (exprstmt) @ D2 (+1)
+        }
+    `;
+    // Expected: try(D0,1) + doSomething(D1,1) + catch(D1,1) + handleError(D2,1) + finally(D1,1) + cleanup(D2,1) = 6
+    // Note: PHP's _handleTry counts catch and finally clauses at currentDepth+1 if they exist.
+    // Statements inside their blocks are then currentDepth+2.
+    expect(countStatementsInPhpCode(code)).toBe(6);
+  });
+
+  describe('PHP Max Nesting Depth Tests (<=2)', () => {
+    it('should count statements only up to depth 2 in nested if statements', () => {
+      const code = ` // Depth 0 context
+        if (true) {        // If @ D0 (+1). Block for D1.
+          $a = 1;          // Assign @ D1 (+1).
+          if (true) {      // If @ D1 (+1). Block for D2.
+            $b = 2;        // Assign @ D2 (+1).
+            if (true) {    // If @ D2 (+1). Block for D3.
+              $c = 3;      // Assign @ D3 (NOT counted).
+              $d = 7;      // Assign @ D3 (NOT counted).
+            }
+            $e = 4;        // Assign @ D2 (+1).
+          }
+          $f = 5;          // Assign @ D1 (+1).
+        }
+        $g = 6;            // Assign @ D0 (+1).
+      `;
+      // Expected: 1(if D0) + 1(a D1) + 1(if D1) + 1(b D2) + 1(if D2) + 1(e D2) + 1(f D1) + 1(g D0) = 8
+      expect(countStatementsInPhpCode(code)).toBe(8);
+    });
+
+    it('should count statements in a for loop body according to nesting depth', () => {
+      const code = ` // Depth 0 context
+        for ($i = 0; $i < 1; $i++) { // For @ D0. Parts (init,cond,loop) @ D1 (counts: +3)
+                                     // Block for D1.
+          $a = 1;                     // Assign @ D1 (+1).
+          if (true) {                // If @ D1 (+1). Block for D2.
+            $b = 2;                  // Assign @ D2 (+1).
+            echo $b;                 // Echo @ D2 (+1). (exprstmt)
+            if (true) {              // If @ D2 (+1). Block for D3.
+              $c = 3;                // Assign @ D3 (NOT counted).
+            }
+          }
+        }
+      `;
+      // Expected: 3(for parts) + 1(a) + 1(if D1) + 1(b D2) + 1(echo D2) + 1(inner if D2) = 8
+      expect(countStatementsInPhpCode(code)).toBe(8);
+    });
+
+    it('should handle functions defined and called within nesting limits', () => {
+      const code = ` // Depth 0 context
+        function outer() {      // FuncDecl @ D0 (+1). Block for D1.
+          $x = 1;               // Assign @ D1 (+1).
+          function inner() {    // FuncDecl @ D1 (+1). Block for D2.
+            $y = 2;             // Assign @ D2 (+1).
+            if (true) {         // If @ D2 (+1). Block for D3.
+                $z = 3;         // Assign @ D3 (NOT counted).
+            }
+          }
+          inner();              // Call (exprstmt) @ D1 (+1).
+        }
+        outer();                // Call (exprstmt) @ D0 (+1).
+      `;
+      // Expected: 1(outer func) + 1(x) + 1(inner func) + 1(y) + 1(if in inner) + 1(inner() call) + 1(outer() call) = 7
+      expect(countStatementsInPhpCode(code)).toBe(7);
+    });
+
+    it('should not count statements in a block starting at depth 3', () => {
+      const code = ` // Depth 0 context
+        if (true) {        // If @ D0 (+1). Block for D1.
+          if (true) {      // If @ D1 (+1). Block for D2.
+            if (true) {    // If @ D2 (+1). Block for D3.
+              $c = 3;      // Assign @ D3 (NOT counted).
+              $d = 7;      // Assign @ D3 (NOT counted).
+            }
+          }
+        }
+      `;
+      // Expected: 1(if D0) + 1(if D1) + 1(if D2) = 3
+      expect(countStatementsInPhpCode(code)).toBe(3);
+    });
+
+    it('should count statements in a switch case according to depth', () => {
+        const code = ` // Depth 0 context
+            switch ($val) {      // Switch @ D0 (+1). Cases are at D1.
+                case 1:          // Case @ D1 (+1). Statements in case are at D1.
+                    $x = 1;      // Assign @ D1 (+1).
+                    if (true) {  // If @ D1 (+1). Block for D2.
+                        $y = 2;  // Assign @ D2 (+1).
+                    }
+                    break;       // Break @ D1 (+1). (Assuming break is a statement kind)
+                case 2:          // Case @ D1 (+1). Statements in case are at D1.
+                    if (true) {  // If @ D1 (+1). Block for D2.
+                        if (true) { // If @ D2 (+1). Block for D3.
+                           $z = 3;  // Assign @ D3 (NOT counted).
+                        }
+                    }
+                    break;       // Break @ D1 (+1).
+                default:         // Case (default) @ D1 (+1).
+                    $d = 4;      // Assign @ D1 (+1).
             }
         `;
-        // Try (1) (assuming 'try' itself is a statement kind or its block implies it)
-        // Body of try: Call to doSomething() (1) (as an expression statement)
-        // Catch clause: (catch(Exception $e)) - php-parser might make this a node.
-        // Body of catch: Call to handleError() (1)
-        // Finally clause:
-        // Body of finally: Call to cleanup() (1)
-        // Total = 1 (Try structure) + 1 (doSomething) + 1 (handleError) + 1 (cleanup) = 4
-        // This depends on `ASTKind.TRY`, `ASTKind.CATCH`, `ASTKind.FINALLY` being in `STATEMENT_KINDS`.
-        // `ASTKind.CATCH` is present. `TRY` and `FINALLY` are not explicitly in the ASTKind.ts provided.
-        // This test will help verify. Assuming the main try structure counts as 1.
-        expect(countStatementsInPhpCode(code)).toBe(4);
+        // Expected: 1(switch) + 1(case1) + 1(x) + 1(if_y) + 1(y) + 1(break1) + 1(case2) + 1(if_z_outer) + 1(if_z_inner) + 1(break2) + 1(default_case) + 1(d) = 12
+        // ASTKind.BREAK is not in PHP's STATEMENT_KINDS in LineOfCodeCountableNode.ts.
+        // If 'break' is counted, then 12. If not, 10.
+        // The current PHP STATEMENT_KINDS does not list BREAK. So it should be 10.
+        // Let's assume 'break' is NOT counted for now, per current STATEMENT_KINDS.
+        // Updated expected: 1(switch) + 1(case1) + 1(x) + 1(if_y) + 1(y) + 0(break1) + 1(case2) + 1(if_z_outer) + 1(if_z_inner) + 0(break2) + 1(default_case) + 1(d) = 10
+        expect(countStatementsInPhpCode(code)).toBe(10);
     });
+  });
 });
