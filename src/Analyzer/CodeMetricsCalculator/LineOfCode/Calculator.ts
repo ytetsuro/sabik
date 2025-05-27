@@ -28,10 +28,10 @@ export class Calculator {
 
   public calculate(node: LineOfCodeCountableNode) {
     const sourceText = node.getText();
-    const removedUnnecessaryCodeSourceText = node.getRemovedCommentAndEmptyLineText();
+    // const removedUnnecessaryCodeSourceText = node.getRemovedCommentAndEmptyLineText(); // This line is no longer needed here.
 
     return [
-      new LogicalLineOfCode(this.getAllLine(removedUnnecessaryCodeSourceText)),
+      new LogicalLineOfCode(node.countStatements()), // Changed to use countStatements()
       new PhysicalLineOfCode(this.getAllLine(sourceText)),
     ];
   }
