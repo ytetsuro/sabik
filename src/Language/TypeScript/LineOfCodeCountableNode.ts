@@ -38,17 +38,9 @@ const STATEMENT_KINDS = new Set<ts.SyntaxKind>([
 @injectable()
 export class LineOfCodeCountableNode implements LineOfCodeCountableNodeInterface {
   private readonly pureNode: ts.Node;
-  // Store the wrapper ASTNode if it's needed by the interface
-  private readonly wrapperNode: TypeScriptASTNodeWrapper;
 
-
-  constructor(wrapperNode: TypeScriptASTNodeWrapper) {
-    this.wrapperNode = wrapperNode;
+  constructor(private readonly wrapperNode: TypeScriptASTNodeWrapper) {
     this.pureNode = wrapperNode.node; // Assuming 'node' property holds the actual ts.Node
-  }
-
-  get astNode(): TypeScriptASTNodeWrapper { // Satisfy the interface
-    return this.wrapperNode;
   }
 
   getText() {

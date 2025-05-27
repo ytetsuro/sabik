@@ -32,10 +32,6 @@ const FOR_LOOP_EXPRESSION_KINDS = new Set<ASTKind>([
 export class LineOfCodeCountableNode implements LineOfCodeCountableNodeInterface {
   constructor(private readonly node: PHP_ASTNode) {}
 
-  get astNode(): PHP_ASTNode { // Ensure this matches the interface requirement
-    return this.node;
-  }
-
   getText() {
     return this.node.source;
   }

@@ -10,7 +10,6 @@ class MockASTNode {
 
 export class LineOfCodeCountableNode {
   public statementsToCount: number = 0; // Default, can be set by test
-  public mockAstNode: ASTNode;
 
   constructor(private text: string, statements?: number) {
     if (statements !== undefined) {
@@ -19,12 +18,7 @@ export class LineOfCodeCountableNode {
     // Initialize astNode with a default or passed-in mock.
     // The actual tests for Calculator.ts will mock the converter to return this,
     // so the exact astNode content might not be critical unless countStatements needs it.
-    this.mockAstNode = new MockASTNode(text) as ASTNode; // Cast, assuming ASTNode is more complex
-  }
-
-  // Getter to satisfy LineOfCodeCountableNodeInterface
-  get astNode(): ASTNode {
-    return this.mockAstNode;
+    // this.mockAstNode = new MockASTNode(text) as ASTNode; // Cast, assuming ASTNode is more complex
   }
 
   getText(): string {
