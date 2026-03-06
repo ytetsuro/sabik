@@ -43,9 +43,9 @@ OPTIONS
 
 # Support Programming Language
 
-* TypeScript
-* JavaScript
-* PHP < 8.0
+- TypeScript
+- JavaScript
+- PHP < 8.0
 
 For now.
 
@@ -53,10 +53,10 @@ For now.
 
 Sabik analyzable metrics are following.
 
-* Cognitive Complexity
-* Halstead complexity measures
-* Line of Code(Logical, Physical)
-* Maintainability
+- Cognitive Complexity
+- Halstead complexity measures
+- Line of Code(Logical, Physical)
+- Maintainability
 
 For now.
 
@@ -99,15 +99,15 @@ This metric ranges from 0 ~ 100.
 It’s maintenance hard when under 60 scores. (In my experience)
 This metrics is normally using the following, calculate.
 
-* Line of Code
-* Halstead metrics
-* Cyclomatic Complexity
+- Line of Code
+- Halstead metrics
+- Cyclomatic Complexity
 
 But in Sabik using following.
 
-* Line of Code
-* Halstead metrics
-* Cognitive Complexity
+- Line of Code
+- Halstead metrics
+- Cognitive Complexity
 
 If you want to know more about the detail, please see the following.
 
